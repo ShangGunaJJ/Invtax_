@@ -236,6 +236,12 @@ namespace Chloe.Admin.Areas.SystemManage.Controllers
                 return null;
             }
         }
+        [HttpPost]
+        public ActionResult UploadFile(HttpPostedFileBase file) {
 
+
+            var result = "";
+            return this.JsonContent(result);
+        }
     }
 }
