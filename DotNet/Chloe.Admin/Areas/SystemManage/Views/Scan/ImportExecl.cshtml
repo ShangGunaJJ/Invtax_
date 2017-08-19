@@ -1,4 +1,4 @@
-﻿
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Index.cshtml";
@@ -8,14 +8,13 @@
 <link href="~/Content/richuxisan/jquery-ui.css" rel="stylesheet" />
 <link href="~/Content/richuxisan/local.css" rel="stylesheet" />
 
-
 <script src="~/Content/richuxisan/jquery.min.js"></script>
 <script src="~/Content/bootstrap/bootstrap.min.js"></script>
 <script src="~/Content/richuxisan/jquery-ui.min.js"></script>
 <script src="~/Content/richuxisan/const.js"></script>
 <script src="~/Content/richuxisan/ui.js"></script>
 <script src="~/Content/richuxisan/Page.js"></script>
-
+<script src="~/Content/js/jquery.form.js"></script>
 <style>
     html {
         height: 100%;
@@ -88,10 +87,12 @@
     .section-body {
         padding: 0;
     }
+
     .ScanBox {
-     width:50%;
-     display: inline-block !important;
+        width: 50%;
+        display: inline-block !important;
     }
+
     .col-md-2 {
         width: 16.66%;
         display: inline-block;
@@ -102,27 +103,37 @@
 <div class="Panel_container">
     <div class="ScanPanel">
         <div class="form">
-            <div class="section" style="height:60px;">
-                <input type="file" class="textbox ScanBox form-control" />
-                <a href="#" id="downTemplate"><span>下载Execl模板</span></a>
-                <p class="bg-info" style="padding:4px 0 4px 4px; margin-top:5px;">提示：仅支持增值税专用发票的Excel数据导入</p>
-            </div>
+            <form id="#form1">
+                <div class="section" style="height:60px;">
+                    <input type="file" class="textbox ScanBox form-control" />
+                    <a href="#" id="downTemplate"><span>下载Execl模板</span></a>
+                    <p class="bg-info" style="padding:4px 0 4px 4px; margin-top:5px;">提示：仅支持增值税专用发票的Excel数据导入</p>
+                </div>
+            </form>
         </div>
     </div>
     <div class="form_content">
-
     </div>
 </div>
 <script>
     $(function () {
         _control.Init();
         $(document.body).on("click", "#downTemplate", function () {
-            var ExeclData = [["发票代码","发票号码","开票日期","销方名称","销方税号","金额","税额"]];
-            $ace.post("@this.ContentUrl("~/SystemManage/Scan/SaveExcel2")", { fileName:"InvtaxTemplate", fileData: JSON.stringify(ExeclData) }, function (x) {
+            var ExeclData = [["发票代码", "发票号码", "开票日期", "销方名称", "销方税号", "金额", "税额"]];
+            $ace.post("@this.ContentUrl("~/SystemManage/Scan/SaveExcel2")", { fileName: "InvtaxTemplate", fileData: JSON.stringify(ExeclData) }, function (x) {
                 window.open("/Content/Temp/" + x.Msg);
             })
         }).on("change", ".ScanBox", function (e) {
-            alert();
+            $("#form1").ajaxSubmit({
+                url: "@Url.Action("UploadFile", "Scan")",
+                type: "post",
+                success: function (data) {
+
+                },
+                error: function (aa) {
+                   
+                }
+            });
         });
     });
 
