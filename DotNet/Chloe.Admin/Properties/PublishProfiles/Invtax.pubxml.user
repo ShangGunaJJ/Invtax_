@@ -1594,6 +1594,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Content/js/jquery.backstretch.min.js">
       <publishTime>12/21/2016 11:23:45</publishTime>
     </File>
+    <File Include="Content/js/jquery.form.js">
+      <publishTime>08/19/2017 22:19:59</publishTime>
+    </File>
     <File Include="Content/js/kohelper.js">
       <publishTime>12/21/2016 11:23:45</publishTime>
     </File>
