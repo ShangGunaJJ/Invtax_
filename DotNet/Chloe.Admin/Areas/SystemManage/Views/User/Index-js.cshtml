@@ -1,0 +1,126 @@
+﻿<script>
+
+    var _vm;
+    $(function () {
+        var vm = new ViewModel();
+        _vm = vm;
+        ko.applyBindings(vm);
+        vm.Init();
+    });
+
+    function ViewModel() {
+        var me = this;
+        ViewModelBase.call(me);
+        vmExtend.call(me);
+
+        me.DeleteUrl = "@this.ContentUrl("~/SystemManage/User/Delete")";
+
+        me.Dialog = new Dialog(me);
+        me.RevisePasswordDialog = new RevisePasswordDialog();
+
+        me.OpenRevisePasswordDialog = function () {
+            me.RevisePasswordDialog.Open(me.DataTable.SelectedModel());
+        }
+    }
+    function vmExtend() {
+        var me = this;
+
+        me.Init = function () {
+            me.LoadModels();
+        }
+
+        me.LoadModels = function (page) {
+            me.DataTable.SelectedModel(null);
+            var data = me.SearchModel();
+            data.page = page || 1;
+            $ace.get("@this.ContentUrl("~/SystemManage/User/GetModels")", data, function (result) {
+                me.DataTable.SetPagedData(result.Data);
+            }
+          );
+        }
+    }
+
+    function Dialog(vm) {
+        var me = this;
+        DialogBase.call(me);
+
+       // me.DepartmentDutyList = _oba();
+      //  me.AllDepartmentDutyList = dutyList; //dutyList 在html里
+
+
+        me.OnOpen = function () {
+            var model = me.EditModel();
+            if (model) {
+                var bindModel = $ko.toJS(model);
+                me.Model(bindModel);
+                me.OnDepartmentChange();
+                $("#DutyId").setSelectedValue(bindModel.DutyId);
+            }
+            else {
+                me.Model({ IsEnabled: true });
+            }
+        }
+        me.OnSave = function () {
+            var model = me.Model();
+
+            if (!$('#form1').formValid()) {
+                return false;
+            }
+
+            model.DutyId = $("#DutyId").val();
+            if (me.EditModel()) {
+                $ace.post("@this.ContentUrl("~/SystemManage/User/Update")", model, function (result) {
+                    $ace.msg(result.Msg);
+                    me.Close();
+                    vm.LoadModels();
+                }
+               );
+            }
+            else {
+                $ace.post("@this.ContentUrl("~/SystemManage/User/Add")", model, function (result) {
+                    $ace.msg(result.Msg);
+                    me.Close();
+                    vm.LoadModels();
+                }
+             );
+            }
+        }
+    }
+
+    function RevisePasswordDialog() {
+        var me = this;
+        DialogBase.call(me);
+        me.Title("重置密码");
+
+
+        me.OnOpen = function () {
+            var model = me.EditModel();
+            if (!model) {
+                throw new Error();
+            }
+
+            var bindModel = $ko.toJS(model);
+            var m = {};
+            m.Id = bindModel.Id;
+            m.UserName = bindModel.UserName;
+            m.RealName = bindModel.RealName;
+
+            me.Model(m);
+        }
+        me.OnSave = function () {
+            if (!$('#RevisePasswordForm').formValid()) {
+                return false;
+            }
+
+            var model = me.Model();
+            var pwd = model.Password;
+            var data = { userId: model.Id, newPassword: pwd };
+            $ace.post("@this.ContentUrl("~/SystemManage/User/RevisePassword")", data, function (result) {
+                $ace.msg(result.Msg);
+                me.Close();
+            }
+           );
+        }
+    }
+
+</script>

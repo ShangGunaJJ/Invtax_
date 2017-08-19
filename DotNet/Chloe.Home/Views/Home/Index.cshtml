@@ -1,0 +1,136 @@
+﻿@{
+    ViewBag.Title = "Chloe's home";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+@section ScriptAndStyle{
+    @ContentHelper.RefStyle("~/Content/css/animate.min.css")
+    @ContentHelper.RefStyle("~/Content/css/vegas.min.css")
+    @ContentHelper.RefStyle("~/Content/css/index.css")
+
+    @ContentHelper.RefScript("~/Content/js/vegas.min.js")
+    @ContentHelper.RefScript("~/Content/js/wow.min.js")
+    @ContentHelper.RefScript("~/Content/js/index.js")
+}
+
+<section class="preloader">
+    <div class="sk-circle">
+        <div class="sk-circle1 sk-child"></div>
+        <div class="sk-circle2 sk-child"></div>
+        <div class="sk-circle3 sk-child"></div>
+        <div class="sk-circle4 sk-child"></div>
+        <div class="sk-circle5 sk-child"></div>
+        <div class="sk-circle6 sk-child"></div>
+        <div class="sk-circle7 sk-child"></div>
+        <div class="sk-circle8 sk-child"></div>
+        <div class="sk-circle9 sk-child"></div>
+        <div class="sk-circle10 sk-child"></div>
+        <div class="sk-circle11 sk-child"></div>
+        <div class="sk-circle12 sk-child"></div>
+    </div>
+</section>
+<div id="slide-images" style="display:none;">
+    <span>@Url.Content("~/Content/images/slide-1.jpg")</span>
+    <span>@Url.Content("~/Content/images/slide-2.jpg")</span>
+</div>
+
+<!-- home section -->
+<section id="home">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-offset-2 col-md-8 col-sm-12">
+                <div class="home-thumb">
+                    <h3 class="wow fadeInUp" data-wow-delay="0.4s">Hello,I am chloe</h3>
+                    <h1 class="wow fadeInUp" data-wow-delay="0.6s">WELCOME TO MY HOME</h1>
+                    <!--<h3 class="wow fadeInUp" data-wow-delay="0.6s">We are almost <strong>ready to launch</strong> our <strong>new creative</strong> website!</h3>-->
+                    <a href="@this.Url.Action("Document", "Wiki")" class="btn btn-lg btn-default smoothScroll wow fadeInUp hidden-xs" data-wow-delay="0.8s">Let's begin</a>
+                    <!--<a href="#" data-toggle="modal" data-target="#modal1" class="btn btn-lg btn-success smoothScroll wow fadeInUp" data-wow-delay="1.0s">Notify me!</a>-->
+                </div>
+                <br />
+                <div>
+                    <iframe id="github-star" style="border:none;" width="105" height="20"></iframe>
+                    <iframe id="github-fork" style="border:none;" width="105" height="20"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- about section -->
+<section id="about">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-6 col-sm-12">
+                <img src="@Url.Content("~/Content/images/ORMicon(330x330).png")" class="img-responsive wow fadeInUp" alt="About">
+            </div>
+
+            <div class="col-md-6 col-sm-12">
+                <div class="about-thumb">
+                    <div class="section-title">
+                        <h1 class="wow fadeIn" data-wow-delay="0.2s">About me</h1>
+                    </div>
+                    <div class="wow fadeInUp" data-wow-delay="0.6s">
+                        <p>I am a lightweight and high-performance Object/Relational Mapping(ORM) library for .NET --C#.</p>
+                        <p>My query interface is similar to LINQ.You can query data like LINQ and do any things(Join Query | Group Query | Aggregate Query | Insert | Batch Update | Batch Delete) by lambda with me.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- feature section -->
+<section id="feature">
+    <div class="container">
+        <div class="row">
+
+            <svg preserveAspectRatio="none" viewBox="0 0 100 102" height="100" width="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" class="svgcolor-light">
+                <path d="M0 0 L50 100 L100 0 Z"></path>
+            </svg>
+
+            <div class="col-md-4 col-sm-6">
+                <div class="media wow fadeInUp" data-wow-delay="0.4s">
+                    <div class="media-object media-left">
+                        <i class="icon icon-laptop"></i>
+                    </div>
+                    <div class="media-body">
+                        <h2 class="media-heading">纯对象化</h2>
+                        <p>增删查改都是基于 lambda 表达式树，全对象化编程，智能提示，编译检查，容错率极高</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+                <div class="media wow fadeInUp" data-wow-delay="0.8s">
+                    <div class="media-object media-left">
+                        <i class="icon icon-refresh"></i>
+                    </div>
+                    <div class="media-body">
+                        <h2 class="media-heading">高性能</h2>
+                        <p>轻量即高效，框架注重数据库访问，没有重度封装与设计，整个框架体积不足200KB。DataReader 向实体转换使用了 Emit 生成 il 代码的方式，避免反射带来大量计算损耗，实体映射速度比肩 Dapper，接近手写</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-8">
+                <div class="media wow fadeInUp" data-wow-delay="1.2s">
+                    <div class="media-object media-left">
+                        <i class="icon icon-chat"></i>
+                    </div>
+                    <div class="media-body">
+                        <h2 class="media-heading">多数据库</h2>
+                        <p>支持 SqlServer、MySql、Sqlite 以及 Oracle 等主流数据库，灵活切换数据库，亦可在一个项目中同时使用多种数据库</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clearfix text-center col-md-12 col-sm-12">
+                <a href="@this.Url.Action("Document", "Wiki")" class="btn btn-default smoothScroll">Getting start</a>
+            </div>
+
+        </div>
+    </div>
+</section>

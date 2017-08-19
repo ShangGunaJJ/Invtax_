@@ -1,0 +1,70 @@
+﻿<script>
+
+    var _vm;
+    $(function () {
+        var vm = new ViewModel();
+        _vm = vm;
+        ko.applyBindings(vm);
+        vm.Init();
+    });
+
+    function ViewModel() {
+        var me = this;
+        ViewModelBase.call(me);
+        vmExtend.call(me);
+
+        me.DeleteUrl = "@this.ContentUrl("~/SystemManage/Duty/Delete")";
+        me.DataTable = new DataTableBase(me);
+        me.Dialog = new Dialog(me);
+    }
+    function vmExtend() {
+        var me = this;
+
+        me.Init = function () {
+            me.LoadModels();
+        }
+
+        me.LoadModels = function (page) {
+            me.DataTable.SelectedModel(null);
+            var data = me.SearchModel();
+            $ace.get("@this.ContentUrl("~/SystemManage/Duty/GetModels")", data, function (result) {
+                me.DataTable.SetModels(result.Data);
+            }
+         );
+        }
+    }
+
+    function Dialog(vm) {
+        var me = this;
+        DialogBase.call(me);
+
+
+        me.OnSave = function () {
+            var model = me.Model();
+
+            if (!$('#form1').formValid()) {
+                return false;
+            }
+
+            if (me.EditModel()) {
+                $ace.post("@this.ContentUrl("~/SystemManage/Duty/Update")", model, function (result) {
+                    $ace.msg(result.Msg);
+                    me.Close();
+                    vm.LoadModels();
+                }
+               );
+            }
+            else {
+                $ace.post("@this.ContentUrl("~/SystemManage/Duty/Add")", model, function (result) {
+                    $ace.msg(result.Msg);
+                    me.Close();
+                    vm.LoadModels();
+                }
+             );
+            }
+        }
+    }
+
+
+
+</script>

@@ -1,0 +1,426 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DotNet.Utilities</name>
+    </assembly>
+    <members>
+        <member name="M:System.Collections.Generic.DictionaryExtension.TryGetValue``2(System.Collections.Generic.Dictionary{``0,``1},``0)">
+            <summary>
+            如果找到 key 对应的value，则返回 value。否则返回 default(TValue)
+            </summary>
+            <typeparam name="TKey"></typeparam>
+            <typeparam name="TValue"></typeparam>
+            <param name="dic"></param>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Collections.Generic.DictionaryExtension.GetOrAdd``2(System.Collections.Generic.Dictionary{``0,``1},``0,System.Func{``1},System.Object)">
+            <summary>
+            如果指定的键尚不存在，则将键/值对添加到字典中。
+            </summary>
+            <typeparam name="TKey"></typeparam>
+            <typeparam name="TValue"></typeparam>
+            <param name="dic"></param>
+            <param name="key"></param>
+            <param name="valueGenerator"></param>
+            <param name="syncRoot">同步锁对象。如果 syncRoot 不为 null，则使用双检锁方式向字典中添加键/值对。</param>
+            <returns></returns>
+        </member>
+        <member name="T:System.Linq.EnumerableExtension">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:System.Linq.EnumerableExtension.Group``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TKey"></typeparam>
+            <param name="source"></param>
+            <param name="keySelector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.EnumExtension.GetName(System.Enum)">
+            <summary>
+            获取枚举常数的名称。
+            </summary>
+            <param name="e"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.EnumExtension.ToInt32(System.Enum)">
+            <summary>
+            将枚举转换为 int 类型。
+            </summary>
+            <param name="e"></param>
+            <returns></returns>
+        </member>
+        <member name="T:System.Linq.Expressions.ExpressionExtension">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:System.Linq.Expressions.ExpressionExtension.And``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Linq.Expressions.ExpressionExtension.Or``1(System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="a"></param>
+            <param name="b"></param>
+            <returns></returns>
+        </member>
+        <member name="T:System.Linq.Expressions.ParameterExpressionReplacer">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:System.Linq.Expressions.ParameterExpressionReplacer.Replace(System.Linq.Expressions.Expression,System.Linq.Expressions.ParameterExpression)">
+            <summary>
+            
+            </summary>
+            <param name="expression"></param>
+            <param name="replaceWith"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Linq.Expressions.ParameterExpressionReplacer.VisitParameter(System.Linq.Expressions.ParameterExpression)">
+            <summary>
+            
+            </summary>
+            <param name="node"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Reflection.ReflectionExtension.GetPropertyValue(System.Object,System.String)">
+            <summary>
+            获取 public 属性值
+            </summary>
+            <param name="instance"></param>
+            <param name="propertyName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Reflection.ReflectionExtension.GetFieldValue(System.Object,System.String)">
+            <summary>
+            获取 public 字段值
+            </summary>
+            <param name="instance"></param>
+            <param name="fieldName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Reflection.ReflectionExtension.GetPropertyValue``1(System.Object,System.String)">
+            <summary>
+            获取 public 属性值
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="instance"></param>
+            <param name="propertyName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Reflection.ReflectionExtension.GetFieldValue``1(System.Object,System.String)">
+            <summary>
+            获取 public 字段值
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="instance"></param>
+            <param name="fieldName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Reflection.ReflectionExtension.SetPropertyValue(System.Object,System.String,System.Object)">
+            <summary>
+            设置公共属性值
+            </summary>
+            <param name="instance"></param>
+            <param name="propertyName"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:System.Reflection.ReflectionExtension.SetFieldValue(System.Object,System.String,System.Object)">
+            <summary>
+            设置公共字段值
+            </summary>
+            <param name="instance"></param>
+            <param name="fieldName"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:System.Data.SqlClient.SqlConnectionExtension.BulkCopy``1(System.Data.SqlClient.SqlConnection,System.Collections.Generic.List{``0},System.Int32,System.String,System.Nullable{System.Int32},System.Data.SqlClient.SqlTransaction)">
+            <summary>
+            使用 SqlBulkCopy 向 destinationTableName 表插入数据
+            </summary>
+            <typeparam name="TModel"></typeparam>
+            <param name="conn"></param>
+            <param name="modelList"></param>
+            <param name="batchSize"></param>
+            <param name="destinationTableName">如果为 null，则使用 TModel 名称作为 destinationTableName</param>
+            <param name="bulkCopyTimeout"></param>
+            <param name="externalTransaction"></param>
+        </member>
+        <member name="T:System.IO.StreamExtension">
+            <summary>
+            IOExtensions
+            </summary>
+        </member>
+        <member name="M:System.IO.StreamExtension.WriteString(System.IO.Stream,System.String)">
+            <summary>
+            向 stream 写入字符串
+            </summary>
+            <param name="stream"></param>
+            <param name="s"></param>
+        </member>
+        <member name="M:System.IO.StreamExtension.WriteString(System.IO.Stream,System.String,System.Text.Encoding)">
+            <summary>
+            向 stream 写入字符串
+            </summary>
+            <param name="stream"></param>
+            <param name="s"></param>
+            <param name="encoding"></param>
+        </member>
+        <member name="T:System.Linq.QueryableExtension">
+            <summary>
+            IQueryableExtensions
+            </summary>
+        </member>
+        <member name="M:System.Linq.QueryableExtension.WhereIfNotNullOrEmpty``1(System.Linq.IQueryable{``0},System.String,System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            如果 value 不为 null 或者 空字符串，则进行 predicate 筛选
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="source"></param>
+            <param name="value"></param>
+            <param name="predicate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Linq.QueryableExtension.WhereIfNotNull``2(System.Linq.IQueryable{``0},System.Nullable{``1},System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            如果 value 不为 null，则进行 predicate 筛选
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <typeparam name="TValue"></typeparam>
+            <param name="source"></param>
+            <param name="value"></param>
+            <param name="predicate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Linq.QueryableExtension.WhereIfNotNull``1(System.Linq.IQueryable{``0},System.Object,System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            如果 value 不为 null，则进行 predicate 筛选
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="source"></param>
+            <param name="value"></param>
+            <param name="predicate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Linq.QueryableExtension.WhereIf``1(System.Linq.IQueryable{``0},System.Boolean,System.Linq.Expressions.Expression{System.Func{``0,System.Boolean}})">
+            <summary>
+            如果 condition 为 true，则进行 predicate 筛选
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="source"></param>
+            <param name="condition"></param>
+            <param name="predicate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Linq.QueryableExtension.TakePage``1(System.Linq.IQueryable{``0},System.Int32,System.Int32)">
+            <summary>
+            分页
+            </summary>
+            <typeparam name="TSource"></typeparam>
+            <param name="source"></param>
+            <param name="pageNumber">页数</param>
+            <param name="pageSize">页大小</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.TypeExtension.GetUnderlyingType(System.Type)">
+            <summary>
+            获取 type 的 UnderlyingType，如果 type 不是 Nullable 类型，则返回 type 本身
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="T:System.Net.WebResponseExtension">
+            <summary>
+            NetExtensions
+            </summary>
+        </member>
+        <member name="M:System.Net.WebResponseExtension.GetResponseString(System.Net.HttpWebResponse)">
+            <summary>
+            获取数据流内容
+            </summary>
+            <param name="response"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Net.WebResponseExtension.GetResponseString(System.Net.HttpWebResponse,System.Text.Encoding)">
+            <summary>
+            获取数据流内容
+            </summary>
+            <param name="response"></param>
+            <param name="encoding">要使用的字符编码</param>
+            <returns></returns>
+        </member>
+        <member name="T:System.Reflection.MemberInfoExtension">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:System.Reflection.MemberInfoExtension.GetPropertyOrFieldType(System.Reflection.MemberInfo)">
+            <summary>
+            获取属性或字段的 Type 类型对象。
+            </summary>
+            <param name="propertyOrField"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Reflection.MemberInfoExtension.SetPropertyOrFieldValue(System.Reflection.MemberInfo,System.Object,System.Object)">
+            <summary>
+            设置属性或字段
+            </summary>
+            <param name="propertyOrField"></param>
+            <param name="obj"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:System.Reflection.MemberInfoExtension.GetPropertyOrFieldValue(System.Reflection.MemberInfo,System.Object)">
+            <summary>
+            获取属性或字段的值
+            </summary>
+            <param name="propertyOrField"></param>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="T:System.StringExtension">
+            <summary>
+            StringExtensions
+            </summary>
+        </member>
+        <member name="M:System.StringExtension.IsNullOrEmpty(System.String)">
+            <summary>
+            判断 s 是否为 null 或者空字符串
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.StringExtension.IsNullOrWhiteSpace(System.String)">
+            <summary>
+            判断 s 是否为 null、空还是仅由空白字符。
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.StringExtension.IsNotNullOrEmpty(System.String)">
+            <summary>
+            判断 s 是否不为 null 或者空字符串。
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.StringExtension.IsNotNullOrWhiteSpace(System.String)">
+            <summary>
+            判断 s 是否不为 null、空还是仅由空白字符。
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.StringExtension.ToBytes(System.String)">
+            <summary>
+            将字符串中的 Encoding.Default 编码为一个字节序列。
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.StringExtension.ToBytes(System.String,System.Text.Encoding)">
+            <summary>
+            将字符串中的所有字符编码为一个字节序列。
+            </summary>
+            <param name="s"></param>
+            <param name="encoding"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.StringExtension.ToMD5(System.String)">
+            <summary>
+            使用 Encoding.UTF8 对 s 加密
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.StringExtension.ToFormat(System.String,System.Object[])">
+            <summary>
+            
+            </summary>
+            <param name="format"></param>
+            <param name="args"></param>
+            <returns>string.Format(format, args)</returns>
+        </member>
+        <member name="T:System.Xml.Linq.XmlExtensions">
+            <summary>
+            XmlExtensions
+            </summary>
+        </member>
+        <member name="M:System.Xml.Linq.XmlExtensions.GetValue(System.Xml.Linq.XElement)">
+            <summary>
+            获取节点 value，element 为 null 则 返回 null
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DotNet.Utilities.HttpHelper">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:DotNet.Utilities.HttpHelper.Get(System.String)">
+            <summary>
+            以 GET 方式发送 Http 请求
+            </summary>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Utilities.HttpHelper.Get(System.String,System.Int32)">
+            <summary>
+            以 GET 方式发送 Http 请求
+            </summary>
+            <param name="url"></param>
+            <param name="timeout"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Utilities.HttpHelper.Post(System.String,System.Collections.Generic.Dictionary{System.String,System.Object},System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="url"></param>
+            <param name="parameters"></param>
+            <param name="timeout"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DotNet.Utilities.Utility">
+            <summary>
+            一些公用的方法
+            </summary>
+        </member>
+        <member name="M:DotNet.Utilities.Utility.GetPageCount(System.Int32,System.Int32)">
+            <summary>
+            根据 totalCount 和每页的数据大小计算总页数
+            </summary>
+            <param name="totalCount"></param>
+            <param name="pageSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DotNet.Utilities.Utility.CheckNull(System.Object,System.String)">
+            <summary>
+            如果 obj 为 null,则引发 ArgumentNullException
+            </summary>
+            <param name="obj"></param>
+            <param name="paramName"></param>
+        </member>
+        <member name="M:DotNet.Utilities.Utility.CheckNullOrEmpty(System.Object,System.String)">
+            <summary>
+            确保 obj 不为 null 或空，如果为 null 或空则引发 ArgumentException
+            </summary>
+            <param name="obj"></param>
+            <param name="paramName"></param>
+        </member>
+    </members>
+</doc>

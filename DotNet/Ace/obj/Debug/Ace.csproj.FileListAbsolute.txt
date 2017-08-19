@@ -1,0 +1,17 @@
+C:\Users\ShangGuanJJ\Desktop\Ace-master\src\DotNet\Ace\bin\Debug\Ace.dll
+C:\Users\ShangGuanJJ\Desktop\Ace-master\src\DotNet\Ace\bin\Debug\Ace.pdb
+C:\Users\ShangGuanJJ\Desktop\Ace-master\src\DotNet\Ace\bin\Debug\DotNet.Utilities.dll
+C:\Users\ShangGuanJJ\Desktop\Ace-master\src\DotNet\Ace\bin\Debug\Newtonsoft.Json.dll
+C:\Users\ShangGuanJJ\Desktop\Ace-master\src\DotNet\Ace\bin\Debug\DotNet.Utilities.xml
+C:\Users\ShangGuanJJ\Desktop\Ace-master\src\DotNet\Ace\bin\Debug\Newtonsoft.Json.xml
+C:\Users\ShangGuanJJ\Desktop\Ace-master\src\DotNet\Ace\obj\Debug\Ace.dll
+C:\Users\ShangGuanJJ\Desktop\Ace-master\src\DotNet\Ace\obj\Debug\Ace.pdb
+C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\Ace-master\src\DotNet\Ace\bin\Debug\Ace.dll
+C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\Ace-master\src\DotNet\Ace\bin\Debug\Ace.pdb
+C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\Ace-master\src\DotNet\Ace\bin\Debug\DotNet.Utilities.dll
+C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\Ace-master\src\DotNet\Ace\bin\Debug\Newtonsoft.Json.dll
+C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\Ace-master\src\DotNet\Ace\bin\Debug\DotNet.Utilities.xml
+C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\Ace-master\src\DotNet\Ace\bin\Debug\Newtonsoft.Json.xml
+C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\Ace-master\src\DotNet\Ace\obj\Debug\Ace.dll
+C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\Ace-master\src\DotNet\Ace\obj\Debug\Ace.pdb
+C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\Ace-master\src\DotNet\Ace\obj\Debug\Ace.csprojResolveAssemblyReference.cache

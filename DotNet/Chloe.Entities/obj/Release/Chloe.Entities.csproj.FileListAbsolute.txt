@@ -1,0 +1,6 @@
+C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\Ace-master\src\DotNet\Chloe.Entities\bin\Release\Chloe.Entities.dll
+C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\Ace-master\src\DotNet\Chloe.Entities\bin\Release\Chloe.Entities.pdb
+C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\Ace-master\src\DotNet\Chloe.Entities\bin\Release\Chloe.dll
+C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\Ace-master\src\DotNet\Chloe.Entities\bin\Release\Chloe.Oracle.dll
+C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\Ace-master\src\DotNet\Chloe.Entities\obj\Release\Chloe.Entities.dll
+C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\Ace-master\src\DotNet\Chloe.Entities\obj\Release\Chloe.Entities.pdb

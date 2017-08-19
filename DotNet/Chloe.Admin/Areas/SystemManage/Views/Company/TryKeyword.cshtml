@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Index.cshtml";
+}
+<div class="">
+    <label style="display:block;">敏感字</label>
+    <textarea id="key" style="height:300px;width:400px;border:1px solid #ccc;border-radius:4px;">@this.ViewBag.TryKey</textarea>
+    <div>
+        <p>提示：多敏感字、词，请换行设置</p>
+        <button class="btn btn-default btn-sm grid-search-btn" type="button" style="width:120px;">保存</button>
+    </div>
+</div>
+<script>
+    $(function () {
+        $(document.body).on("click", "button", function () {
+            $ace.post('@this.ContentUrl("/SystemManage/Company/UpdataTryKey")', { key: $("#key").val() }, function () {
+                $ace.alert("修改成功！");
+            });
+        });
+    })()
+</script>

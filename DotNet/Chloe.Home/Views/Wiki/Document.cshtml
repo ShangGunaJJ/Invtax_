@@ -1,0 +1,47 @@
+﻿@{
+    WikiDocumentDetailModel doc = this.ViewBag.Document;
+    ViewBag.Title = doc.Title;
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+@using Chloe.Application.Models.WikiDocument;
+@section ScriptAndStyle{
+    @Html.RefStyle("~/Content/editormd/css/editormd.min.css")
+    @Html.RefStyle("~/Content/css/wx.css")
+    @Html.RefScript("~/Content/editormd/lib/prettify.min.js")
+}
+<script>
+    $(function () {
+        $(".bodyContent pre").addClass("prettyprint");/* linenums */
+        PR.prettyPrint();
+
+        $("#mw-panel").find("h5").click(function () {
+            var t = $(this), b = t.next(".body"), p = t.parent();
+            if (b.is(":visible")) {
+                b.slideUp("fast");
+                p.removeClass("active");
+            } else {
+                b.find("li").find("em").addClass("none");
+                b.slideDown("fast", function () {
+                    b.find("li").find("em").removeClass("none");
+                });
+                p.addClass("active");
+            }
+            $(this).parent().siblings(".portal").removeClass("active").find(".body").slideUp("fast");
+        });
+    });
+</script>
+<div style="margin-top:100px;" class="mainwrapper" id="documentation">
+    <div class="inner">
+        @Html.Partial("Menu", new { RootNodes = this.ViewBag.RootNodes, CurrentNodeId = this.ViewBag.CurrentNodeId })
+        <div id="content">
+            <div class="content_hd">
+                <h2 id="firstHeading" class="firstHeading">@doc.Title</h2>
+                <div class="info">
+                </div>
+            </div>
+            <div id="bodyContent" class="bodyContent markdown-body editormd-preview-container">
+                @Html.Raw(doc.HtmlContent)
+            </div>
+        </div>
+    </div>
+</div>

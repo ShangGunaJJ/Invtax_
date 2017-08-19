@@ -1,0 +1,30 @@
+﻿
+<div id="mw-panel">
+    @foreach (WikiMenuTreeNode rootNode in this.Model.RootNodes)
+    {
+        string currentNodeId = this.Model.CurrentNodeId;
+        bool expanded = rootNode.ChildNodes.Any(c => c.Id == currentNodeId);
+
+        string activeClass = expanded ? "portal active" : "portal";
+        string display = expanded ? "block" : "none";
+        <div class="@activeClass" id='@rootNode.Id'>
+            <h5><span class="portal_arrow"></span>@rootNode.Name</h5>
+            <div class="body" style="display:@display">
+                <ul>
+                    @foreach (WikiMenuTreeNode childNode in rootNode.ChildNodes)
+                    {
+                        if (childNode.Id == currentNodeId)
+                        {
+                            <li id="@childNode.Id"><a href="@childNode.Url" style="color:#01AAED;">&nbsp;&nbsp;&nbsp;@childNode.Name</a></li>
+                        }
+                        else
+                        {
+                            <li id="@childNode.Id"><a href="@childNode.Url">&nbsp;&nbsp;&nbsp;@childNode.Name</a></li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    }
+</div>
+ 

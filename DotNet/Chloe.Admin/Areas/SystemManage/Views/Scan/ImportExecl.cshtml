@@ -1,0 +1,477 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Index.cshtml";
+}
+<link href="~/Content/bootstrap/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/richuxisan/ui.css" rel="stylesheet" />
+<link href="~/Content/richuxisan/jquery-ui.css" rel="stylesheet" />
+<link href="~/Content/richuxisan/local.css" rel="stylesheet" />
+
+
+<script src="~/Content/richuxisan/jquery.min.js"></script>
+<script src="~/Content/bootstrap/bootstrap.min.js"></script>
+<script src="~/Content/richuxisan/jquery-ui.min.js"></script>
+<script src="~/Content/richuxisan/const.js"></script>
+<script src="~/Content/richuxisan/ui.js"></script>
+<script src="~/Content/richuxisan/Page.js"></script>
+
+<style>
+    html {
+        height: 100%;
+        width: 100%;
+        min-width: 1024px;
+    }
+
+    body {
+        background-color: #f0f0f0;
+        height: 100%;
+        width: 100%;
+        position: relative;
+    }
+
+    .Panel_container {
+        height: 100%;
+        width: 100%;
+        overflow: auto;
+        background-color: white;
+    }
+
+    header:after {
+        display: block;
+        content: "";
+        clear: both;
+    }
+
+    .ScanPanel {
+    }
+
+    header {
+        background-color: #CFD8DC;
+    }
+
+        header h4 {
+            margin: 0;
+            line-height: 32px;
+            padding-left: 20px;
+            font-size: 16px;
+        }
+
+    form.label {
+    }
+
+    .form {
+        padding: 4px 0;
+    }
+
+    .btn_Save {
+        width: 120px;
+    }
+
+    .form_content .section-header {
+        display: block;
+        background-color: #CFD8DC;
+        height: 34px;
+        line-height: 34px;
+        font-size: 16px;
+    }
+
+    .form_content .section-title {
+        font-weight: normal;
+        padding-left: 15px;
+    }
+
+    .section-header span.glyphicon {
+        display: none;
+    }
+
+    .section-body {
+        padding: 0;
+    }
+    .ScanBox {
+     width:50%;
+     display: inline-block !important;
+    }
+    .col-md-2 {
+        width: 16.66%;
+        display: inline-block;
+        position: relative;
+        float: left;
+    }
+</style>
+<div class="Panel_container">
+    <div class="ScanPanel">
+        <div class="form">
+            <div class="section" style="height:60px;">
+                <input type="file" class="textbox ScanBox form-control" />
+                <a href="#" id="downTemplate"><span>下载Execl模板</span></a>
+                <p class="bg-info" style="padding:4px 0 4px 4px; margin-top:5px;">提示：仅支持增值税专用发票的Excel数据导入</p>
+            </div>
+        </div>
+    </div>
+    <div class="form_content">
+
+    </div>
+</div>
+<script>
+    $(function () {
+        _control.Init();
+        $(document.body).on("click", "#downTemplate", function () {
+            var ExeclData = [["发票代码","发票号码","开票日期","销方名称","销方税号","金额","税额"]];
+            $ace.post("@this.ContentUrl("~/SystemManage/Scan/SaveExcel2")", { fileName:"InvtaxTemplate", fileData: JSON.stringify(ExeclData) }, function (x) {
+                window.open("/Content/Temp/" + x.Msg);
+            })
+        }).on("change", ".ScanBox", function (e) {
+            alert();
+        });
+    });
+
+
+    var _control =
+    (function () {
+        var form = new FormControl();
+        form.RecordID = 0;
+        form.PageType = "Form";
+        form.ShowSaveAndNew = true;
+
+        var Elem4 = new RepeatTable();
+        Elem4.ID = 'Elem4';
+        Elem4.Name = '';
+        Elem4.Title = '待提交发票';
+        var tool0 = new PageTool();
+        tool0.ID = 'tool0';
+        tool0.Name = '保存';
+        tool0.Icon = 'content_content_copy zkbr-iconT-10 iconColor-white';
+        tool0.SelectType = 0;
+        tool0.ToolType = "Custom";
+        Elem4.AddTool(tool0);
+
+        var tool1 = new PageTool();
+        tool1.ID = 'tool1';
+        tool1.Name = '删除';
+        tool1.Icon = 'action_delete zkbr-iconT-10 iconColor-white';
+        tool1.SelectType = 0;
+        tool1.ToolType = "Delete";
+        Elem4.AddTool(tool1);
+
+        form.AddElement(form, Elem4);
+        var Elem5 = new TextBox();
+        Elem5.ID = 'dq';
+        Elem5.Name = 'dq';
+        Elem5.Title = '地区';
+        Elem5.Width = 150;
+        Elem5.DBType = 4;
+        form.AddElement(Elem4, Elem5);
+        var Elem6 = new TextBox();
+        Elem6.ID = 'fplx';
+        Elem6.Name = 'fplx';
+        Elem6.Title = '发票类型';
+        Elem6.Width = 0;
+        Elem6.DBType = 4;
+        form.AddElement(Elem4, Elem6);
+
+
+        var Elem7 = new TextBox();
+        Elem7.ID = 'fpmc';
+        Elem7.Name = 'fpmc';
+        Elem7.Title = '发票类型名称';
+        Elem7.Width = 150;
+        Elem6.DBType = 4;
+        form.AddElement(Elem4, Elem7);
+        var Elem8 = new TextBox();
+        Elem8.ID = 'fpdm';
+        Elem8.Name = 'fpdm';
+        Elem8.Title = '发票代码';
+        Elem8.Width = 100;
+        Elem8.DBType = 2;
+        form.AddElement(Elem4, Elem8);
+        var Elem9 = new TextBox();
+        Elem9.ID = 'fphm';
+        Elem9.Name = 'fphm';
+        Elem9.Title = '发票号码';
+        Elem9.Width = 100;
+        Elem9.DBType = 2;
+        form.AddElement(Elem4, Elem9);
+        var Elem10 = new TextBox();
+        Elem10.ID = 'kprq';
+        Elem10.Name = 'kprq';
+        Elem10.Title = '开票日期';
+        Elem10.Width = 100;
+        Elem10.DBType = 2;
+        form.AddElement(Elem4, Elem10);
+        var Elem11 = new TextBox();
+        Elem11.ID = 'je';
+        Elem11.Name = 'je';
+        Elem11.Title = '不含税金额';
+        Elem11.Width = 100;
+        Elem11.DBType = 2;
+        form.AddElement(Elem4, Elem11);
+        var Elem12 = new TextBox();
+        Elem12.ID = 'jym';
+        Elem12.Name = 'jym';
+        Elem12.Title = '检验码';
+        Elem12.Width = 100;
+        Elem12.DBType = 2;
+        form.AddElement(Elem4, Elem12);
+
+
+        var rule1 = new PageRule(tool0, 'Click', 0, 1);
+        rule1.func = function () {
+            var rows = _control.Elements[0].GetRows();
+            if (rows.length == 0) {
+                $ace.alert("无发票数据可提交！请录入数据！！");
+                return;
+            }
+            var data = [];
+            var dms = [];
+            var hms = [];
+            for (var i = 0; i < rows.length; i++) {
+                data.push({
+                    dq: rows[i].dq,
+                    fpdm: rows[i].fpdm,
+                    fphm: rows[i].fphm,
+                    fplx: rows[i].fplx,
+                    fpmc: rows[i].fpmc,
+                    je: rows[i].je,
+                    jym: rows[i].jym,
+                    kprq: rows[i].kprq,
+                });
+                dms.push(rows[i].fpdm);
+                hms.push(rows[i].fphm);
+            }
+
+            $ace.post('@this.ContentUrl("~/Scan/SaveData")', { strs: data, dms: dms, hms: hms }, function (x) {
+                if (x.state == 1) {
+                    var data = x.Data.split(";");
+                    var rows = Elem4.GetRows();
+                    for (var i = 0; i < rows.length; i++) {
+                        for (var y = 0; y < data.length; y++) {
+                            if (rows[i]['fpdm'] == data[y].split(',')[0] && rows[i]['fphm'] == data[y].split(',')[1]) {
+                                rows[i].__Cells.dq[0].parentElement.style.color = "red";
+                            }
+                        }
+                    }
+                    $ace.confirm("以下发票已查验,是否自动删除重复提交的发票？(发票代码,发票号码):\n" + x.Data, function () {
+                        for (var i = 0; i < rows.length; i++) {
+                            for (var y = 0; y < data.length; y++) {
+                                if (rows[i]['fpdm'] == data[y].split(',')[0] && rows[i]['fphm'] == data[y].split(',')[1]) {
+                                    Elem4.DeleteRows(rows[i]);
+                                }
+                            }
+                        }
+                    });
+                } else {
+                    $ace.alert(x.Msg);
+                    Elem4.Clear();
+                }
+            });
+        };
+        $(document.body).on("keydown", ".ScanBox", function (e) {
+            if (e.keyCode == 13) {
+                var box = $(".ScanBox");
+                var value = box.val();
+                if (value == "") {
+                    $ace.msg("条形码不能为空！"); return;
+                }
+                if (value.indexOf("，") > -1) {
+                    $ace.alert("请将当前输入法切换成英文半角状态！");
+                    box.val("");
+                    box.focus();
+                    return;
+                }
+                var temp = value.split(',');
+                if (temp.length < 6) {
+                    $ace.alert("当前二维码内容不是有效的发票信息，请重新采集！");
+                    box.focus();
+                    return;
+                }
+                var fplx = temp[1];
+                var code = $(".InvCode");
+                var Number = $(".InvNumber");
+                var Date = $(".InvDate");
+                if ($(".IsAutoSave")[0].checked) {
+                    var rows = _control.Elements[0].GetRows();
+                    for (var i = 0; i < rows.length; i++) {
+                        if (rows[i]['fpdm'] == temp[2] && rows[i]['fphm'] == temp[3]) {
+                            $ace.alert("发票代码：" + temp[2] + ",发票号码：" + temp[3] + "已采集成功.");
+                            box.focus();
+                            return;
+                        }
+                    }
+
+                    if (fplx == "11" && (temp[5] == "" || temp[6] == "")) {
+                        code.val(temp[2]);
+                        Number.val(temp[3]);
+                        box.val('');
+                        Date.focus();
+                        changeContorl();
+                        $ace.alert("当前发票的二维码信息缺少开票日期或校验码信息，请手工输入。");
+                        return;
+                    }
+                    if (fplx != "11") {
+                        if (temp[2].length == 12 && fplx != "10")
+                            fplx = "10";
+                    }
+
+                    Elem4.AddRow({
+                        dq: getFPDQ(temp[2]),
+                        fplx: fplx,
+                        fpmc: getFPLXName(fplx),
+                        fpdm: temp[2],
+                        fphm: temp[3],
+                        kprq: temp[5],
+                        je: (fplx == "01" ? temp[4] : ''),
+                        jym: (fplx == "01" ? '' : temp[6].substr(temp[6].length - 6, 6))
+                    });
+
+                    box.val('');
+                    box.focus();
+                    $(".InvCode").val('');
+                    $(".InvNumber").val('');
+                    $(".InvDate").val('');
+                    $(".InvMoney").val('');
+                    $(".InvXYM").val('');
+                } else {
+                    $(".InvCode").val(temp[2]);
+                    $(".InvNumber").val(temp[3]);
+                    $(".InvDate").val(temp[5]);
+                    if (fplx == "01") {
+                        $(".InvMoney").val(temp[4]);
+                    }
+                    else {
+                        if (temp[6].length > 6)
+                            $(".InvXYM").val(temp[6].substr(temp[6].length - 6, 6));
+                    }
+                    box.val("");
+                    box.focus();
+                    changeContorl();
+                }
+            }
+        }).
+            on("keydown", ".InvCode", function (e) {
+                if (e.keyCode == 13) {
+                    changeContorl();
+                    $(".InvNumber").focus();
+                }
+            }).
+            on("click", ".btn_Save", function () {
+                var code = $(".InvCode");
+                var Number = $(".InvNumber");
+                var date = $(".InvDate");
+                var xym = $(".InvXYM");
+                var Money = $(".InvMoney");
+                if (code.val() == "") {
+                    $ace.alert("发票代码不允许为空值!");
+                    code.focus();
+                    return;
+                }
+                if (code.val().length != 10 && code.val().length != 12) {
+                    $ace.alert("您输入的发票代码位数有误!");
+                    code.focus();
+                    return;
+                }
+                var fplx = getFPLX(code.val());
+
+                if (fplx == "") {
+                    $ace.alert("发票代码：" + code.val() + "是无效发票，请重新输入！");
+                    return;
+                }
+
+                if (Number.val() == "") {
+                    $ace.alert("发票号码不允许为空值，且必须为数字!");
+                    Number.focus();
+                    return;
+                }
+                if (Number.val().length != 8) {
+                    $ace.alert("您输入的发票号码位数有误!");
+                    Number.focus();
+                    return;
+                }
+                if (date.val() == "") {
+                    $ace.alert("开票日期不允许为空值!");
+                    date.focus();
+                    return;
+                }
+                if (date.val().length != 10) {
+                    $ace.alert("您输入的开票日期格式有误。请参考格式：2017-03-20!");
+                    date.focus();
+                    return;
+                }
+                var s1 = date.val();
+                s1 = new Date(s1.replace(/-/g, "/"));
+                if (s1 == 'Invalid Date') {
+                    $ace.alert("您输入的开票日期格式有误。请参考格式：2017-03-20!");
+                    date.focus();
+                    return;
+                }
+                var s2 = new Date();
+
+                var days = s2.getTime() - s1.getTime();
+                var time = parseInt(days / (1000 * 60 * 60 * 24));
+                if (time < 2) {
+                    $ace.alert("当前发票的开票日期最近一天，请于次日提交再进行查验!");
+                    return;
+                }
+                if (Money.val() == "" && fplx == "01") {
+                    $ace.alert("不含税金额不允许为空值.");
+                    Money.focus();
+                    return;
+                }
+                if (xym.val() == "" && fplx != "01") {
+                    $ace.alert("校验码不允许为空值.");
+                    xym.focus();
+                    return;
+                }
+                if (fplx != "01" && xym.val().length != 6) {
+                    $ace.alert("校验码必须为6位数字.");
+                    xym.focus();
+                    return;
+                }
+
+                var dq = getFPDQ(code.val());
+                var fpmc = getFPLXName(fplx);
+                if (dq == "" || fpmc == "") {
+                    $ace.alert("发票代码：" + code.val() + "是无效发票，请重新输入！");
+                    return;
+                }
+
+                var rows = Elem4.GetRows();
+                for (var i = 0; i < rows.length; i++) {
+                    if (rows[i]['fpdm'] == code.val() && rows[i]['fphm'] == Number.val()) {
+                        $ace.alert("发票代码：" + code.val() + ",发票号码：" + Number.val() + "已采集成功.");
+                        return;
+                    }
+                }
+
+                Elem4.AddRow({
+                    dq: dq,
+                    fplx: fplx,
+                    fpmc: fpmc,
+                    fpdm: code.val(),
+                    fphm: Number.val(),
+                    kprq: date.val(),
+                    je: (fplx == "01" ? Money.val() : ''),
+                    jym: (fplx == "01" ? '' : xym.val())
+                });
+
+                box.val('');
+                box.focus();
+                $(".InvCode").val('');
+                $(".InvNumber").val('');
+                $(".InvDate").val('');
+                $(".InvMoney").val('');
+                $(".InvXYM").val('');
+            });
+        return form;
+    })();
+
+    function changeContorl() {
+        var fplx = getFPLX($(".InvCode").val());
+        $(".colje").show();
+        $(".colxym").hide();
+        if (fplx == "04" || fplx == "10" || fplx == "11") {
+            $(".colje").hide();
+            $(".colxym").show();
+        }
+    }
+</script>

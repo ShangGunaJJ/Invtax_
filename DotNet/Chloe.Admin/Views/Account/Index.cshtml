@@ -1,0 +1,103 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Index.cshtml";
+}
+@this.Partial("Index-js")
+<div class="wrapper">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#basicInfo" data-toggle="tab">基本信息</a></li>
+        <li><a href="#modifyPassword" data-toggle="tab">密码修改</a></li>
+    </ul>
+    <div class="tab-content" style="padding-top: 5px;">
+        <div id="basicInfo" class="tab-pane active" style="padding: 15px;">
+            <form id="userInfo">
+                <ul class="pop-list">
+                    <li>
+                        <label>账户</label>
+                        <input type="text" class="form-control" disabled="disabled" data-bind="value:User().UserName" />
+                    </li>
+                    <li class="formValue">
+                        <label>姓名</label>
+                        <input id="RealName" name="RealName" type="text" class="form-control required" placeholder="请输入姓名" data-bind="value:User().RealName" />
+                    </li>
+                    <li>
+                        <label>性别</label>
+                        <select id="Gender" name="Gender" class="form-control" data-bind="value:User().Gender">
+                            <option value="">--请选择--</option>
+                            <option value="1">男</option>
+                            <option value="2">女</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label>生日</label>
+                        <input type="text" class="form-control input-wdatepicker Wdate" onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd' })" data-bind="dateString:User().Birthday" />
+                    </li>
+                    <li>
+                        <label>部门</label>
+                        <input type="text" disabled="disabled" class="form-control" value="@this.ViewBag.UserInfo.DepartmentName" />
+                    </li>
+                    <li>
+                        <label>岗位</label>
+                        <input type="text" disabled="disabled" class="form-control" value="@this.ViewBag.UserInfo.DutyName" />
+                    </li>
+                    <li>
+                        <label>角色</label>
+                        <input type="text" disabled="disabled" class="form-control" value="@this.ViewBag.UserInfo.RoleName" />
+                    </li>
+                    <li>
+                        <label>介绍</label>
+                        <textarea class="form-control" style="height: 60px;" data-bind="value:User().Description"></textarea>
+                    </li>
+                    <li class="line">
+                        <h4><label>联系方式</label></h4>
+                    </li>
+                    <li>
+                        <label>手机号码</label>
+                        <input type="text" class="form-control" data-bind="value:User().MobilePhone" />
+                    </li>
+                    <li>
+                        <label>电子邮箱</label>
+                        <input type="text" class="form-control" data-bind="value:User().Email" />
+                    </li>
+                    <li>
+                        <label>微信号</label>
+                        <input type="text" class="form-control" data-bind="value:User().WeChat" />
+                    </li>
+                    <li>
+                        <div style="padding-left: 115px;">
+                            <a class="btn btn-primary" data-bind="click:SaveUserInfo"><i class="fa fa-save" style="margin-right:5px;"></i>确认修改</a>
+                        </div>
+                    </li>
+                </ul>
+            </form>
+        </div>
+        <div id="modifyPassword" class="tab-pane" style="padding: 15px;">
+            <form id="changePasswordForm">
+                <ul class="pop-list">
+                    <li>
+                        <label>用户名</label>
+                        <input type="text" class="form-control" disabled="disabled" data-bind="value:User().UserName" />
+                    </li>
+                    <li class="formValue">
+                        <label>旧密码</label>
+                        <input type="password" class="form-control required" data-bind="value:PasswordModel().OldPassword" />
+                    </li>
+                    <li class="formValue">
+                        <label>新密码</label>
+                        <input type="password" class="form-control required" data-bind="value:PasswordModel().NewPassword" />
+                    </li>
+                    <li class="formValue">
+                        <label>确认新密码</label>
+                        <input type="password" class="form-control required" data-bind="value:PasswordModel().NewPasswordConfirm" />
+                    </li>
+                    <li>
+                        <div style="padding-left: 115px;">
+                            <a class="btn btn-primary" data-bind="click:ChangePassword"><i class="fa fa-save" style="margin-right:5px;"></i>确认修改</a>
+                        </div>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,191 @@
+﻿<script>
+
+    var _vm;
+    $(function () {
+        var vm = new ViewModel();
+        _vm = vm;
+        ko.applyBindings(vm);
+        vm.Init();
+        //_control.Init();
+    });
+
+    function ViewModel() {
+        var me = this;
+        ViewModelBase.call(me);
+        vmExtend.call(me);
+
+        me.DeleteUrl = "@this.ContentUrl("~/SystemManage/Company/Delete")";
+        me.DataTable = new DataTableBase(me);
+        me.Dialog = new Dialog(me);
+    }
+    function vmExtend() {
+        var me = this;
+
+        me.Init = function () {
+            me.LoadModels();
+        }
+
+        me.LoadModels = function (page) {
+            me.DataTable.SelectedModel(null);
+            var data = me.SearchModel();
+            $ace.post("@this.ContentUrl("~/SystemManage/Company/GetModels")", data, function (result) {
+                me.DataTable.SetModels(result.Data);
+            }
+         );
+        }
+    }
+
+    function Dialog(vm) {
+        var me = this;
+        DialogBase.call(me);
+
+
+        me.OnSave = function () {
+            var model = me.Model();
+
+            if (!$('#form1').formValid()) {
+                return false;
+            }
+
+            if (me.EditModel()) {
+                $ace.post("@this.ContentUrl("~/SystemManage/Company/Update")", model, function (result) {
+                    $ace.msg(result.Msg);
+                    me.Close();
+                    vm.LoadModels();
+                }
+               );
+            }
+            else {
+                $ace.post("@this.ContentUrl("~/SystemManage/Company/Add")", model, function (result) {
+                    $ace.msg(result.Msg);
+                    me.Close();
+                    vm.LoadModels();
+                }
+             );
+            }
+        }
+    }
+
+    @*var _control =
+(function () {
+    var grid = new GridControl();
+    grid.url = "@this.ContentUrl("~/SystemManage/Company/GetModels")";
+    grid.PageType = "Grid";
+    grid.PageSize = 20;
+    var column0 = new LabelColumn();
+    column0.ID = 'name';
+    column0.Name = '公司名称';
+    column0.Memo = '对记录的描述，当引用数据时作为数据的标识';
+    column0.Width = 120;
+    column0.DBType = 1;
+    column0.Length = 20;
+    grid.Columns.push(column0);
+    var column1 = new LabelColumn();
+    column1.ID = 'sh';
+    column1.Name = '纳税人识别号';
+    column1.Width = 120;
+    column1.DBType = 2;
+    grid.Columns.push(column1);
+    var column2 = new LabelColumn();
+    column2.ID = 'dz';
+    column2.Name = '地址';
+    column2.Width = 120;
+    column2.DBType = 2;
+    grid.Columns.push(column2);
+    var column3 = new LabelColumn();
+    column3.ID = 'zh';
+    column3.Name = '开户行及账号';
+    column3.Memo = '天，年，月，周，季';
+    column3.Width = 120;
+    column3.DBType = 2;
+    grid.Columns.push(column3);
+    var column4 = new LabelColumn();
+    column4.ID = 'lxr';
+    column4.Name = '联系人';
+    column4.Width = 120;
+    column4.DBType = 4;
+    grid.Columns.push(column4);
+    var column5 = new LabelColumn();
+    column5.ID = 'dh';
+    column5.Name = '电话';
+    column5.Width = 120;
+    column5.DBType = 2;
+    grid.Columns.push(column5);
+    var column6 = new LabelColumn();
+    column6.ID = 'email';
+    column6.Name = '邮箱';
+    column6.Width = 120;
+    column6.DBType = 6;
+    grid.Columns.push(column6);
+    var column7 = new LabelColumn();
+    column7.ID = 'expireDate';
+    column7.Name = '过期时间';
+    column7.Width = 120;
+    column7.DBType = 4;
+    grid.Columns.push(column7);
+    var column8 = new LabelColumn();
+    column8.ID = 'createDate';
+    column8.Name = '注册时间';
+    column8.Width = 120;
+    column8.DBType = 2;
+    grid.Columns.push(column8);
+    var column9 = new LabelColumn();
+    column9.ID = 'totlePage';
+    column9.Name = '年识别总量';
+    column9.Width = 120;
+    column9.DBType = 2;
+    grid.Columns.push(column9);
+    var column10 = new LabelColumn();
+    column10.ID = 'priority';
+    column10.Name = '优先级别';
+    column10.Width = 120;
+    column10.DBType = 1;
+    column10.Length = 80;
+    grid.Columns.push(column10);
+
+    var column11 = new LabelColumn();
+    column11.ID = 'expirealertpages';
+    column11.Name = '剩余数据提示';
+    column11.Width = 120;
+    column11.DBType = 1;
+    column11.Length = 80;
+    grid.Columns.push(column11);
+    var column11 = new LabelColumn();
+    column11.ID = 'Mode';
+    column11.Name = '公司模式';
+    column11.Width = 120;
+    column11.DBType = 1;
+    column11.Length = 80;
+    grid.Columns.push(column11);
+
+    var searcher0 = new TextBox();
+    searcher0.ID = 'searcher0';
+    searcher0.Name = '';
+    searcher0.Memo = '对记录的描述，当引用数据时作为数据的标识';
+    searcher0.DBType = 1;
+    searcher0.Length = 20;
+    grid.Searchers.push(searcher0);
+    var tool0 = new PageTool();
+    tool0.ID = 'tool0';
+    tool0.Name = '创建事件';
+    tool0.SelectType = 0;
+    tool0.ToolType = "Create";
+    tool0.PageID = 60860;
+    grid.Tools.push(tool0);
+    var tool2 = new PageTool();
+    tool2.ID = 'tool2';
+    tool2.Name = '修改';
+    tool2.SelectType = 1;
+    tool2.ToolType = "Edit";
+    tool2.PageID = 60860;
+    grid.Tools.push(tool2);
+    var tool1 = new PageTool();
+    tool1.ID = 'tool1';
+    tool1.Name = '查看';
+    tool1.SelectType = 1;
+    tool1.ToolType = "Edit";
+    tool1.PageID = 60860;
+    grid.Tools.push(tool1);
+    return grid;
+})();*@
+</script>

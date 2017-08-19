@@ -1,0 +1,895 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Index.cshtml";
+}
+<link href="~/Content/bootstrap/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/richuxisan/ui.css" rel="stylesheet" />
+<link href="~/Content/richuxisan/jquery-ui.css" rel="stylesheet" />
+<link href="~/Content/richuxisan/local.css" rel="stylesheet" />
+
+
+<script src="~/Content/richuxisan/jquery.min.js"></script>
+<script src="~/Content/bootstrap/bootstrap.min.js"></script>
+<script src="~/Content/richuxisan/jquery-ui.min.js"></script>
+<script src="~/Content/richuxisan/const.js"></script>
+<script src="~/Content/richuxisan/global.js"></script>
+<script src="~/Content/richuxisan/ui.js"></script>
+<script src="~/Content/richuxisan/Page.js"></script>
+<style>
+    html, body, .container-panel {
+        height: 100%;
+        width: 100%;
+        min-width: 1024px;
+        background-color: #f0f0f0;
+    }
+
+    #grid1 {
+        height: 55%;
+        padding: 0;
+        padding-top: 3px;
+    }
+
+        #grid1 .emw-datagrid {
+            border-radius: 4px 4px 0 0;
+        }
+
+    #grid2 {
+        height: 40%;
+        padding: 0;
+    }
+
+    .form-section .section-body {
+        padding: 0;
+    }
+
+    .SearchPanel {
+        position: relative;
+        margin: 0;
+        padding: 4px;
+        background-color: #ffffff;
+    }
+
+        .SearchPanel .section-item {
+            float: left;
+            display: inline-block;
+        }
+
+        .SearchPanel .section-body {
+            padding: 0;
+        }
+
+        .SearchPanel .section-item > div {
+            float: left;
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+    .grid-search-panel {
+        padding-right: 114px;
+    }
+
+        .grid-search-panel > .grid-search-btn {
+            margin-top: 0;
+        }
+
+    .SearchPanel .section-item {
+        min-width: 240px;
+    }
+
+    .SearchPanel .emw-combobox, .searcher-datetimer {
+        width: 135px !important;
+    }
+
+    .SearchPanel .btn.grid-search-btn {
+        position: absolute;
+    }
+
+    .ToolPanel {
+        padding: 4px 0 0 0px;
+    }
+
+    .SpuerSearch {
+        position: absolute;
+        right: 10px;
+        background-color: #9E9E9E;
+        color: white;
+        cursor: pointer;
+        padding: 5px 10px;
+        font-size: 12px;
+        line-height: 1.5;
+        border-radius: 3px;
+        border: 1px solid transparent;
+    }
+
+    p.prompt {
+        margin: 0;
+        padding: 4px;
+        font-size: 14px;
+    }
+
+        p.prompt label {
+            margin: 0 20px 0 0;
+        }
+
+    .SearchPanel .section {
+        height: 30px;
+        overflow: hidden;
+        -webkit-transition: all .3s;
+        transition: all .3s;
+    }
+
+        .SearchPanel .section.More {
+            height: 87px;
+        }
+
+    .contionDetail {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        color: #33393c;
+        overflow: auto;
+        background-color: rgba(204, 204, 204, 0.37);
+    }
+
+        .contionDetail.show {
+            z-index: 666;
+        }
+
+        .contionDetail .Padding {
+            position: absolute;
+            height: auto;
+            width: 900px;
+            padding: 20px;
+            top: 10px;
+            left: 50%;
+            margin-left: -420px;
+            background-color: white;
+        }
+
+        .contionDetail .conetext {
+            border: 1px solid #ccc;
+            padding: 10px;
+            height: 100%;
+        }
+
+    .Detail_tool {
+        background: #3d9cec;
+        line-height: 35px;
+        color: white;
+        padding-left: 10px;
+    }
+
+        .Detail_tool label {
+            margin-right: 20px;
+        }
+
+        .Detail_tool button {
+            float: right;
+            margin-right: 5px;
+            margin-top: 5px;
+        }
+
+    .contionDetail .value {
+        color: #515389;
+    }
+</style>
+<div class="container-panel">
+    <div class="SearchPanel">
+        <span class="SpuerSearch">高级搜索</span>
+    </div>
+    <div class="ToolPanel">
+        <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                状态标识 <span class="caret"></span>
+            </button>
+            @*<button class="btn btn-default btn-sm grid-search-btn" type="button"><span class="glyphicon icon-alert_warning"></span> <span class="caret"/></button>*@
+            <ul class="dropdown-menu SetState">
+                <li><a href="#">正常</a></li>
+                <li><a href="#">假票</a></li>
+                <li><a href="#">错票</a></li>
+                <li><a href="#">敏感票</a></li>
+            </ul>
+        </div>
+
+        <button class="btn btn-default btn-sm grid-search-btn print_Data" type="button"><span class="glyphicon icon-action_print"></span> 打印</button>
+        <button class="btn btn-default btn-sm grid-search-btn ExeclOut" type="button"><span class="glyphicon icon-action_description"></span> 发票导出</button>
+        <button class="btn btn-default btn-sm grid-search-btn BuildData" type="button"><span class="glyphicon icon-action_build"></span> 编辑</button>
+        <button class="btn btn-default btn-sm grid-search-btn DeleteData" type="button"><span class="glyphicon icon-action_delete"></span> 删除</button>
+    </div>
+    <div class="grid-container" id="grid1">
+
+    </div>
+    <p class="bg-primary prompt">
+        <label>总金额：<span class="zje">0.00</span></label>
+        <label>总税额：<span class="zse">0.00</span></label>
+        <label>价税合计：<span class="Sumhj">0.00</span></label>
+    </p>
+    <div class="grid-container" id="grid2">
+    </div>
+</div>
+
+<div class="Contion_Editor" style="display:none">
+    <div style="padding-top: 20px; margin-right: 30px;">
+        <table class="form">
+            <tr>
+                <td class="formTitle">发票代码</td>
+                <td class="formValue">
+                    <input id="Name" name="InvCode" type="text" class="textbox InvCode form-control" placeholder="10或12位数字" />
+                </td>
+                <td class="formTitle">发票号码</td>
+                <td class="formValue">
+                    <input type="text" class="textbox InvNumber form-control" placeholder="8位数字" />
+                </td>
+            </tr>
+            <tr>
+                <td class="formTitle">开票日期</td>
+                <td class="formValue">
+                    <input type="text" class="textbox InvDate form-control" placeholder="格式：2017-03-2" />
+                </td>
+                <td class="formTitle jymorMoney">开具金额</td>
+                <td class="formValue">
+                    <input type="text" class="textbox InvMoney form-control" placeholder="不含税金额" />
+                    <input type="text" class="textbox InvXYM form-control" placeholder="校验码后6位数" />
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="contionDetail" style="display:none;">
+    <div class="Padding">
+        <div class="conetext">
+            <p style="font-weight:bold;font-size:18px;">发票查验明细</p>
+            <div class="Detail_tool" style="">
+                <label style="margin-right:20px">国税状态：<span class="gczt">-</span></label>
+                <label style="margin-right:20px">查验次数：<span class="cycs">1</span></label>
+                <label style="margin-right:20px">查验时间：<span class="cysj">2017-03-03</span></label>
+                <button class="btn btn-default btn-sm closeDetail" type="button">关闭</button>
+                <button class="btn btn-default btn-sm PrintDetail" type="button">打印</button>
+                <button class="btn btn-default btn-sm LookImg" type="button">查看图像</button>
+            </div>
+            <p style="text-align:center;font-size:16px;padding:10px;margin:0"><span class="dq">广东</span>增值税普通发票</p>
+            <label style="margin-right:20px;width:18%;">发票代码：<span class="fpdm value">-</span></label>
+            <label style="margin-right:20px;width:18%;">发票号码：<span class="fphm value">-</span></label>
+            <label style="margin-right:20px;width:18%;">开票日期：<span class="kprq value">-</span></label>
+            <label style="margin-right:20px;width:18%;">效验码：<span class="xym value">-</span></label>
+            <label style="margin-right:20px">机器编码：<span class="jqbm value">-</span></label>
+            <table style="width:100%;border:1px solid #ccc">
+                <tr>
+                    <td style="width:20px;border:1px solid #ccc;text-align:center;">购买方</td>
+                    <td style="width: 62%;">
+                        <table>
+                            <tr>
+                                <td style="line-height: 24px;">名称：</td>
+                                <td class="gfmc value"></td>
+                            </tr>
+                            <tr>
+                                <td style="line-height: 24px; width:100px;">纳税人识别号：</td>
+                                <td class="gfsh value"></td>
+                            </tr>
+                            <tr>
+                                <td style="line-height: 24px;">地址、电话：</td>
+                                <td class="gfdz value"></td>
+                            </tr>
+                            <tr>
+                                <td style="line-height: 24px;">开户行及账号：</td>
+                                <td class="gfzh value"></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td style="width:20px;border:1px solid #ccc;text-align:center;">密码区</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <table style="width:100%">
+                            <tbody>
+                                <tr class="table-th">
+                                    <td style="text-align:center;width: 200px;border-right:1px solid #ccc;">货物或应税劳务、服务名称</td>
+                                    <td style="text-align:center;border-right:1px solid #ccc;">规格型号</td>
+                                    <td style="text-align:center;width: 50px;border-right:1px solid #ccc;">单位</td>
+                                    <td style="text-align:center;width: 68px;border-right:1px solid #ccc;">数量</td>
+                                    <td style="text-align:center;width: 100px;border-right:1px solid #ccc;">单价</td>
+                                    <td style="text-align:center;width: 120px;border-right:1px solid #ccc;">金额</td>
+                                    <td style="text-align:center;border-right:1px solid #ccc;">税率</td>
+                                    <td style="text-align:center">税额</td>
+                                </tr>
+
+                                <tr>
+                                    <td style="text-align:center;width:120px;border-right:1px solid #ccc;">合计</td>
+                                    <td style="text-align:center;border-right:1px solid #ccc;"></td>
+                                    <td style="text-align:center;border-right:1px solid #ccc;"></td>
+                                    <td style="text-align:center;border-right:1px solid #ccc;"></td>
+                                    <td style="text-align:center;border-right:1px solid #ccc;"></td>
+                                    <td style="text-align:right;border-right:1px solid #ccc;color: #515389" class="detail_jehj"></td>
+                                    <td style="text-align:center;border-right:1px solid #ccc;"></td>
+                                    <td style="text-align:right;color: #515389" class="detail_sehj"></td>
+                                </tr>
+                                <tr style="border-top:1px solid #ccc;">
+                                    <td style="text-align:center;width:120px;border-right:1px solid #ccc;">价税合计（大写）</td>
+                                    <td style="text-align:left" class="detail_jshj" colspan="4"></td>
+                                    <td style="text-align:left" colspan="3">(小写)   <span class="lower_jshj value"></span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:20px;border:1px solid #ccc;text-align:center;">销售方</td>
+                    <td style="width: 62%;">
+                        <table>
+                            <tr>
+                                <td style="line-height: 24px;">名称：</td>
+                                <td class="xsmc value"></td>
+                            </tr>
+                            <tr>
+                                <td style="line-height: 24px; width:100px;">纳税人识别号：</td>
+                                <td class="xssh value"></td>
+                            </tr>
+                            <tr>
+                                <td style="line-height: 24px;">地址、电话：</td>
+                                <td class="xsdz value"></td>
+                            </tr>
+                            <tr>
+                                <td style="line-height: 24px;">开户行及账号：</td>
+                                <td class="xszh value"></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td style="width:20px;border:1px solid #ccc;text-align:center;">密码区</td>
+                    <td></td>
+                </tr>
+            </table>
+            <dl style="color:red;margin-top:20px; margin-bottom:0;">
+                <dd style="font-weight:bold;">特别提醒：</dd>
+                <dd>本平台仅提供所查询发票票面信息的查验结果</dd>
+                <dd>若发现发票查验结果与实际交易不符，任何单位或个人有权拒收并向当地税务机关举报</dd>
+            </dl>
+        </div>
+    </div>
+</div>
+<script>
+    var companeyName = '@this.ViewBag.CompanyName';
+    var SH = '@this.ViewBag.SH';
+
+
+    $(function () {
+        $(".dropdown-toggle").dropdown();
+        _control.Init();
+        _control1.Init();
+        $(".contionDetail").on("click", ".closeDetail", function () {
+            $(".contionDetail").toggleClass("show");
+        });
+        $(".SpuerSearch").bind("click", function () {
+            $(".SearchPanel .section").toggleClass("More");
+        })
+        $(".ToolPanel").on("click", ".print_Data", function () {
+
+        }).on("click", ".BuildData", function () {
+            var rows = _control.GetSelectedRows();
+            if (rows.length == 0) {
+                $ace.alert("请选择需要编辑的发票数据！");
+                return false;
+            }
+            if (rows.length > 1) {
+                $ace.alert("只可以编辑一条发票数据！");
+                return false;
+            }
+            var con = $(".Contion_Editor").clone(true);
+            var InvCode = con.find(".InvCode");
+            var InvNumber = con.find(".InvNumber");
+            var InvDate = con.find(".InvDate");
+            var InvMoney = con.find(".InvMoney");
+            var InvXYM = con.find(".InvXYM");
+            InvCode.val(rows[0].fpdm);
+            InvNumber.val(rows[0].fphm);
+            InvDate.val(rows[0].kprq);
+            InvMoney.val(rows[0].je);
+            InvXYM.val(rows[0].jym);
+            var fplx = getFPLX(rows[0].fpdm);
+            if (fplx == "04" || fplx == "10" || fplx == "11") {
+                InvMoney.hide();
+                InvXYM.show();
+                con.find(".jymorMoney").text("校验码");
+            } else {
+                InvMoney.show();
+                InvXYM.hide();
+                con.find(".jymorMoney").text("开具金额");
+            }
+            var id = rows[0].Id;
+            con.show();
+            Z.OpenDialog(con, "编辑", { width: 540, height: 260 }, function (x) {
+                var fpdm = InvCode.val();
+                var fphm = InvNumber.val();
+                var kprq = InvDate.val();
+                var je = InvMoney.val();
+                var jym = InvXYM.val();
+                var fplx = getFPLX(fpdm);
+                var fpmc = getFPLXName(fplx);
+                var newData = {
+                    Id: id,
+                    fplx: fplx,
+                    fpdm: fpdm,
+                    fphm: fphm,
+                    fpmc: fpmc,
+                    je: (fplx == "01" ? je : 0),
+                    jym: jym,
+                    kprq: kprq,
+                };
+                $ace.post("@this.ContentUrl("~/SystemManage/Scan/Update")", { main: newData }, function (x) {
+                    $ace.alert(x.Msg);
+                    _control.Refresh();
+                    _control1.Elements[0].Clear();
+                })
+            });
+
+        }).on("click", ".ExeclOut", function () {
+
+        }).on("click", ".DeleteData", function () {
+            var rows = _control.GetSelectedRows();
+            var _$ace = $ace;
+            if (rows && rows.length > 0) {
+                var ids = _control.GetSelectedRows().map(function (x) { return x.Id; });
+                $ace.confirm("请再次确认是否需要删除：" + rows.length + "张发票？", function () {
+                    $ace.post("@this.ContentUrl("~/SystemManage/ScanHouse/DeleteData")", { "ids": ids }, function (x) {
+                        _$ace.alert(x.Msg);
+                        _control.Refresh();
+                        _control1.Elements[0].Clear();
+                    })
+                });
+            } else {
+                $ace.alert("请选择需要删除的数据！");
+            }
+        }).on("click", ".SetState li", function () {
+            var rows = _control.GetSelectedRows();
+            var _$ace = $ace;
+            if (rows && rows.length > 0) {
+                var ids = _control.GetSelectedRows().map(function (x) { return x.Id; });
+                var index = $(this).index();
+                $ace.confirm("请确认是否将：" + rows.length + "张发票的异常状态更新为:" + $(this).text(), function () {
+                    $ace.post("@this.ContentUrl("~/SystemManage/ScanHouse/UpdateState")", { "ids": ids, state: index }, function (x) {
+                        _$ace.alert(x.Msg);
+                        _control.Refresh();
+                        _control1.Elements[0].Clear();
+                    })
+                });
+            } else {
+                $ace.alert("请勾选需要更新异常状态的发票，可同时勾选多条发票！");
+            }
+        })
+    });
+
+    var _control =
+  (function () {
+      var grid = new GridControl();
+      grid.ID = 58439;
+      grid.TemplateID = 55034;
+      grid.Name = "人员关注表";
+      grid.Memo = "";
+      grid.PageType = "Grid";
+      grid.PageSize = 20;
+      grid.Container = "#grid1";
+      grid.url = "@this.ContentUrl("~/SystemManage/ScanHouse/GetInvData?type="+this.ViewBag.type)";
+
+      var rule1 = new PageRule(grid, 'RowSelect', 0, 1);
+      rule1.func = function () {
+          _control1.Elements[0].Clear();
+          if (_control.CurRow == null) return;
+          if (_control.CurRow.checkstauts == "待查验" || _control.CurRow.checkstauts == "次日再查") return;
+          $(".gczt").text(_control.CurRow.checkstauts);
+          $(".cycs").text("第" +( _control.CurRow.cycs == 0 ? 1 : _control.CurRow.cycs)+"次");
+          $(".cysj").text((_control.CurRow.checktime == null ? "" : _control.CurRow.checktime));
+          $(".contionDetail .dq").text(_control.CurRow.dq);
+          $(".contionDetail .fpdm").text(_control.CurRow.fpdm);
+          $(".contionDetail .fphm").text(_control.CurRow.fphm);
+          $(".contionDetail .kprq").text(_control.CurRow.kprq);
+          $(".contionDetail .xym").text(_control.CurRow.jym);
+          $(".contionDetail .jqbm").text((_control.CurRow.jqm == null ? "" : _control.CurRow.jqm));
+          $(".contionDetail .gfmc").text((_control.CurRow.gfmc == null ? "" : _control.CurRow.gfmc));
+          $(".contionDetail .gfsh").text((_control.CurRow.gfsh == null ? "" : _control.CurRow.gfsh));
+          $(".contionDetail .gfdz").text((_control.CurRow.gfdz == null ? "" : _control.CurRow.gfdz));
+          $(".contionDetail .gfzh").text((_control.CurRow.gfzh == null ? "" : _control.CurRow.gfzh));
+
+          $(".contionDetail .xsmc").text((_control.CurRow.xfmc == null ? "" : _control.CurRow.xfmc));
+          $(".contionDetail .xssh").text((_control.CurRow.xfsh == null ? "" : _control.CurRow.xfsh));
+          $(".contionDetail .xsdz").text((_control.CurRow.xfdz == null ? "" : _control.CurRow.xfdz));
+          $(".contionDetail .xszh").text((_control.CurRow.xfzh == null ? "" : _control.CurRow.xfzh));
+          $ace.post("@this.ContentUrl("~/SystemManage/ScanHouse/GetDetail")", { id: _control.CurRow.Id }, function (x) {
+              var jehj = 0;
+              var sehj = 0;
+              $(".detailrow").remove();
+              if (x.Data) {
+                  for (var i = 0; i < x.Data.length; i++) {
+                      var d = x.Data[i];
+                      _control1.Elements[0].AddRow({
+                          mc: d.mc,
+                          gg: d.gg,
+                          dw: d.dw,
+                          amount: d.amount,
+                          dj: d.dj,
+                          je: d.je,
+                          sl: d.sl,
+                          se: d.se,
+                      });
+                      jehj += (d.je == "" ? 0 : d.je);
+                      sehj += (d.se == "" ? 0 : d.se);
+                      $('<tr style="color: #515389;line-height: 22px;" class="detailrow"><td style="text-align:left;width:120px;border-right:1px solid #ccc;padding:0 1px 0 1px;">' + d.mc + '</td><td style="text-align:left;border-right:1px solid #ccc;padding:0 1px 0 1px;">' + d.gg + '</td><td style="text-align:center;border-right:1px solid #ccc;padding:0 1px 0 1px;">' + d.dw + '</td><td style="text-align:left;border-right:1px solid #ccc;padding:0 1px 0 1px;"></td>' + d.amount + '<td style="text-align:right;border-right:1px solid #ccc;padding:0 1px 0 1px;">' + d.dj + '</td><td style="text-align:right;border-right:1px solid #ccc;padding:0 1px 0 1px;">' + d.je + '</td> <td style="text-align:center;border-right:1px solid #ccc;padding:0 1px 0 1px;">' + d.sl + '</td><td style="text-align:right;padding:0 1px 0 1px;">' + d.se + '</td></tr>').insertAfter($(".contionDetail .table-th"))
+                  }
+              }
+              $(".detail_jehj").text("￥" + jehj);
+              $(".detail_sehj").text("￥" + sehj);
+              var jshj = jehj + sehj;
+              $(".detail_jshj").text(smalltoBIG(jshj));
+              $(".lower_jshj").text("￥" + jshj);
+          })
+      };
+      var rule2 = new PageRule(grid, 'DblClickRowed', 0, 1);
+      rule2.func = function () {
+          if (_control.CurRow.checkstauts == "待查验" || _control.CurRow.checkstauts == "次日再查") {
+              $ace.alert("发票待查验！"); return;
+          }
+          $(".contionDetail").toggleClass("show");
+      };
+      var rule3 = new PageRule(grid, 'DataBind', 0, 1);
+      rule3.func = function () {
+          console.log(_control.Data);
+          var zje = $(".zje");
+          var zse = $(".zse");
+          var Sumhj = $(".Sumhj");
+          var _je = 0.00;
+          var _se = 0.00;
+          var _hj = 0.00;
+          if (_control.Data) {
+              for (var i = 0; i < _control.Data.length; i++) {
+                  _je += _control.Data[i].je;
+                  _se += _control.Data[i].se;
+                  _hj += _control.Data[i].jshj;
+              }
+          }
+          zje.text((_je == 0 ? "0.00" : _je)); zse.text((_se == 0 ? "0.00" : _se)); Sumhj.text((_hj == 0 ? "0.00" : _hj));
+      };
+
+      grid.Setting = {
+          "FrozenColumns": [{ "ID": "checkstauts", "Width": 100 }, { "ID": "Exception", "Width": 100 }, { "ID": "dq", "Width": 100 },
+          { "ID": "fpdm", "Width": 100 }, { "ID": "fphm", "Width": 100 }
+          ], Columns: [
+              { "ID": "kprq", "Width": 100 },
+              { "ID": "je", "Width": 100 },
+              { "ID": "se", "Width": 100 },
+              { "ID": "jshj", "Width": 100 },
+              { "ID": "xfmc", "Width": 200 },
+              { "ID": "xfsh", "Width": 100 },
+              { "ID": "xfdz", "Width": 100 },
+              { "ID": "xfzh", "Width": 100 },
+              { "ID": "gfmc", "Width": 100 },
+              { "ID": "gfsh", "Width": 100 },
+              { "ID": "gfdz", "Width": 100 }, { "ID": "gfzh", "Width": 100 }, { "ID": "remarks", "Width": 100 }, { "ID": "createuser", "Width": 100 }, { "ID": "createtime", "Width": 150 }, { "ID": "checktime", "Width": 150 }
+          ]
+      };
+
+      var searcher0 = new DropDownList();
+      searcher0.ID = 'checkstauts';
+      searcher0.Name = '国税状态';
+      searcher0.DBType = 2;
+      searcher0.Width = 135;
+      searcher0.SelectItems = [{ Text: '全部', Value: '全部' }, { Text: '一致', Value: '一致' }, { Text: '不一致', Value: '不一致' }, { Text: '作废', Value: '作废' }, { Text: '查无此票', Value: '查无此票' }, { Text: '待查验', Value: '待查验' }];
+      grid.Searchers.push(searcher0);
+
+      var searcher1 = new TextBox();
+      searcher1.ID = 'fphm';
+      searcher1.Name = '发票号码';
+      searcher1.DBType = 2;
+      grid.Searchers.push(searcher1);
+
+      var searcher2 = new DateTimer();
+      searcher2.ID = 'kprq';
+      searcher2.Name = '开票日期';
+      searcher2.DBType = 2;
+      grid.Searchers.push(searcher2);
+
+      var searcher3 = new TextBox();
+      searcher3.ID = 'xfzh';
+      searcher3.Name = '销方名称';
+      searcher3.DBType = 2;
+      grid.Searchers.push(searcher3);
+
+      var searcher3 = new TextBox();
+      searcher3.ID = 'gfmc';
+      searcher3.Name = '购方名称';
+      searcher3.DBType = 2;
+      grid.Searchers.push(searcher3);
+
+      var searcher4 = new TextBox();
+      searcher4.ID = 'gfsh';
+      searcher4.Name = '购方税号';
+      searcher4.DBType = 2;
+      grid.Searchers.push(searcher4);
+      var searcher5 = new TextBox();
+      searcher5.ID = 'fpdm';
+      searcher5.Name = '发票代码';
+      searcher5.DBType = 2;
+      grid.Searchers.push(searcher5);
+
+      var searcher6 = new TextBox();
+      searcher6.ID = 'jshj';
+      searcher6.Name = '价税合计';
+      searcher6.DBType = 2;
+      grid.Searchers.push(searcher6);
+
+      var searcher7 = new DateTimer();
+      searcher7.ID = 'checktime';
+      searcher7.Name = '查验时间';
+      searcher7.DBType = 2;
+      grid.Searchers.push(searcher7);
+
+      var searcher8 = new DateTimer();
+      searcher8.ID = 'createtime';
+      searcher8.Name = '录入时间';
+      searcher8.DBType = 2;
+      grid.Searchers.push(searcher8);
+
+
+
+      var column5 = new LabelColumn();
+      column5.ID = 'checkstauts';
+      column5.Name = '国税状态';
+      column5.Width = 100;
+      column5.DBType = 4;
+      column5.FormatFun = function (x, y, z) {
+          if (x != '一致' && x != '待查验') {
+              return '<span style="color:red;">' + x + "</span>";
+          } else
+              return x;
+      }
+      grid.Columns.push(column5);
+      var column6 = new LabelColumn();
+      column6.ID = 'Exception';
+      column6.Name = '状态标识';
+      column6.Width = 100;
+      column6.DBType = 4;
+      column6.FormatFun = function (x, y, z) {
+          var exception = x;
+          if (y.checkstauts != "待查验" && y.checkstauts != "次日再查" && y.checkstauts != "查无此票") {
+              if (y.Exception == "" || y.Exception == null) {
+                  if (SH != y.gfsh) {
+                      exception = "错票";
+                  }
+
+                  if (CompanyName != y.gfmc) {
+                      exception = "错票";
+                  }
+              }
+
+              if (exception == "" || exception == "正常")
+                  exception = "正常";
+              else {
+                  return '<span style="color:red;">' + exception + "</span>";
+              }
+          }
+          return exception;
+      }
+
+
+      grid.Columns.push(column6);
+      var column7 = new LabelColumn();
+      column7.ID = 'dq';
+      column7.Name = '地区';
+      column7.Width = 100;
+      column6.DBType = 4;
+      grid.Columns.push(column7);
+
+      var column9 = new LabelColumn();
+      column9.ID = 'fpdm';
+      column9.Name = '发票代码';
+      column9.Width = 100;
+      column9.DBType = 2;
+      grid.Columns.push(column9);
+      var column10 = new LabelColumn();
+      column10.ID = 'fphm';
+      column10.Name = '发票号码';
+      column10.Width = 100;
+      column10.DBType = 2;
+      grid.Columns.push(column10);
+      var column11 = new LabelColumn();
+      column11.ID = 'kprq';
+      column11.Name = '开票日期';
+      column11.Width = 100;
+      column11.DBType = 2;
+      grid.Columns.push(column11);
+      var column12 = new LabelColumn();
+      column12.ID = 'je';
+      column12.Name = '金额';
+      column12.Width = 100;
+      column12.DBType = 2;
+      column12.FormatFun = function (x, y, z) {
+          if (x == 0) {
+              return '';
+          } else
+              return x;
+      }
+      grid.Columns.push(column12);
+
+      var column13 = new LabelColumn();
+      column13.ID = 'se';
+      column13.Name = '税额';
+      column13.Width = 100;
+      column13.DBType = 2;
+      grid.Columns.push(column13);
+      var column14 = new LabelColumn();
+      column14.ID = 'jshj';
+      column14.Name = '价税合计';
+      column14.Width = 100;
+      column14.DBType = 2;
+      grid.Columns.push(column14);
+      var column15 = new LabelColumn();
+      column15.ID = 'xfmc';
+      column15.Name = '销方名称';
+      column15.Width = 100;
+      column15.DBType = 2;
+      grid.Columns.push(column15);
+      var column16 = new LabelColumn();
+      column16.ID = 'xfsh';
+      column16.Name = '销方税号';
+      column16.Width = 100;
+      column16.DBType = 2;
+      grid.Columns.push(column16);
+      var column17 = new LabelColumn();
+      column17.ID = 'xfdz';
+      column17.Name = '销方地址';
+      column17.Width = 100;
+      column17.DBType = 2;
+      grid.Columns.push(column17);
+      var column18 = new LabelColumn();
+      column18.ID = 'xfzh';
+      column18.Name = '销方账号';
+      column18.Width = 100;
+      column18.DBType = 2;
+      grid.Columns.push(column18);
+
+      var column19 = new LabelColumn();
+      column19.ID = 'gfmc';
+      column19.Name = '购方名称';
+      column19.Width = 100;
+      column19.DBType = 2;
+      grid.Columns.push(column19);
+
+      var column20 = new LabelColumn();
+      column20.ID = 'gfsh';
+      column20.Name = '购方税号';
+      column20.Width = 100;
+      column20.DBType = 2;
+      column20.FormatFun = function (x, y, z) {
+          console.log(y);
+          if (y.checkstauts != "待查验" && y.checkstauts != "次日再查" && y.checkstauts != "查无此票") {
+              if (SH != y.gfsh) {
+                  return '<span style="color:red;">' + x + "</span>";
+              }
+              if (CompanyName != y.gfmc) {
+                  y.__Cells.gfmc[0].style.color = 'red';
+              }
+          }
+      }
+
+      grid.Columns.push(column20);
+
+      var column21 = new LabelColumn();
+      column21.ID = 'gfdz';
+      column21.Name = '购方地址';
+      column21.Width = 100;
+      column21.DBType = 2;
+      grid.Columns.push(column21);
+
+      var column22 = new LabelColumn();
+      column22.ID = 'gfzh';
+      column22.Name = '购方账号';
+      column22.Width = 100;
+      column22.DBType = 2;
+      grid.Columns.push(column22);
+
+      var column23 = new LabelColumn();
+      column23.ID = 'remarks';
+      column23.Name = '备注';
+      column23.Width = 100;
+      column23.DBType = 2;
+      grid.Columns.push(column23);
+
+      var column24 = new LabelColumn();
+      column24.ID = 'createuser';
+      column24.Name = '录入用户';
+      column24.Width = 100;
+      column24.DBType = 2;
+      grid.Columns.push(column24);
+
+      var column25 = new LabelColumn();
+      column25.ID = 'createtime';
+      column25.Name = '录入时间';
+      column25.Width = 100;
+      column25.DBType = 2;
+      grid.Columns.push(column25);
+
+      var column26 = new LabelColumn();
+      column26.ID = 'checktime';
+      column26.Name = '查验时间';
+      column26.Width = 100;
+      column26.DBType = 2;
+      grid.Columns.push(column26);
+
+      return grid;
+  })();
+    var _control1 =
+    (function () {
+        var form = new FormControl();
+        form.RecordID = 0;
+        form.PageType = "Form";
+        form.ShowSaveAndNew = true;
+        form.ReadOnly = true;
+        form.Container = "#grid2";
+        var Elem4 = new RepeatTable();
+        Elem4.ID = 'Elem4';
+        Elem4.Name = '货物或应税劳务、服务名称';
+        Elem4.Title = '货物或应税劳务、服务名称';
+        Elem4.IsHeader = false;
+        form.AddElement(form, Elem4);
+
+        var Elem3 = new TextBox();
+        Elem3.ID = 'mc';
+        Elem3.Name = '';
+        Elem3.Title = '货物或应税劳务、服务名称';
+        Elem3.Width = 200;
+        Elem3.DBType = 4;
+        form.AddElement(Elem4, Elem3);
+
+        var Elem5 = new TextBox();
+        Elem5.ID = 'gg';
+        Elem5.Name = '';
+        Elem5.Title = '规格型号';
+        Elem5.Width = 150;
+        Elem5.DBType = 4;
+        form.AddElement(Elem4, Elem5);
+        var Elem6 = new TextBox();
+        Elem6.ID = 'dw';
+        Elem6.Name = '';
+        Elem6.Title = '单位';
+        Elem6.Width = 100;
+        Elem6.DBType = 4;
+        form.AddElement(Elem4, Elem6);
+        var Elem7 = new TextBox();
+        Elem7.ID = 'amount';
+        Elem7.Name = '';
+        Elem7.Title = '数量';
+        Elem7.Width = 100;
+        Elem6.DBType = 4;
+        form.AddElement(Elem4, Elem7);
+        var Elem8 = new TextBox();
+        Elem8.ID = 'dj';
+        Elem8.Name = '';
+        Elem8.Title = '单价';
+        Elem8.Width = 100;
+        Elem8.DBType = 2;
+        form.AddElement(Elem4, Elem8);
+        var Elem9 = new TextBox();
+        Elem9.ID = 'je';
+        Elem9.Name = '';
+        Elem9.Title = '金额';
+        Elem9.Width = 100;
+        Elem9.DBType = 2;
+        form.AddElement(Elem4, Elem9);
+        var Elem10 = new TextBox();
+        Elem10.ID = 'sl';
+        Elem10.Name = '';
+        Elem10.Title = '税率';
+        Elem10.Width = 100;
+        Elem10.DBType = 2;
+        form.AddElement(Elem4, Elem10);
+        var Elem11 = new TextBox();
+        Elem11.ID = 'se';
+        Elem11.Name = '';
+        Elem11.Title = '税额';
+        Elem11.Width = 100;
+        Elem11.DBType = 2;
+        form.AddElement(Elem4, Elem11);
+        return form;
+    })();
+</script>

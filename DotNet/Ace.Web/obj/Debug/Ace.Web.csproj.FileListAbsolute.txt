@@ -1,0 +1,10 @@
+C:\Users\ShangGuanJJ\Desktop\Ace-master\src\DotNet\Ace.Web\bin\Debug\Ace.Web.dll
+C:\Users\ShangGuanJJ\Desktop\Ace-master\src\DotNet\Ace.Web\bin\Debug\Ace.Web.pdb
+C:\Users\ShangGuanJJ\Desktop\Ace-master\src\DotNet\Ace.Web\obj\Debug\Ace.Web.csprojResolveAssemblyReference.cache
+C:\Users\ShangGuanJJ\Desktop\Ace-master\src\DotNet\Ace.Web\obj\Debug\Ace.Web.dll
+C:\Users\ShangGuanJJ\Desktop\Ace-master\src\DotNet\Ace.Web\obj\Debug\Ace.Web.pdb
+C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\Ace-master\src\DotNet\Ace.Web\bin\Debug\Ace.Web.dll
+C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\Ace-master\src\DotNet\Ace.Web\bin\Debug\Ace.Web.pdb
+C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\Ace-master\src\DotNet\Ace.Web\obj\Debug\Ace.Web.dll
+C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\Ace-master\src\DotNet\Ace.Web\obj\Debug\Ace.Web.pdb
+C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\Ace-master\src\DotNet\Ace.Web\obj\Debug\Ace.Web.csprojResolveAssemblyReference.cache

@@ -1,0 +1,47 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+
+    @ContentHelper.RefScript("~/Content/jquery/jquery-1.11.1.min.js")
+
+    @ContentHelper.RefStyle("~/Content/editormd/css/editormd.min.css")
+    @ContentHelper.RefScript("~/Content/editormd/editormd.js")
+
+</head>
+<body>
+    <script type="text/javascript">
+        var testEditor;
+
+        $(function () {
+            testEditor = editormd("test-editormd", {
+                width: "90%",
+                height: 640,
+                syncScrolling: "single",
+                path: "@Url.Content("~/Content/editormd/lib/")"
+            });
+
+            /*
+            // or
+            testEditor = editormd({
+                id      : "test-editormd",
+                width   : "90%",
+                height  : 640,
+                path    : "../lib/"
+            });
+            */
+        });
+    </script>
+
+
+    <div id="test-editormd">
+
+    </div>
+</body>
+</html>

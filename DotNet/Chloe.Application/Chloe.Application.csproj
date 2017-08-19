@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C55C4F5E-C6E5-463D-96F8-5D8B17782621}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Chloe.Application</RootNamespace>
+    <AssemblyName>Chloe.Application</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Chloe">
+      <HintPath>..\lib\Chloe\Chloe.dll</HintPath>
+    </Reference>
+    <Reference Include="Chloe.Extension">
+      <HintPath>..\lib\Chloe\Chloe.Extension.dll</HintPath>
+    </Reference>
+    <Reference Include="Chloe.MySql, Version=2.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Chloe\Chloe.MySql.dll</HintPath>
+    </Reference>
+    <Reference Include="Chloe.Oracle, Version=2.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Chloe\Chloe.Oracle.dll</HintPath>
+    </Reference>
+    <Reference Include="Chloe.SQLite">
+      <HintPath>..\lib\Chloe\Chloe.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="Chloe.SqlServer">
+      <HintPath>..\lib\Chloe\Chloe.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNet.Utilities">
+      <HintPath>..\lib\DotNet.Utilities\DotNet.Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Reflection.Context" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdminAppService.cs" />
+    <Compile Include="AdminSession.cs" />
+    <Compile Include="AppServiceBase.cs" />
+    <Compile Include="Common\AppConsts.cs" />
+    <Compile Include="Common\UserHelper.cs" />
+    <Compile Include="CurrentAssembly.cs" />
+    <Compile Include="Implements\AccountAppService.cs" />
+    <Compile Include="Implements\Inv\InvAppService.cs" />
+    <Compile Include="Implements\System\CompanyAppService.cs" />
+    <Compile Include="Implements\System\DutyAppService.cs" />
+    <Compile Include="Implements\System\ModuleAppService.cs" />
+    <Compile Include="Implements\System\RoleAppService.cs" />
+    <Compile Include="Implements\System\RoleAuthorizeAppService.cs" />
+    <Compile Include="Implements\System\UserAppService.cs" />
+    <Compile Include="Implements\AppServiceTest.cs" />
+    <Compile Include="Implements\EntityAppService.cs" />
+    <Compile Include="Implements\SysLogAppService.cs" />
+    <Compile Include="Implements\Wiki\WikiDocumentAppService.cs" />
+    <Compile Include="Implements\Wiki\WikiMenuItemAppService.cs" />
+    <Compile Include="Interfaces\IAccountAppService.cs" />
+    <Compile Include="Interfaces\System\ICompanyAppService.cs" />
+    <Compile Include="Interfaces\System\IDutyAppService.cs" />
+    <Compile Include="Interfaces\System\IModuleAppService.cs" />
+    <Compile Include="Interfaces\System\IRoleAuthorizeAppService.cs" />
+    <Compile Include="Interfaces\Inv\IInvAppService.cs" />
+    <Compile Include="Interfaces\System\IUserAppService.cs" />
+    <Compile Include="Interfaces\IAppServiceTest.cs" />
+    <Compile Include="Interfaces\IEntityAppService.cs" />
+    <Compile Include="Interfaces\System\IRoleAppService.cs" />
+    <Compile Include="Interfaces\ISysLogAppService.cs" />
+    <Compile Include="Interfaces\Wiki\IWikiDocumentAppService.cs" />
+    <Compile Include="Interfaces\Wiki\IWikiMenuItemAppService.cs" />
+    <Compile Include="Models\Account\ModifyAccountInfoInput.cs" />
+    <Compile Include="Models\Company\AddOrUpdateCompanyInput.cs" />
+    <Compile Include="Models\Company\SimpleCompanyModel.cs" />
+    <Compile Include="Models\Duty\AddorUpdateDutyInput.cs" />
+    <Compile Include="Models\Duty\SimpleDutyModel.cs" />
+    <Compile Include="Models\Module\AddModuleInput.cs" />
+    <Compile Include="Models\Module\UpdateModuleInput.cs" />
+    <Compile Include="Models\Organize\SimpleOrganizeModel.cs" />
+    <Compile Include="Models\Role\AddOrUpdateRoleInput.cs" />
+    <Compile Include="Models\Role\SimpleRoleModel.cs" />
+    <Compile Include="Models\Inv\AddOrUpdateInvMain.cs" />
+    <Compile Include="Models\User\AddUpdateUserInputBase.cs" />
+    <Compile Include="Models\User\AddUserInput.cs" />
+    <Compile Include="Models\User\Notice.cs" />
+    <Compile Include="Models\User\SimpleUserModel.cs" />
+    <Compile Include="Models\User\UpdateUserInput.cs" />
+    <Compile Include="Models\User\UserModel.cs" />
+    <Compile Include="Models\WikiDocument\AddDocumentInput.cs" />
+    <Compile Include="Models\WikiDocument\UpdateDocumentInput.cs" />
+    <Compile Include="Models\WikiDocument\WikiDocumentDetailModel.cs" />
+    <Compile Include="Models\WikiMenuItem\AddWikiMenuItemInput.cs" />
+    <Compile Include="Models\WikiMenuItem\UpdateWikiMenuItemInput.cs" />
+    <Compile Include="Models\WikiMenuItem\WikiMenuItemModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SessionAppServiceBase.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Ace\Ace.csproj">
+      <Project>{c7dfa311-7c0c-4eb0-802e-b4d11043d54b}</Project>
+      <Name>Ace</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Chloe.Data\Chloe.Data.csproj">
+      <Project>{c026c0cd-f724-4cf8-93a1-30a06b595577}</Project>
+      <Name>Chloe.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Chloe.Entities\Chloe.Entities.csproj">
+      <Project>{7b3be7ce-4ce4-44d7-95cb-935e9dde67d7}</Project>
+      <Name>Chloe.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,193 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Index.cshtml";
+}
+@this.Partial("Index-js")
+<link href="~/Content/bootstrap/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/richuxisan/ui.css" rel="stylesheet" />
+<link href="~/Content/richuxisan/jquery-ui.css" rel="stylesheet" />
+<link href="~/Content/richuxisan/local.css" rel="stylesheet" />
+
+
+<script src="~/Content/richuxisan/jquery.min.js"></script>
+<script src="~/Content/bootstrap/bootstrap.min.js"></script>
+<script src="~/Content/richuxisan/jquery-ui.min.js"></script>
+<script src="~/Content/richuxisan/const.js"></script>
+<script src="~/Content/richuxisan/global.js"></script>
+<script src="~/Content/richuxisan/ui.js"></script>
+<script>
+    var CompanyList = @this.RawSerialize(this.ViewBag.CompanyList);
+    function AddtotlePage(){
+
+    }
+</script>
+<style>
+    .modal-dialog, .modal-dialog > .modal-content {
+        height: inherit;
+    }
+</style>
+<div class="topPanel">
+    <div class="toolbar">
+        <div class="btn-group">
+            <a class="btn btn-primary" onclick="$ace.reload()"><span class="glyphicon glyphicon-refresh"></span></a>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-primary" data-bind="click:Edit,attr:{disabled:!DataTable.SelectedModel()}"><i class="fa fa-pencil-square-o"></i>修改</button>
+            <button class="btn btn-primary" data-bind="click:Delete,attr:{disabled:!DataTable.SelectedModel()}"><i class="fa fa-trash-o"></i>删除</button>
+            <button class="btn btn-primary" data-bind="click:Add"><i class="fa fa-plus"></i>添加</button>
+            <button class="btn btn-primary AddtotlePagey"><i class="fa fa-plus"></i>授权识别量</button>
+        </div>
+
+    </div>
+    <div class="search">
+        <table>
+            <tr>
+                <td>
+                    <div class="input-group">
+                        <input id="txt_keyword" type="text" class="form-control" placeholder="名称/编号" style="width: 200px;" data-bind="value:SearchModel().keyword">
+                        <span class="input-group-btn">
+                            <button id="btn_search" type="button" class="btn  btn-primary" data-bind="click:Search"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-hover" data-bind="with:DataTable">
+        <thead>
+            <tr>
+                <th style="width:20px;"></th>
+                <th>公司名称</th>
+                <th>纳税人识别号</th>
+                <th>地址</th>
+                <th>开户行及账号</th>
+                <th>授权识别量</th>
+                <th>剩余数据提示</th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach:Models">
+            <tr data-bind="click:$parent.SelectRow">
+                <td data-bind="text:$parent.GetOrdinal($index())"></td>
+                <td data-bind="text:name"></td>
+                <td data-bind="text:sh"></td>
+                <td data-bind="text:dz"></td>
+                <td data-bind="text:zh"></td>
+                <td data-bind="text:totlePage"></td>
+                <td data-bind="text:expirealertpages"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="content-totlePage" style="display:none; padding-top:10px">
+    <table class="form">
+        <tr>
+            <td class="formTitle" style="width:68px;">选择公司</td>
+            <td class="formValue">
+                <select id="SelectCompany" name="SelectCompany" class="form-control">
+                    @this.SelectOptions(this.ViewBag.CompanyList)
+                </select>
+            </td>
+            <td class="formTitle">授权量</td>
+            <td class="formValue">
+                <input id="totlePage" name="totlePage" type="text" class="form-control" />
+            </td>
+        </tr>
+        <tr>
+            <td class="formTitle" style="width:68px;">过期时间</td>
+            <td class="formValue">
+                <input id="expiredDate" name="expiredDate" type="text" class="form-control input-wdatepicker Wdate" onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd' })" />
+            </td>
+            <td class="formTitle"></td>
+            <td class="formValue"></td>
+
+        </tr>
+    </table>
+</div>
+
+@using (Html.Dialog())
+{
+    <form id="form1">
+        <div style="margin-left 10px; margin-right 10px;">
+            <div style=" margin-right 30px;">
+                <table class="form">
+                    <tr>
+                        <td class="formTitle">公司名称</td>
+                        <td class="formValue">
+                            <input id="Name" name="name" type="text" class="form-control required" placeholder="请输入名称" data-bind="value:Model().name" />
+                        </td>
+                        <td class="formTitle">纳税人识别号</td>
+                        <td class="formValue">
+                            <input id="sh" name="sh" type="text" class="form-control required" placeholder="请输入纳税人识别号" data-bind="value:Model().sh" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="formTitle">开户行及账号</td>
+                        <td class="formValue">
+                            <input id="zh" name="zh" type="text" class="form-control" data-bind="value:Model().zh" />
+                        </td>
+                        <td class="formTitle">地址</td>
+                        <td class="formValue">
+                            <input id="dz" name="dz" type="text" class="form-control" data-bind="value:Model().dz" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="formTitle">公司模式</td>
+                        <td class="formValue">
+                            <select id="Mode" name="Mode" class="form-control required" data-bind="value:Model().Mode">
+                                <option value="">--请选择--</option>
+                                <option value="0">企业</option>
+                                <option value="1">会计师事务所</option>
+                            </select>
+                        </td>
+                        <td class="formTitle">父公司</td>
+                        <td class="formValue">
+                            <select id="ParentID" name="ParentID" class="form-control" data-bind="value:Model().ParentID">
+                                @this.SelectOptions(this.ViewBag.CompanyList)
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                    <tr>
+                        <td class="formTitle">联系人</td>
+                        <td class="formValue">
+                            <input id="lxr" name="lxr" type="text" class="form-control" data-bind="value:Model().lxr" />
+                        </td>
+                        <td class="formTitle">电话</td>
+                        <td class="formValue">
+                            <input id="dh" name="dh" type="text" class="form-control" data-bind="value:Model().dh" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="formTitle">邮箱</td>
+                        <td class="formValue">
+                            <input id="Email" name="email" type="text" class="form-control" data-bind="value:Model().email" />
+                        </td>
+                        <td class="formTitle">剩余数据提示</td>
+                        <td class="formValue">
+                            <input id="expirealertpages" name="expirealertpages" type="text" class="form-control" data-bind="value:Model().expirealertpages" />
+                        </td>
+
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </form>
+}
+
+<script>
+    $(function(){
+        $(document).on("click",".AddtotlePagey",function(){
+            var totle=$(".content-totlePage").clone().show();
+            Z.OpenDialog(totle, "添加授权量", { width: 600, height:220,OnBeforeOK:function(){
+                alert();
+            } }, function (x) {
+                console.log(x);
+
+            });
+        });
+    })
+</script>

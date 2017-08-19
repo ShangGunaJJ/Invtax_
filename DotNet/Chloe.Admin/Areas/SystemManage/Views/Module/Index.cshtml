@@ -1,0 +1,166 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Index.cshtml";
+}
+
+@this.Partial("Index-js")
+
+<div class="topPanel">
+    <div class="toolbar">
+        <div class="btn-group">
+            <a class="btn btn-primary" onclick="$ace.reload()"><span class="glyphicon glyphicon-refresh"></span></a>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-primary" data-bind="click:Edit,attr:{disabled:!DataTable.SelectedModel()}"><i class="fa fa-pencil-square-o"></i>修改菜单</button>
+            <button class="btn btn-primary" data-bind="click:Delete,attr:{disabled:!DataTable.SelectedModel()}"><i class="fa fa-trash-o"></i>删除菜单</button>
+            <button class="btn btn-primary" data-bind="click:Add"><i class="fa fa-plus"></i>新建菜单</button>
+        </div>
+    </div>
+    <div class="search">
+        <table>
+            <tr>
+                <td>
+                    <div class="input-group">
+                        <input id="txt_keyword" type="text" class="form-control" placeholder="请输入要查询关键字" style="width: 200px;" data-bind="value:SearchModel().keyword">
+                        <span class="input-group-btn">
+                            <button id="btn_search" type="button" class="btn  btn-primary" data-bind="click:Search"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+
+
+<div class="table-responsive">
+    <table class="table table-hover" data-bind="with:DataTable">
+        <thead>
+            <tr>
+                <th style="width:20px;"></th>
+                <th>名称</th>
+                <th>连接</th>
+                <th>打开方式</th>
+                <th>菜单</th>
+                <th>展开</th>
+                <th>公共</th>
+                <th>有效</th>
+                <th>排序</th>
+                <th>介绍</th>
+            </tr>
+        </thead>
+
+        <tbody data-bind="foreach:Models">
+            <tr data-bind="click:$parent.SelectRow, attr: { id: $data.Id, 'parent-id': $data.ParentId }">
+                <td data-bind="text:$parent.GetOrdinal($index())"></td>
+                <td>
+                    <!-- ko if: $data.HasChildren -->
+                    <div onclick="expandChildren(this);" style="left:0px;cursor:pointer;" class="glyphicon glyphicon-triangle-bottom" data-bind=""></div>
+                    <!-- /ko -->
+                    <!-- ko if: !$data.HasChildren() -->
+                    <div style="width:12px;height:12px;display:inline-block;"></div>
+                    <!-- /ko -->
+
+                    <span data-bind="html:appendRetract($data.Level())"></span>
+                    <span data-bind="text:$data.Data.Name">></span>
+                </td>
+                <td data-bind="text:$data.Data.UrlAddress"></td>
+                <td data-bind="text:$root.FormatOpenTarget($data.Data.OpenTarget())"></td>
+                <td data-bind="boolString:$data.Data.IsMenu"></td>
+                <td data-bind="boolString:$data.Data.IsExpand"></td>
+                <td data-bind="boolString:$data.Data.IsPublic"></td>
+                <td data-bind="boolString:$data.Data.IsEnabled"></td>
+                <td data-bind="boolString:$data.Data.SortCode"></td>
+                <td data-bind="text:$data.Data.Description"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+@using (Html.Dialog())
+{
+
+
+    <form id="form1">
+        <table class="form">
+            <tr>
+                <td class="formTitle">上级</td>
+                <td class="formValue">
+                    <select id="ParentId" name="ParentId" class="form-control" data-bind="options:$root.Menus,optionsText:'text',optionsValue:'id', optionsCaption:'根节点',value:Model().ParentId"></select>
+                </td>
+                <td class="formTitle">名称</td>
+                <td class="formValue">
+                    <input id="Name" name="Name" type="text" class="form-control required" placeholder="请输入名称" data-bind="value:Model().Name" />
+                </td>
+            </tr>
+            <tr>
+                <td class="formTitle">连接</td>
+                <td class="formValue">
+                    <input id="UrlAddress" name="UrlAddress" type="text" class="form-control" data-bind="value:Model().UrlAddress" />
+                </td>
+                <td class="formTitle">打开方式</td>
+                <td class="formValue">
+                    <select id="OpenTarget" name="OpenTarget" class="form-control required" data-bind="value:Model().OpenTarget">
+                        <option value="">==请选择==</option>
+                        <option value="expand" title="expand">无页面</option>
+                        <option value="iframe" title="iframe">框架页</option>
+                        <option value="open" title="open">弹出页</option>
+                        <option value="blank" title="blank">新窗口</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="formTitle">图标</td>
+                <td class="formValue">
+                    <div class="input-group">
+                        <input id="Icon" name="Icon" type="text" class="form-control" data-bind="value:Model().Icon">
+                        <span class="input-group-btn">
+                            <a class="btn  btn-primary"><i class="fa fa-ellipsis-h"></i></a>
+                        </span>
+                    </div>
+                </td>
+                <td class="formTitle">排序</td>
+                <td class="formValue">
+                    <input id="SortCode" name="SortCode" type="text" class="form-control" placeholder="请输入排序" data-bind="value:Model().SortCode" />
+                </td>
+            </tr>
+            <tr>
+                <td class="formTitle" style="height: 35px;">选项</td>
+                <td class="formValue" colspan="3" style="padding-top: 1px;">
+                    <div class="ckbox">
+                        <input id="IsMenu" name="IsMenu" type="checkbox" data-bind="checked:Model().IsMenu"><label for="IsMenu">菜单</label>
+                    </div>
+                    <div class="ckbox">
+                        <input id="IsPublic" name="IsPublic" type="checkbox" data-bind="checked:Model().IsPublic"><label for="IsPublic">公共</label>
+                    </div>
+                    <div class="ckbox">
+                        <input id="IsExpand" name="IsExpand" type="checkbox" data-bind="checked:Model().IsExpand"><label for="IsExpand">展开</label>
+                    </div>
+                    <div class="ckbox">
+                        <input id="IsEnabled" name="IsEnabled" type="checkbox" data-bind="checked:Model().IsEnabled"><label for="IsEnabled">有效</label>
+                    </div>
+                    @*<div class="ckbox">
+                            <input id="AllowEdit" name="AllowEdit" type="checkbox"><label for="AllowEdit">允许编辑</label>
+                        </div>
+                        <div class="ckbox">
+                            <input id="AllowDelete" name="AllowDelete" type="checkbox"><label for="AllowDelete">允许删除</label>
+                        </div>*@
+                </td>
+            </tr>
+            <tr>
+                <td class="formTitle" valign="top" style="padding-top: 5px;">
+                    介绍
+                </td>
+                <td class="formValue" colspan="3">
+                    <textarea id="Description" name="Descriptions" class="form-control" style="height: 100px;" data-bind="value:Model().Description"></textarea>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+
+}

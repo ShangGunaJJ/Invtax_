@@ -1,0 +1,9 @@
+C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\Ace-master\src\DotNet\Ace\bin\Release\Ace.dll
+C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\Ace-master\src\DotNet\Ace\bin\Release\Ace.pdb
+C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\Ace-master\src\DotNet\Ace\bin\Release\DotNet.Utilities.dll
+C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\Ace-master\src\DotNet\Ace\bin\Release\Newtonsoft.Json.dll
+C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\Ace-master\src\DotNet\Ace\bin\Release\DotNet.Utilities.xml
+C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\Ace-master\src\DotNet\Ace\bin\Release\Newtonsoft.Json.xml
+C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\Ace-master\src\DotNet\Ace\obj\Release\Ace.csprojResolveAssemblyReference.cache
+C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\Ace-master\src\DotNet\Ace\obj\Release\Ace.dll
+C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\Ace-master\src\DotNet\Ace\obj\Release\Ace.pdb

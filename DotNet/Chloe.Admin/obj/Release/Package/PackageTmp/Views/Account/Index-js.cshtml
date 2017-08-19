@@ -1,0 +1,63 @@
+﻿<script type="text/javascript">
+
+    var _vm;
+    $(function () {
+        var vm = new ViewModel();
+        _vm = vm;
+        ko.applyBindings(vm);
+        vm.Init();
+    });
+
+    function ViewModel() {
+        var me = this;
+        ViewModelBase.call(me);
+        vmExtend.call(me);
+
+        me.User = _ob(@this.Raw(JsonHelper.Serialize(this.ViewBag.UserInfo.User)));
+        me.PasswordModel = _ob({});
+
+        me.SaveUserInfo = function () {
+            if (!$('#userInfo').formValid()) {
+                return false;
+            }
+
+            var model = me.User();
+            $ace.post("@this.ContentUrl("~/Account/ModifyInfo")", model, function (result) {
+                $ace.msg(result.Msg);
+            }
+           );
+        }
+
+        me.ChangePassword = function () {
+            if (!$('#changePasswordForm').formValid()) {
+                return false;
+            }
+
+            var model = me.PasswordModel();
+
+            if (!model.NewPassword || model.NewPassword != model.NewPasswordConfirm) {
+                $ace.alert("新密码与确认密码不相等");
+                return;
+            }
+
+            var params = { oldPassword: model.OldPassword, newPassword: model.NewPassword };
+            $ace.post("@this.ContentUrl("~/Account/ChangePassword")", params, function (result) {
+                $ace.msg(result.Msg);
+                me.PasswordModel({});
+            }
+           );
+        }
+    }
+    function vmExtend() {
+        var me = this;
+
+        me.Init = function () {
+            me.LoadModels();
+        }
+
+        me.LoadModels = function (page) {
+
+        }
+    }
+
+</script>

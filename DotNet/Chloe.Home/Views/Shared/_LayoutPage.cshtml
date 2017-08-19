@@ -1,0 +1,84 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta name="keywords" content="Chloe,ORM,.NET,Core,C#,数据库访问,性能高,高性能,好用">
+    <meta name="description" content="A lightweight and high-performance Object/Relational Mapping(ORM) library for .NET --C#">
+    <link rel="icon" href="@Url.Content("~/Content/images/ORMicon(200x200).png")" type="image/x-icon">
+    <title>@ViewBag.Title</title>
+    @ContentHelper.RefStyle("~/Content/bootstrap/bootstrap.min.css")
+    @ContentHelper.RefStyle("~/Content/css/font-awesome.min.css")
+    @ContentHelper.RefStyle("~/Content/css/layout-page.css")
+
+    @ContentHelper.RefScript("~/Content/jquery/jquery-1.11.1.min.js")
+    @ContentHelper.RefScript("~/Content/bootstrap/bootstrap.min.js")
+
+    <!-- header 必须 -->
+    @ContentHelper.RefScript("~/Content/js/jquery.backstretch.min.js")
+    @ContentHelper.RefScript("~/Content/js/header.js")
+
+    @ContentHelper.RefScript("~/Content/js/back-top.js")
+</head>
+<body>
+    <header class="header fixed clearfix navbar navbar-fixed-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="header-left clearfix">
+                        <div class="logo smooth-scroll">
+                            <a href="#banner"><img id="logo" style="width:60px;height:60px;" src="@UrlHelper.GenerateContentUrl("~/Content/images/ORMicon(200x200).png", this.Context)" alt="Chloe"></a>
+                        </div>
+                        <div class="site-name-and-slogan smooth-scroll">
+                            <div class="site-name"><a href="#">Chloe</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="header-right clearfix">
+                        <div class="main-navigation animated">
+
+                            <nav class="navbar navbar-default" role="navigation">
+                                <div class="container-fluid">
+                                    <div class="navbar-header">
+                                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+                                            <span class="sr-only">Toggle navigation</span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                            <span class="icon-bar"></span>
+                                        </button>
+                                    </div>
+                                    <div class="collapse navbar-collapse  scrollspy smooth-scroll" id="navbar-collapse-1">
+                                        <ul class="nav navbar-nav navbar-right">
+                                            <li class="active"><a ref-id="home" href="@this.Url.Action("Index","Home")">Home</a></li>
+                                            <li><a ref-id="documentation" href="@this.Url.Content("~/Wiki/Document")">Documentation</a></li>
+                                            <li><a ref-id="upgrade-notes" href="@this.Url.Action("UpgradeNotes", "Home", new { id = "3325175022200291328" })">Upgrade notes</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    @RenderBody()
+    <footer>
+        <div style="text-align:center;">
+            <p style="margin:0;color: #828282">
+                QQ群：<span>325936847 只要您<strong>愿意</strong>即可加入</span><br />
+                博客：<a href="http://www.cnblogs.com/so9527" target="_blank">http://www.cnblogs.com/so9527</a><br />
+                GitHub：<a href="https://github.com/shuxinqin/Chloe" target="_blank">https://github.com/shuxinqin/Chloe</a><br />
+            </p>
+            <p class="copyright-text">
+                Copyright &copy; 2016 Chloe.ORM
+            </p>
+        </div>
+    </footer>
+    @RenderSection("ScriptAndStyle", required: false)
+</body>
+</html>

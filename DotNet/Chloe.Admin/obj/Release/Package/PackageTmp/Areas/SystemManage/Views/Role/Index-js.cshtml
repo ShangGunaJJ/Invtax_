@@ -1,0 +1,128 @@
+﻿<script>
+
+    var _vm;
+    $(function () {
+        var vm = new ViewModel();
+        _vm = vm;
+        ko.applyBindings(vm);
+        vm.Init();
+    });
+
+    function ViewModel() {
+        var me = this;
+        ViewModelBase.call(me);
+        vmExtend.call(me);
+
+        me.DeleteUrl = "@this.ContentUrl("~/SystemManage/Role/Delete")";
+        me.DataTable = new DataTableBase(me);
+        me.Dialog = new Dialog(me);
+    }
+    function vmExtend() {
+        var me = this;
+
+        me.Init = function () {
+            me.LoadModels();
+        }
+
+        me.LoadModels = function (page) {
+            me.DataTable.SelectedModel(null);
+            var data = me.SearchModel();
+            data.page = page || 1;
+            $ace.get("@this.ContentUrl("~/SystemManage/Role/GetModels")", data, function (result) {
+                me.DataTable.SetModels(result.Data);
+            }
+          );
+        }
+    }
+
+    function Dialog(vm) {
+        var me = this;
+        DialogBase.call(me);
+
+
+        me.OnOpen = function () {
+            var model = me.EditModel();
+            if (model) {
+                var bindModel = $ko.toJS(model);
+                me.Model(bindModel);
+            }
+            else {
+                me.Model({ IsEnabled: true });
+            }
+
+            initControl();
+
+            var roleId = me.Model().Id;
+            $("#permissionTree").html(null);
+            $("#permissionTree").treeview({
+                height: 444,
+                showcheck: true,
+                url: "/SystemManage/RoleAuthorize/GetPermissionTree",
+                param: { roleId: roleId },
+                cbiconpath: "@this.ContentUrl("/Content/wdtree/images/icons/")"
+            });
+        }
+        me.OnSave = function () {
+            var model = me.Model();
+
+            if (!$('#form1').formValid()) {
+                return false;
+            }
+
+            var permissionIdArr = $("#permissionTree").getCheckedNodes();
+            var permissionIds = "";
+            var c = "";
+            for (var i = 0; i < permissionIdArr.length; i++) {
+                permissionIds += c + permissionIdArr[i];
+                c = ",";
+            }
+            model.permissionIds = permissionIds;
+
+            if (me.EditModel()) {
+                $ace.post("@this.ContentUrl("~/SystemManage/Role/Update")", model, function (result) {
+                    $ace.msg(result.Msg);
+                    me.Close();
+                    vm.LoadModels();
+                }
+               );
+            }
+            else {
+                $ace.post("@this.ContentUrl("~/SystemManage/Role/Add")", model, function (result) {
+                    $ace.msg(result.Msg);
+                    me.Close();
+                    vm.LoadModels();
+                }
+             );
+            }
+        }
+
+        function initControl() {
+            var w = $('#wizard').wizard();
+            w.on('change', function (e, data) {
+                var $finish = $("#btn_finish");
+                var $next = $("#btn_next");
+                if (data.direction == "next") {
+                    switch (data.step) {
+                        case 1:
+                            if (!$('#form1').formValid()) {
+                                return false;
+                            }
+                            $finish.show();
+                            $next.hide();
+                            break;
+                        default:
+                            break;
+                    }
+                } else {
+                    $finish.hide();
+                    $next.show();
+                }
+            });
+        }
+
+    }
+
+
+
+</script>
+

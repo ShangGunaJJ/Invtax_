@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C7DFA311-7C0C-4EB0-802E-B4D11043D54B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Ace</RootNamespace>
+    <AssemblyName>Ace</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DotNet.Utilities">
+      <HintPath>..\lib\DotNet.Utilities\DotNet.Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\lib\Newtonsoft\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AceCheck.cs" />
+    <Compile Include="AceUtils.cs" />
+    <Compile Include="Application\AppServiceExtension.cs" />
+    <Compile Include="Application\AppServiceFactory.cs" />
+    <Compile Include="Application\EmpyDisposeAppService.cs" />
+    <Compile Include="Application\IAceSessionAppService.cs" />
+    <Compile Include="Application\IAppService.cs" />
+    <Compile Include="Application\IAppServiceFactory.cs" />
+    <Compile Include="Application\IAppServiceFactoryProvider.cs" />
+    <Compile Include="Application\ValidationModel.cs" />
+    <Compile Include="Attributes\DisposableAttribute.cs" />
+    <Compile Include="Attributes\ObsoleteApiAttribute.cs" />
+    <Compile Include="DateTime\DateTimeHelper.cs" />
+    <Compile Include="AceSession`.cs" />
+    <Compile Include="Exceptions\InvalidDataException.cs" />
+    <Compile Include="Extensions\CheckExtension.cs" />
+    <Compile Include="IdStrategy\IdHelper.cs" />
+    <Compile Include="IdStrategy\Snowflake.cs" />
+    <Compile Include="JsonHelper.cs" />
+    <Compile Include="PagedData.cs" />
+    <Compile Include="Pagination.cs" />
+    <Compile Include="Result.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResultStatus.cs" />
+    <Compile Include="Result`.cs" />
+    <Compile Include="Security\DESEncrypt.cs" />
+    <Compile Include="Security\PasswordHelper.cs" />
+    <Compile Include="VerifyCode\VerifyCodeGenerator.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

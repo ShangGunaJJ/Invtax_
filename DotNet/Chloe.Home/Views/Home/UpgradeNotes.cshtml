@@ -1,0 +1,23 @@
+﻿@{
+    WikiDocumentDetailModel doc = this.ViewBag.Document;
+    ViewBag.Title = doc.Title;
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+@using Chloe.Application.Models.WikiDocument;
+@section ScriptAndStyle{
+    @Html.RefStyle("~/Content/editormd/css/editormd.min.css")
+    @Html.RefScript("~/Content/editormd/lib/prettify.min.js")
+}
+<script>
+    $(function () {
+        $(".bodyContent pre").addClass("prettyprint");/* linenums */
+        PR.prettyPrint();
+    });
+</script>
+<div style="margin-top:100px;width:800px;min-height:750px; margin-left: auto;margin-right: auto;border: 1px solid #d3d3d3;" class="mainwrapper" id="upgrade-notes">
+    <div id="content">
+        <div id="bodyContent" class="bodyContent markdown-body editormd-preview-container">
+            @Html.Raw(doc.HtmlContent)
+        </div>
+    </div>
+</div>
