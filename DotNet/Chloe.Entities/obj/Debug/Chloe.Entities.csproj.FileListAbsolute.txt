@@ -12,3 +12,9 @@ C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\Ace-master\src\DotNet\Chlo
 C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\Ace-master\src\DotNet\Chloe.Entities\obj\Debug\Chloe.Entities.dll
 C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\Ace-master\src\DotNet\Chloe.Entities\obj\Debug\Chloe.Entities.pdb
 C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\Ace-master\src\DotNet\Chloe.Entities\obj\Debug\Chloe.Entities.csprojResolveAssemblyReference.cache
+C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\invtax\Invtax_\DotNet\Chloe.Entities\bin\Debug\Chloe.Entities.dll
+C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\invtax\Invtax_\DotNet\Chloe.Entities\bin\Debug\Chloe.Entities.pdb
+C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\invtax\Invtax_\DotNet\Chloe.Entities\bin\Debug\Chloe.dll
+C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\invtax\Invtax_\DotNet\Chloe.Entities\bin\Debug\Chloe.Oracle.dll
+C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\invtax\Invtax_\DotNet\Chloe.Entities\obj\Debug\Chloe.Entities.dll
+C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\invtax\Invtax_\DotNet\Chloe.Entities\obj\Debug\Chloe.Entities.pdb

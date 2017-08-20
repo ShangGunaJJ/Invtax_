@@ -49,6 +49,7 @@
     <Compile Include="Enums\Gender.cs" />
     <Compile Include="Enums\LogType.cs" />
     <Compile Include="Enums\UserType.cs" />
+    <Compile Include="inv_addlicences_log.cs" />
     <Compile Include="inv_company.cs" />
     <Compile Include="inv_detail.cs" />
     <Compile Include="inv_main.cs" />

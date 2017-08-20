@@ -21,7 +21,7 @@
                 datasets: [
                     {
                         label: "My First dataset",
-                        fillColor: "rgba(220,220,220,0.2)",
+                        fillColor: "rgba(220,220,220,0.2)",          
                         strokeColor: "rgba(220,220,220,1)",
                         pointColor: "rgba(220,220,220,1)",
                         pointStrokeColor: "#fff",
@@ -147,8 +147,9 @@
                             <ul>
                                 <li><a href="#">使用单位</a><span class="time">@this.ViewBag.CurrentSession.CompanyName</span></li>
                                 <li><a href="#">纳税人识别号</a><span class="time">@this.ViewBag.CurrentSession.SH</span></li>
-                                <li><a href="#">授权查验量</a><span class="time">1000</span></li>
-                                <li><a href="#">剩余查验量</a><span class="time">950</span></li>
+                                <li><a href="#">授权查验量</a><span class="time">@this.ViewBag.totle</span></li>
+                                <li><a href="#">已使用查验量</a><span class="time">@this.ViewBag.UseTotle</span></li>
+                                <li><a href="#">剩余查验量</a><span class="time">@this.ViewBag.remaining</span></li>
                             </ul>
                         </div>
                     </div>

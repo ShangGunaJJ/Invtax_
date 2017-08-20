@@ -87,19 +87,19 @@
         <tr>
             <td class="formTitle" style="width:68px;">选择公司</td>
             <td class="formValue">
-                <select id="SelectCompany" name="SelectCompany" class="form-control">
+                <select name="SelectCompany" class="form-control SelectCompany">
                     @this.SelectOptions(this.ViewBag.CompanyList)
                 </select>
             </td>
             <td class="formTitle">授权量</td>
             <td class="formValue">
-                <input id="totlePage" name="totlePage" type="text" class="form-control" />
+                <input name="totlePage" type="text" class="form-control totlePage" />
             </td>
         </tr>
         <tr>
             <td class="formTitle" style="width:68px;">过期时间</td>
             <td class="formValue">
-                <input id="expiredDate" name="expiredDate" type="text" class="form-control input-wdatepicker Wdate" onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd' })" />
+                <input name="expiredDate" type="text" class="form-control input-wdatepicker Wdate expiredDate" onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd' })" />
             </td>
             <td class="formTitle"></td>
             <td class="formValue"></td>
@@ -185,8 +185,16 @@
             Z.OpenDialog(totle, "添加授权量", { width: 600, height:220,OnBeforeOK:function(){
                 alert();
             } }, function (x) {
-                console.log(x);
-
+                var companyid=x.find(".SelectCompany").val();
+                var totlePage=x.find(".totlePage").val();
+                var expiredDate=x.find(".expiredDate").val();
+                if(!companyid||!totlePage||!expiredDate){
+                    $ace.alert("授权公司、授权量和过期时间不可为空！");
+                    return false;
+                }
+                $ace.post("@this.ContentUrl("~/SystemManage/Company/Addtotle")",{companyid:companyid, totle:totlePage,date:expiredDate},function(x){
+                    $ace,alert(x.Msg);
+                })
             });
         });
     })

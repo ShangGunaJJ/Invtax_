@@ -38,8 +38,14 @@ namespace Chloe.Admin.Controllers
             this.ViewBag.ordinary = ordinary;
             this.ViewBag.electronic = electronic;
             this.ViewBag.ordinaryG = ordinaryG;
+            var CompanyAppService = this.CreateService<ICompanyAppService>();
+            int userPages = CompanyAppService.GetUserPages();
 
+            inv_company com = CompanyAppService.GetUserCompany();
 
+            this.ViewBag.totle = com.totlePage;
+            this.ViewBag.UseTotle = userPages;
+            this.ViewBag.remaining = com.totlePage - userPages;
             this.ViewBag.Con = InvService.GetNotice();
 
             return View();

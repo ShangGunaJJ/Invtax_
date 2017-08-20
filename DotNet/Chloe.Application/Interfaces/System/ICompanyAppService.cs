@@ -23,5 +23,6 @@ namespace Chloe.Application.Interfaces.System
         int UpdataTryKey(string Key);
         void Delete(string id);
         string GetTryKey();
+        int AddTotleforCompany(string companyid, int totle, string date);
     }
 }

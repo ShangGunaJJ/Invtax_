@@ -37,6 +37,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Areas/SystemManage/Views/Role/Index.cshtml">
       <publishTime>12/21/2016 11:23:45</publishTime>
     </File>
+    <File Include="Areas/SystemManage/Views/Scan/ImportExecl.cshtml">
+      <publishTime>08/20/2017 16:24:35</publishTime>
+    </File>
     <File Include="Areas/SystemManage/Views/Scan/Index.cshtml">
       <publishTime>08/07/2017 03:06:00</publishTime>
     </File>

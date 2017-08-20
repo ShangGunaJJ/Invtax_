@@ -77,6 +77,22 @@ namespace Chloe.Admin.Areas.SystemManage.Controllers
             this.CreateService<ICompanyAppService>().Delete(id);
             return this.DeleteSuccessMsg();
         }
+        [HttpPost]
+        public ActionResult Addtotle(string companyid, int totle, string Date)
+        {
+            Result<object> result = new Result<object>();
+            if (this.CreateService<ICompanyAppService>().AddTotleforCompany(companyid, totle, Date) > 0)
+            {
+                result.Status = ResultStatus.OK;
+                result.Msg = "添加授权成功！";
+            }
+            else
+            {
+                result.Status = ResultStatus.Failed;
+                result.Msg = "添加授权失败！";
+            }
+            return this.JsonContent(result);
+        }
     }
 
 }

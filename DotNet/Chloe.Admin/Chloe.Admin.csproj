@@ -111,6 +111,7 @@
     <Content Include="Content\editormd\plugins\table-dialog\table-dialog.js" />
     <Content Include="Content\editormd\plugins\test-plugin\test-plugin.js" />
     <Content Include="Content\css\index.css" />
+    <Content Include="Content\js\jquery.form.js" />
     <Content Include="Content\richuxisan\const.js" />
     <Content Include="Content\richuxisan\global.js" />
     <Content Include="Content\richuxisan\index.css" />

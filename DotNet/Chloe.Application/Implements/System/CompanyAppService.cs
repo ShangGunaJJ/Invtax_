@@ -105,5 +105,24 @@ namespace Chloe.Application.Implements.System
             int mcount = this.DbContext.Query<inv_main>().Where((c) => c.companyguid == this.Session.CompanyID && c.checkstauts == "待查验").Count();
             return (taxcount + mcount);
         }
+
+        public int AddTotleforCompany(string companyid, int totle, string date)
+        {
+            inv_addlicences_log entity = new inv_addlicences_log();
+            //input.Validate();
+            entity.companyguid = companyid;
+            entity.createtime = DateTime.Now;
+            entity.createuser = this.Session.UserId;
+            entity.totlePage = totle;
+            entity.expiredDate = DateTime.Parse(date);
+            if (this.DbContext.Insert(entity).id > 0)
+            {
+                return this.DbContext.Update<inv_company>(a => a.Id == companyid, a => new inv_company()
+                {
+                    totlePage = a.totlePage + totle
+                });
+            }
+            return 0;
+        }
     }
 }
