@@ -127,7 +127,7 @@ EMW.Const = {
                 messager.Send(message);
             }
         }
-    },EditFile:function(id){
+    }, EditFile: function (id) {
         EMW.API.DocumentAPI.IsExistFile(id, function (result) {
             if (result) {
                 var officeModal = $('<div class="editorModal" id="editor-modal">' +
@@ -509,7 +509,7 @@ var Z = {
     },
     Join: function (arr, separator) {
         return arr.join(separator);
-    },  
+    },
     Days: function (d1, d2) {
         if (d1 instanceof Date && d2 instanceof Date) {
             var x = new Date(d1.getFullYear(), d1.getMonth(), d1.getDate());
@@ -532,7 +532,7 @@ var Z = {
         return false;
     },
     ParseData: function (obj) {
-        if (obj.Code!=undefined) return obj;
+        if (obj.Code != undefined) return obj;
         var data = {};
         data.MaxRow = obj.MaxRow;
         data.Rows = [];
@@ -606,7 +606,7 @@ var Z = {
         return false;
     },
     Progress: function (s) {
-        
+
     },
     Lock: function (s) {
         var htmls = ["<div style='color: white;position: absolute;top: 45%;left: 48%;'><div class='preloader'>",
@@ -728,12 +728,12 @@ var Z = {
     ShowGrid: function (id, param, onok) {
         var url = id;
         if ($.isNumeric(id)) url = "/page/" + id;
-        Z.OpenDialog(url,"", param, onok || param);
+        Z.OpenDialog(url, "", param, onok || param);
     },
     AddDataFromGrid: function (rept, gridIDOrUrl, fields) {
 
     },
-    ReadExcel: function (fn,isallsheet) {
+    ReadExcel: function (fn, isallsheet) {
         var dia = EMW.UI.Dialog({
             url: "/Pages/Talker/uploadFile.html",
             showHeader: false,
@@ -752,27 +752,27 @@ var Z = {
             }
         });
 
-    }, Refresh: function (pageid,params) {
+    }, Refresh: function (pageid, params) {
         if ($.isNumeric(pageid)) pageid = "/Page/" + pageid;
         var win = GetParam(0);
         win.Arguments = params;
         window.location.href = pageid;
-       
+
     },
     ExportData: function () {
 
     },
-    Export: function (name, data,callback) {//DataTable,fields
+    Export: function (name, data, callback) {//DataTable,fields
         data = EMW.Const.Json2Str(data);
         EMW.API.UserData.SaveExcel2(name, data, function (x) {
             if (!x) {
-                return callback&&callback();
+                return callback && callback();
             }
             window.open("/resource/" + x);
             callback && callback(x);
         });
     },
-    ExportTemplate: function (name, data,Sheets, callback) {
+    ExportTemplate: function (name, data, Sheets, callback) {
         data = EMW.Const.Json2Str(data);
         Sheets = EMW.Const.Json2Str(Sheets);
         EMW.API.UserData.SaveExcelSheets(name, data, Sheets, function (x) {
@@ -1810,7 +1810,7 @@ function GetParam(index) {
     }
     return null;
 }
-function SetParam(index,val) {
+function SetParam(index, val) {
     if (frameElement && frameElement.params) {
         frameElement.params["param" + index] = val;
     }

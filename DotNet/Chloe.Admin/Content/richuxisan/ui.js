@@ -153,8 +153,8 @@ $.addNamespace("EMW.UI");
                 curWind.ChildWindows = [];
             }
             if (opts.onlyChild)
-            var removeChildWind = curWind.ChildWindows[0];
-            
+                var removeChildWind = curWind.ChildWindows[0];
+
             curWind.ChildWindows.push(wind);
             OpenWind(wind);
             if (opts.onlyChild && removeChildWind) {
@@ -267,13 +267,13 @@ $.addNamespace("EMW.UI");
 
             topOpts.left = left;
             var panel = topWind.panel;
-                panel.animate({ left: left }, "fast");//, top: t
+            panel.animate({ left: left }, "fast");//, top: t
 
             left = topOpts.width + left - joinWidth;//交叉部分6px
             opts.left = left;
             panel = wind.panel;
             panel.animate({ left: left, "z-index": topOpts.zIndex - 2 }, "fast");//, top: t
-            
+
             ResetTopWindowToolPos(topWind, wind);
 
             CoverTop(topWind, wind);
@@ -1179,7 +1179,7 @@ EMW.EventArgument = function (data) {
             html.push("<label><span class='icon-action_done'></span><input type='checkbox' isall=\"true\"></label>");
             html.push("</td>");
             for (var i = 0; i < cols.length; i++) {
-               
+
                 var col = cols[i];
                 if (this.Options.showDetails && col.Field == 'Memo') continue;
                 html.push("<td style='width:" + (col.Width || 120) + "px'>");
@@ -1188,7 +1188,7 @@ EMW.EventArgument = function (data) {
                 html.push("</td>");
             }
         }
-        
+
 
         html.push("<td></td></tr></thead><tbody></tbody>");
         this.Element.html(html.join(""));
@@ -1262,18 +1262,17 @@ EMW.EventArgument = function (data) {
             }
         }
     }
-    GridList.prototype.aniClick = function (elem, name,cssColor, type) {
+    GridList.prototype.aniClick = function (elem, name, cssColor, type) {
         if (elem.is(".ImgDetails")) {
-            elem.parent(".show_details1").attr('name', name).css("color",cssColor);
+            elem.parent(".show_details1").attr('name', name).css("color", cssColor);
         } else {
             elem.attr('name', name).css("color", cssColor);
         }
-        switch (type)
-        {
+        switch (type) {
             case 1:
                 if (elem.is(".ImgDetails")) {
                     elem.addClass("active");
-                } else {                  
+                } else {
                     elem.find(".ImgDetails").addClass("active")
                 }
                 break;
@@ -1282,7 +1281,7 @@ EMW.EventArgument = function (data) {
                     elem.removeClass("active");
                 } else {
                     elem.find(".ImgDetails").removeClass("active");
-                }    
+                }
                 break;
             default:
                 break;
@@ -1294,7 +1293,7 @@ EMW.EventArgument = function (data) {
         if (elem.is(".show_details")) {
 
             if (elem.attr("name") == "show_details") {
-                row.find("td:first").attr('rowspan',2)
+                row.find("td:first").attr('rowspan', 2)
                 row.next().show();
                 elem.text('收起').attr('name', 'hide_details')
             } else {
@@ -1302,21 +1301,20 @@ EMW.EventArgument = function (data) {
                 row.next().hide();
                 elem.text('查看详情').attr('name', 'show_details')
             }
-            return ;
-        }       
+            return;
+        }
         if (elem.is(".show_details1") || elem.is(".ImgDetails")) {
             var eleDiv = elem.parents("tr").next().find(".aniDetails");
             var shiwDat = $("table tbody td > span.show_details1");
-            if (elem.attr("name") == "show_details")
-            {                
+            if (elem.attr("name") == "show_details") {
                 row.next().slideDown();
-                eleDiv.slideDown(250, "linear", function () {shiwDat.removeClass("active");});
+                eleDiv.slideDown(250, "linear", function () { shiwDat.removeClass("active"); });
                 if ($(eleDiv).hasClass("active")) eleDiv.addClass("act");
-                this.aniClick(elem,"hide_details","#333C48",1);
-            } else{ 
+                this.aniClick(elem, "hide_details", "#333C48", 1);
+            } else {
                 eleDiv.removeClass("active").slideUp(250);
                 row.next().slideUp();
-                this.aniClick(elem, "show_details","#9298A0", 2);    
+                this.aniClick(elem, "show_details", "#9298A0", 2);
             }
             return;
         }
@@ -1496,11 +1494,11 @@ EMW.EventArgument = function (data) {
         } else {
             var extraElem = this.Options.showDetails ? '<span class="show_details" name="show_details">查看详情</span>' : '';
             html.push("<td>" + extraElem + "</td></tr>");
-        }               
+        }
         if (this.Options.showDetails) {
-            var colspan = cols.length+1 || 0
+            var colspan = cols.length + 1 || 0
             if (typeDetails) {
-                html.push("<tr style='color: #999;display:none;height:0' class='pageSetup'><td style='white-space: pre-wrap;height:0;padding:0;' colspan=" + colspan + "><div class='aniDetails active'>" + data.Memo+"</div>");
+                html.push("<tr style='color: #999;display:none;height:0' class='pageSetup'><td style='white-space: pre-wrap;height:0;padding:0;' colspan=" + colspan + "><div class='aniDetails active'>" + data.Memo + "</div>");
             } else {
                 html.push("<tr style='color: #999;display:none;'><td style='white-space: pre-wrap;' colspan=" + colspan + ">" + data.Memo);
             }
@@ -2374,7 +2372,7 @@ EMW.EventArgument = function (data) {
                     var rowContext = this.renderRow(datagrid, table1, table2, i, row);
                     InitDraggable(datagrid, rowContext);
                 }
-                
+
                 this.endRowSpan(datagrid);
             },
             renderRow: function (datagrid, table1, table2, rowIndex, row, isfooter) {
@@ -3605,7 +3603,7 @@ EMW.EventArgument = function (data) {
 
 
         //if (!arg.IsStop) {
-       
+
         var selected = $(this).hasClass("grid-selected");
         if (!grid.options.multiple) {
             grid.ClearSelection();
@@ -3764,7 +3762,7 @@ EMW.EventArgument = function (data) {
             rowContext.Tr2.removeClass("grid-selected");
             rowContext.Tr1.find(">td.datagrid-cell-checkbox>input:checkbox").prop("checked", false);
             if (!disableEvent) {
-                grid.OnUnSelect(rowContext);               
+                grid.OnUnSelect(rowContext);
                 if (grid.options.multiple) {
                     var arg = new EMW.EventArgument(rowContext);
                     grid.sub = true;
@@ -4291,7 +4289,7 @@ EMW.EventArgument = function (data) {
         var pos = panel.offset();
         var width = opts.panelWidth || panel.width();
         if (document.body.clientWidth < (pos.left + width))
-            width = document.body.clientWidth - pos.left-2;
+            width = document.body.clientWidth - pos.left - 2;
         dropPanel.css({ left: pos.left, top: pos.top + panel.height(), width: width, height: opts.panelHeight });
         combox.DropPanel = dropPanel;
         BindData(combox);
@@ -4308,19 +4306,19 @@ EMW.EventArgument = function (data) {
             var arg = new EMW.EventArgument(item);
             arg.FromUser = true;
             if (opts.multiple) {
-                    if ($(this).hasClass("selected")) {
-                        $(this).removeClass("selected");
-                        opts.IsSet = true;
-                    } else {
-                        $(this).addClass("selected");
-                        opts.IsSet = false;
-                    }                    
-                    combox.Value = val;
-                    if (!val) {
-                        $(this).parent().children().removeClass("selected");
-                    }
-                    combox.SetText(item && item[opts.textField]);
-                    combox.OnChanged(arg);
+                if ($(this).hasClass("selected")) {
+                    $(this).removeClass("selected");
+                    opts.IsSet = true;
+                } else {
+                    $(this).addClass("selected");
+                    opts.IsSet = false;
+                }
+                combox.Value = val;
+                if (!val) {
+                    $(this).parent().children().removeClass("selected");
+                }
+                combox.SetText(item && item[opts.textField]);
+                combox.OnChanged(arg);
                 return false;
             }
             else {
@@ -4350,8 +4348,8 @@ EMW.EventArgument = function (data) {
         if (!opts.groupField) {
             if (opts.emptyItem) $("<div class='emw-comboxbox-item'>&nbsp;</div>").appendTo(dropPanel);
             for (var i = 0; i < items.length; i++) {
-                var item = items[i];  
-                var itemPanel = $("<div></div>").addClass("emw-comboxbox-item").data("data", item);           
+                var item = items[i];
+                var itemPanel = $("<div></div>").addClass("emw-comboxbox-item").data("data", item);
                 if (combox.IsSelected(item)) {
                     itemPanel.addClass("selected");
                 }
@@ -4359,7 +4357,7 @@ EMW.EventArgument = function (data) {
                 if (dropPanel) {
                     itemPanel.append('');
                 }
-                dropPanel.append(itemPanel);            
+                dropPanel.append(itemPanel);
             }
         }
         else {
@@ -4430,7 +4428,7 @@ EMW.EventArgument = function (data) {
             var items = this.options.Items;
             if (!items || !items.length) return;
             var item = this.GetSelected();
-            var text="";
+            var text = "";
             if (this.options.multiple) {
                 for (var i = 0; i < item.length; i++) {
                     if (i == (item.length - 1)) this.options.separator = "";
@@ -4447,11 +4445,10 @@ EMW.EventArgument = function (data) {
     }
 
     Combobox.prototype.SetText = function (text) {
-        if (text == undefined) { this.panel.find(".combobox-input").val("");return};
+        if (text == undefined) { this.panel.find(".combobox-input").val(""); return };
         var val = this.panel.find(".combobox-input").val();
         if (this.options.multiple) {
-            if (this.options.IsSet)
-            {
+            if (this.options.IsSet) {
                 if (val.toString().indexOf(this.options.separator) <= -1)
                 { str = ""; } else {
                     var aa = val.split(this.options.separator), str = "";
@@ -4466,7 +4463,7 @@ EMW.EventArgument = function (data) {
                 return;
             }
             if (val == text) return;
-            if (val.indexOf(text)>-1) return;
+            if (val.indexOf(text) > -1) return;
             if (val != "") text = val.concat(this.options.separator + text);
             this.panel.find(".combobox-input").val(text);
         } else {
@@ -4681,13 +4678,13 @@ EMW.EventArgument = function (data) {
         combo.isFirstShowPanel = true;
         combo.OnShowPanel(function (a, b) {
             searcher.OnShowPanel(a, b);
-            if (this.isFirstShowPanel) {               
+            if (this.isFirstShowPanel) {
                 delete this.isFirstShowPanel;
                 CreateGrid(searcher);
                 SearchData(searcher, 1, function () {
                     if (searcher.selectedRow) {
                         var val = searcher.selectedRow[opts.valueField];
-                        searcher.datagrid.SelectRowByID(val, true);                        
+                        searcher.datagrid.SelectRowByID(val, true);
                     }
                 });
             }
@@ -4743,7 +4740,7 @@ EMW.EventArgument = function (data) {
                     }
                     combo.SetValue(v);
                     combo.SetText(t);
-                    if (!this.options.multiple){
+                    if (!this.options.multiple) {
                         combo.HideDropPanel();
                     }
                 }
@@ -4899,14 +4896,14 @@ EMW.EventArgument = function (data) {
                 }
                 this.datagrid.BindData(ds);
             }
-            if (this.combo.options.multiple&&this.selectedRow) {
+            if (this.combo.options.multiple && this.selectedRow) {
                 var selRow = this.selectedRow["ID"];
                 if (selRow) {
                     if (selRow.indexOf(",") > -1) {
                         selRow = this.selectedRow["ID"].split(",");
                     }
                     this.datagrid.SelectRowByID(selRow, true);
-                }                                        
+                }
             }
             if (this.pageIndex == 1) {
                 this.datagrid.RefreshPager({
