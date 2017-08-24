@@ -68,7 +68,7 @@
     }
 
     .form {
-        padding: 4px 22px;
+        padding: 4px 8px;
     }
 
     .col-md-2 {
@@ -106,16 +106,16 @@
         position: relative;
         float: left;
     }
+
+    .tool-normal > .tool > .tool-text, .tool-normal > .tool > .tool-icon {
+        font-size: 14px;
+    }
 </style>
 <div class="Panel_container">
     <div class="ScanPanel">
-        <header>
-            <h4>发票采集</h4>
-        </header>
         <div class="form">
-            <div class="section" style="height:100px;">
-                <label style="display:block;">条形码输入框</label>
-                <input type="text" class="textbox ScanBox form-control" placeholder="条形码" />
+            <div class="section" style="height:75px;">
+                <input type="text" class="textbox ScanBox form-control" placeholder="条形码输入框" />
                 <p class="bg-info" style="padding: 12px;display: inline-block; width: 28%; margin-left: 10px;">提示：使用条码枪时，请将光标定位以下文本输入框内。(确保当前输入法为英文状态)</p>
             </div>
             <div class="section" style="height:58px;min-width:992px;">
@@ -164,7 +164,7 @@
         Elem4.Title = '待提交发票';
         var tool0 = new PageTool();
         tool0.ID = 'tool0';
-        tool0.Name = '保存';
+        tool0.Name = '提交';
         tool0.Icon = 'content_content_copy zkbr-iconT-10 iconColor-white';
         tool0.SelectType = 0;
         tool0.ToolType = "Custom";
@@ -179,12 +179,23 @@
         Elem4.AddTool(tool1);
 
         form.AddElement(form, Elem4);
+
+        var Elem112 = new TextBox();
+        Elem112.ID = 'xh';
+        Elem112.Name = 'xh';
+        Elem112.Title = '序号';
+        Elem112.Width = 50;
+        Elem112.DBType = 2;
+        Elem112.State = 2;
+        form.AddElement(Elem4, Elem112);
+
         var Elem5 = new TextBox();
         Elem5.ID = 'dq';
         Elem5.Name = 'dq';
         Elem5.Title = '地区';
-        Elem5.Width = 150;
+        Elem5.Width = 100;
         Elem5.DBType = 4;
+        Elem5.State = 2;
         form.AddElement(Elem4, Elem5);
         var Elem6 = new TextBox();
         Elem6.ID = 'fplx';
@@ -192,6 +203,7 @@
         Elem6.Title = '发票类型';
         Elem6.Width = 0;
         Elem6.DBType = 4;
+        Elem6.State = 2;
         form.AddElement(Elem4, Elem6);
 
 
@@ -200,7 +212,8 @@
         Elem7.Name = 'fpmc';
         Elem7.Title = '发票类型名称';
         Elem7.Width = 150;
-        Elem6.DBType = 4;
+        Elem7.DBType = 4;
+        Elem7.State = 2;
         form.AddElement(Elem4, Elem7);
         var Elem8 = new TextBox();
         Elem8.ID = 'fpdm';
@@ -208,6 +221,7 @@
         Elem8.Title = '发票代码';
         Elem8.Width = 100;
         Elem8.DBType = 2;
+        Elem8.State = 2;
         form.AddElement(Elem4, Elem8);
         var Elem9 = new TextBox();
         Elem9.ID = 'fphm';
@@ -215,6 +229,7 @@
         Elem9.Title = '发票号码';
         Elem9.Width = 100;
         Elem9.DBType = 2;
+        Elem9.State = 2;
         form.AddElement(Elem4, Elem9);
         var Elem10 = new TextBox();
         Elem10.ID = 'kprq';
@@ -222,6 +237,7 @@
         Elem10.Title = '开票日期';
         Elem10.Width = 100;
         Elem10.DBType = 2;
+        Elem10.State = 2;
         form.AddElement(Elem4, Elem10);
         var Elem11 = new TextBox();
         Elem11.ID = 'je';
@@ -229,6 +245,7 @@
         Elem11.Title = '不含税金额';
         Elem11.Width = 100;
         Elem11.DBType = 2;
+        Elem11.State = 2;
         form.AddElement(Elem4, Elem11);
         var Elem12 = new TextBox();
         Elem12.ID = 'jym';
@@ -236,8 +253,17 @@
         Elem12.Title = '检验码';
         Elem12.Width = 100;
         Elem12.DBType = 2;
+        Elem12.State = 2;
         form.AddElement(Elem4, Elem12);
 
+        var rule2 = new PageRule(Elem4, 'RemoveRow', 0, 1);
+        rule2.func = function () {
+            var rows = _control.Elements[0].GetRows();
+            for (var i = 0; i < rows.length; i++) {
+                _control.Elements[0].SetCurRow(rows[i]);
+                Elem112.Value(i + 1);
+            }
+        };
 
         var rule1 = new PageRule(tool0, 'Click', 0, 1);
         rule1.func = function () {
@@ -318,6 +344,7 @@
                     for (var i = 0; i < rows.length; i++) {
                         if (rows[i]['fpdm'] == temp[2] && rows[i]['fphm'] == temp[3]) {
                             $ace.alert("发票代码：" + temp[2] + ",发票号码：" + temp[3] + "已采集成功.");
+                            box.val("");
                             box.focus();
                             return;
                         }
@@ -336,8 +363,9 @@
                         if (temp[2].length == 12 && fplx != "10")
                             fplx = "10";
                     }
-
+                    console.log(Elem4.GetRows());
                     Elem4.AddRow({
+                        xh: Elem4.GetRows().length + 1,
                         dq: getFPDQ(temp[2]),
                         fplx: fplx,
                         fpmc: getFPLXName(fplx),
@@ -377,6 +405,9 @@
                     changeContorl();
                     $(".InvNumber").focus();
                 }
+            }).on("blur", ".InvCode", function (e) {
+                changeContorl();
+                $(".InvNumber").focus();
             }).
             on("click", ".btn_Save", function () {
                 var code = $(".InvCode");
@@ -468,6 +499,7 @@
                 }
 
                 Elem4.AddRow({
+                    xh: Elem4.GetRows().length + 1,
                     dq: dq,
                     fplx: fplx,
                     fpmc: fpmc,
@@ -478,13 +510,11 @@
                     jym: (fplx == "01" ? '' : xym.val())
                 });
 
-                box.val('');
-                box.focus();
-                $(".InvCode").val('');
-                $(".InvNumber").val('');
-                $(".InvDate").val('');
-                $(".InvMoney").val('');
-                $(".InvXYM").val('');
+                code.val('');
+                Number.val('');
+                date.val('');
+                xym.val('');
+                Money.val('');
             });
         return form;
     })();

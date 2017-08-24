@@ -1,3 +1,7 @@
 ﻿#header-navbar .profile-dropdown > a > img {
     background-color: white;
 }
+
+#sidebar-nav .nav > li > a {
+    font-size: 14px;
+}

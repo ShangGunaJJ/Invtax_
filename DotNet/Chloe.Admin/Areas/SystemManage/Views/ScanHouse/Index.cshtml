@@ -866,6 +866,11 @@
       column25.Name = '录入时间';
       column25.Width = 100;
       column25.DBType = 2;
+
+      column25.FormatFun = function (x, y, z) {
+          return x.replace('T', ' ');
+      }
+
       grid.Columns.push(column25);
 
       var column26 = new LabelColumn();
