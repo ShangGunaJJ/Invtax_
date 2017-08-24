@@ -21,6 +21,5 @@ C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\invtax\Invtax_\DotNet\Ace\
 C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\invtax\Invtax_\DotNet\Ace\bin\Debug\Newtonsoft.Json.dll
 C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\invtax\Invtax_\DotNet\Ace\bin\Debug\DotNet.Utilities.xml
 C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\invtax\Invtax_\DotNet\Ace\bin\Debug\Newtonsoft.Json.xml
-C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\invtax\Invtax_\DotNet\Ace\obj\Debug\Ace.csprojResolveAssemblyReference.cache
 C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\invtax\Invtax_\DotNet\Ace\obj\Debug\Ace.dll
 C:\Users\ShangGuanJJ\Desktop\Invtax发票管理系统\invtax\Invtax_\DotNet\Ace\obj\Debug\Ace.pdb

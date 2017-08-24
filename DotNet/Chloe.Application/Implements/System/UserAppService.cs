@@ -74,9 +74,9 @@ namespace Chloe.Application.Implements.System
             user.Gender = input.Gender;
             user.MobilePhone = input.MobilePhone;
             user.Birthday = input.Birthday;
-            user.IsEnabled = input.IsEnabled;
+            user.IsEnabled = 1;
             user.companyguid = input.companyguid;
-
+            user.IsFirst = 1;
             string userSecretkey = UserHelper.GenUserSecretkey();
             string encryptedPassword = PasswordHelper.Encrypt(input.Password, "invtax");
 

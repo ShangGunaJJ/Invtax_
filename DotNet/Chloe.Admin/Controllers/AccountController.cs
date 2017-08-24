@@ -63,7 +63,6 @@ namespace Chloe.Admin.Controllers
             session.RealName = user.RealName;
             session.DutyId = user.DutyId;
             session.RoleId = user.RoleId;
-            session.RoleCode = role.EnCode;
             session.LoginIP = ip;
             session.CompanyID = user.companyguid;
             session.LoginTime = DateTime.Now;

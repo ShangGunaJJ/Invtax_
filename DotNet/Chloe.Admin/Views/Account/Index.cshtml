@@ -33,18 +33,6 @@
                         <input type="text" class="form-control input-wdatepicker Wdate" onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd' })" data-bind="dateString:User().Birthday" />
                     </li>
                     <li>
-                        <label>部门</label>
-                        <input type="text" disabled="disabled" class="form-control" value="@this.ViewBag.UserInfo.DepartmentName" />
-                    </li>
-                    <li>
-                        <label>岗位</label>
-                        <input type="text" disabled="disabled" class="form-control" value="@this.ViewBag.UserInfo.DutyName" />
-                    </li>
-                    <li>
-                        <label>角色</label>
-                        <input type="text" disabled="disabled" class="form-control" value="@this.ViewBag.UserInfo.RoleName" />
-                    </li>
-                    <li>
                         <label>介绍</label>
                         <textarea class="form-control" style="height: 60px;" data-bind="value:User().Description"></textarea>
                     </li>

@@ -76,5 +76,9 @@ namespace Chloe.Entities
         /// 密码
         /// </summary>
         public string password { get; set; }
+        /// <summary>
+        /// 是否第一次登录
+        /// </summary>
+        public int IsFirst { get; set; }
     }
 }

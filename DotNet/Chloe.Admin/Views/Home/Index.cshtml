@@ -13,6 +13,9 @@
     @Html.RefScript("~/Content/jquery/jquery.cookie.js")
     @Html.RefScript("~/Content/js/framework-ui.js")
     @Html.RefScript("~/Content/js/framework-clientdata.js")
+    <script>
+        var menuurl='@this.ContentUrl("~/Home/GetClientsDataJson")';
+    </script>
 </head>
 <body style="overflow: hidden;">
     <div id="ajax-loader" style="cursor: progress; position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; background: #fff; z-index: 10000; overflow: hidden;">

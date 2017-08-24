@@ -85,10 +85,9 @@
                     </td>
                 </tr>
                 <tr>
-                    
                     <td class="formTitle">密码</td>
                     <td class="formValue">
-                        <input id="Password" name="Password" type="password" class="form-control required" placeholder="请输入密码" data-bind="value:EditModel()?'******':Model().Password,attr:{disabled:EditModel()}" />
+                        <input id="Password" name="Password" type="password" value="123456" class="form-control required" placeholder="请输入密码" data-bind="value:EditModel()?'******':Model().Password,attr:{disabled:EditModel()}" />
                     </td>
                     <td class="formTitle">角色</td>
                     <td class="formValue">
@@ -107,29 +106,6 @@
                     <td class="formTitle">手机</td>
                     <td class="formValue">
                         <input id="MobilePhone" name="MobilePhone" type="text" class="form-control" data-bind="value:Model().MobilePhone" />
-                    </td>
-                </tr>
-                <tr>
-                    <td class="formTitle">性别</td>
-                    <td class="formValue">
-                        <select id="Gender" name="Gender" class="form-control required" data-bind="value:Model().Gender">
-                            <option value="">--请选择--</option>
-                            <option value="1">男</option>
-                            <option value="2">女</option>
-                        </select>
-                    </td>
-                    <td class="formTitle">启用</td>
-                    <td class="formValue">
-                        <label><input type="radio" name="IsEnabled" value="1" data-bind="typedChecked:Model().IsEnabled" />是</label>
-                        <label><input type="radio" name="IsEnabled" value="0" data-bind="typedChecked:Model().IsEnabled" />否</label>
-                    </td>
-
-                </tr>
-                <tr>
-                   
-                    <td class="formTitle">生日</td>
-                    <td class="formValue">
-                        <input id="Birthday" name="Birthday" type="text" class="form-control input-wdatepicker Wdate" onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd' })" data-bind="dateString:Model().Birthday" />
                     </td>
                 </tr>
                 <tr>

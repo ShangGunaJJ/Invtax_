@@ -30,7 +30,7 @@ namespace Chloe.Application.Implements
             msg = null;
             role = null;
             var Role = this.DbContext.GetSys_Role();
-            var users = this.DbContext.GetInv_users().InnerJoin(Role, (u, r) => u.RoleId == r.Id);
+            var users = this.DbContext.GetInv_users().LeftJoin(Role, (u, r) => u.RoleId == r.Id);
             var Company = this.DbContext.GetInv_company();
 
             var view = users.Select((u, r) => new { User = u, Role = r });
@@ -44,11 +44,11 @@ namespace Chloe.Application.Implements
                 return false;
             }
 
-            if (viewEntity.User.IsEnabled == 0)
-            {
-                msg = "账户被系统锁定,请联系管理员";
-                return false;
-            }
+            //if (viewEntity.User.IsEnabled == 0)
+            //{
+            //    msg = "账户被系统锁定,请联系管理员";
+            //    return false;
+            //}
 
             inv_users userEntity = viewEntity.User;
             string dbPassword = PasswordHelper.EncryptMD5Password(password,"invtax");
@@ -73,20 +73,19 @@ namespace Chloe.Application.Implements
 
             AdminSession session = this.Session;
 
-            Sys_UserLogOn userLogOn = this.DbContext.Query<Sys_UserLogOn>().Where(a => a.UserId == session.UserId).First();
+            inv_users userLogOn = this.DbContext.Query<inv_users>().Where(a => a.Id == session.UserId).First();
 
-            string encryptedOldPassword = PasswordHelper.Encrypt(oldPassword, userLogOn.UserSecretkey);
+            string encryptedOldPassword = PasswordHelper.Encrypt(oldPassword, "invtax");
 
-            if (encryptedOldPassword != userLogOn.UserPassword)
+            if (encryptedOldPassword != userLogOn.password)
                 throw new Ace.Exceptions.InvalidDataException("旧密码不正确");
-
-            string newUserSecretkey = UserHelper.GenUserSecretkey();
-            string newEncryptedPassword = PasswordHelper.Encrypt(newPassword, newUserSecretkey);
+            
+            string newEncryptedPassword = PasswordHelper.Encrypt(newPassword, "invtax");
 
             this.DbContext.DoWithTransaction(() =>
             {
-                this.DbContext.Update<Sys_UserLogOn>(a => a.UserId == session.UserId, a => new Sys_UserLogOn() { UserSecretkey = newUserSecretkey, UserPassword = newEncryptedPassword });
-                this.Log(Entities.Enums.LogType.Update, "Account", true, "用户[{0}]修改密码".ToFormat(session.UserId));
+                this.DbContext.Update<inv_users>(a => a.Id == session.UserId, a => new inv_users() {   password = newEncryptedPassword });
+               // this.Log(Entities.Enums.LogType.Update, "Account", true, "用户[{0}]修改密码".ToFormat(session.UserId));
             });
         }
 
