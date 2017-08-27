@@ -175,12 +175,12 @@ namespace Chloe.Application.Implements.Inv
                 }
                 if (!string.IsNullOrEmpty(sear.SearcherValues.fpdm))
                 {
-                    sql += " and m.fpdm=@fpdm";
+                    sql += " and m.fpdm like '%'+@fpdm+'%'";
                     dpl.Add(new DbParam("@fpdm", sear.SearcherValues.fpdm));
                 }
                 if (!string.IsNullOrEmpty(sear.SearcherValues.fphm))
                 {
-                    sql += " and m.fphm=@fphm";
+                    sql += " and m.fphm like '%'+@fphm+'%'";
                     dpl.Add(new DbParam("@fphm", sear.SearcherValues.fphm));
                 }
 
@@ -196,7 +196,7 @@ namespace Chloe.Application.Implements.Inv
                     dpl.Add(new DbParam("@gfdz", sear.SearcherValues.gfdz));
                 }
 
-                if (!string.IsNullOrEmpty(sear.SearcherValues.checkstauts))
+                if (!string.IsNullOrEmpty(sear.SearcherValues.checkstauts) && sear.SearcherValues.checkstauts != "全部")
                 {
                     sql += " and m.checkstauts=@checkstauts";
                     dpl.Add(new DbParam("@checkstauts", sear.SearcherValues.checkstauts));
@@ -250,6 +250,10 @@ namespace Chloe.Application.Implements.Inv
             {
                 sql += " order by m." + sear.SortColumn + " " + sear.OrderBy;
             }
+            else
+            {
+                sql += " order by m.createtime " + sear.OrderBy;
+            }
 
             var view = this.DbContext.SqlQuery<inv_main>(sql, dpl.ToArray());
             count = view.Count();
@@ -274,6 +278,26 @@ namespace Chloe.Application.Implements.Inv
             ordinaryG = this.DbContext.Query<inv_main>().Where(a => a.companyguid == this.Session.CompanyID).Where(a => a.fplx == "11").Select(a => AggregateFunctions.Count()).First();
         }
 
+        /// <summary>
+        /// 重新检验
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        public int AgainSearch(List<int> ids)
+        {
+            if (this.DbContext.Update<inv_main>(a => ids.Contains(a.Id), a => new inv_main()
+            {
+                checkstauts = "待查验",
+                locked = 0,
+                lockedTime = null,
+                checktime = DateTime.Now
+            }) > 0)
+            {
+                this.DbContext.Delete<inv_detail>(a => ids.Contains(a.main_id));
+                return 1;
+            }
+            return 0;
+        }
 
         public Notice SetNotice(string Con)
         {
@@ -285,7 +309,7 @@ namespace Chloe.Application.Implements.Inv
         }
         public string GetNotice()
         {
-            return this.DbContext.Query<Notice>().OrderByDesc(a=>a.createTime).Select(a=>a.content).FirstOrDefault();
+            return this.DbContext.Query<Notice>().OrderByDesc(a => a.createTime).Select(a => a.content).FirstOrDefault();
         }
 
     }

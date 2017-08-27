@@ -1103,10 +1103,10 @@ GridControl.prototype.BindData = function (data) {
         });
         this.DataGrid.ShowDataCount(data.MaxRow);
     }
-    if (this.SelectedIDS) {
-        this.DataGrid.SelectRowByID(this.SelectedIDS, true);
-        this.SelectedIDS = null;
-    }
+    //if (this.SelectedIDS) {
+    //    this.DataGrid.SelectRowByID(this.SelectedIDS, true);
+    //    this.SelectedIDS = null;
+    //}
     this.OnEvent("DataBind");
 
 }

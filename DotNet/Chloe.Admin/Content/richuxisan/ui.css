@@ -1189,7 +1189,7 @@ td[class|=datagrid]:hover > .ui-resizable-handle.ui-resizable-e:before {
 }
 
 .datagrid-view > .frozen-view > .view-body > .datagrid-table {
-    margin-bottom: 5px;
+    margin-bottom:10px;
 }
 
 .datagrid-view > .frozen-view > .view-body,

@@ -98,12 +98,17 @@
         position: relative;
         float: left;
     }
+
     form > * {
-        display:inline-block;
-      float:left;
-      height:34px;
-      line-height:34px;
-      margin-right:5px;
+        display: inline-block;
+        float: left;
+        height: 34px;
+        line-height: 34px;
+        margin-right: 5px;
+    }
+
+    .tool-normal > .tool > .tool-text, .tool-normal > .tool > .tool-icon {
+        font-size: 14px;
     }
 </style>
 <div class="Panel_container">
@@ -144,10 +149,12 @@
                             $ace.alert(data.Msg);
                         } else {
                             var Data = data.Data;
-                            for (var i = 1; i < Data.length; i++) {
+                            var count = 1;
+                            for (var i = 0; i < Data.length; i++) {
                                 if (Data[i]["Column1"] == null || Data[i]["Column1"] == "" || Data[i]["Column2"] == null || Data[i]["Column2"] == "" || Data[i]["Column3"] == null || Data[i]["Column3"] == "")
                                     continue;
                                 _control.Elements[0].AddRow({
+                                    xh: count,
                                     fpdm: Data[i]["Column1"],
                                     fphm: Data[i]["Column2"],
                                     kprq: Data[i]["Column3"],
@@ -156,6 +163,7 @@
                                     je: Data[i]["Column6"],
                                     se: Data[i]["Column7"]
                                 });
+                                count++;
                             }
                             if (data.Msg != "") {
                                 var data = data.Msg.split(";");
@@ -208,6 +216,15 @@
         Elem4.AddTool(tool1);
 
         form.AddElement(form, Elem4);
+
+        var Elem112 = new TextBox();
+        Elem112.ID = 'xh';
+        Elem112.Name = 'xh';
+        Elem112.Title = '序号';
+        Elem112.Width = 50;
+        Elem112.DBType = 2;
+        Elem112.State = 2;
+        form.AddElement(Elem4, Elem112);
 
 
         var Elem8 = new TextBox();
@@ -265,6 +282,14 @@
         Elem14.DBType = 2;
         form.AddElement(Elem4, Elem14);
 
+        var rule2 = new PageRule(Elem4, 'RemoveRow', 0, 1);
+        rule2.func = function () {
+            var rows = _control.Elements[0].GetRows();
+            for (var i = 0; i < rows.length; i++) {
+                _control.Elements[0].SetCurRow(rows[i]);
+                Elem112.Value(i + 1);
+            }
+        };
 
         var rule1 = new PageRule(tool0, 'Click', 0, 1);
         rule1.func = function () {
@@ -297,12 +322,18 @@
                         }
                     }
                     $ace.confirm("以下发票已查验,是否自动删除重复提交的发票？(发票代码,发票号码):\n" + x.Data, function () {
+                        var rows = _control.Elements[0].GetRows();
                         for (var i = 0; i < rows.length; i++) {
                             for (var y = 0; y < data.length; y++) {
                                 if (rows[i]['fpdm'] == data[y].split(',')[0] && rows[i]['fphm'] == data[y].split(',')[1]) {
                                     Elem4.DeleteRows(rows[i]);
                                 }
                             }
+                        }
+                        rows = _control.Elements[0].GetRows();
+                        for (var i = 0; i < rows.length; i++) {
+                            _control.Elements[0].SetCurRow(rows[i]);
+                            Elem112.Value(i + 1);
                         }
                     });
                 } else {

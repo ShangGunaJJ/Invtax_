@@ -244,6 +244,15 @@ namespace Chloe.Admin.Areas.SystemManage.Controllers
         {
             var InvService = this.CreateService<IInvAppService>();
             DataTable dt = null;
+            DataTable newdt = new DataTable();
+            int columnscount = 1;
+            while (columnscount<8)
+            {
+                newdt.Columns.Add("Column" + columnscount);
+                columnscount++;
+            }
+            int[] columns = new int[7] { -1, -1, -1, -1, -1, -1, -1 };
+
             Result result;
             List<string> dms = new List<string>();
             List<string> hms = new List<string>();
@@ -252,17 +261,29 @@ namespace Chloe.Admin.Areas.SystemManage.Controllers
                 file = Request.Files[0];
                 Stream sm = file.InputStream;
                 dt = ReadExcelDataList(sm);
-              
+
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
                     if (i == 0)
                     {
-                        string columns = "";
                         for (int y = 0; y < dt.Columns.Count; y++)
                         {
-                            columns += dt.Rows[0][y];
+                            if (dt.Rows[0][y].ToString() == "发票代码")
+                                columns[0] = y;
+                            if (dt.Rows[0][y].ToString() == "发票号码")
+                                columns[1] = y;
+                            if (dt.Rows[0][y].ToString() == "开票日期")
+                                columns[2] = y;
+                            if (dt.Rows[0][y].ToString() == "销方名称")
+                                columns[3] = y;
+                            if (dt.Rows[0][y].ToString() == "销方税号")
+                                columns[4] = y;
+                            if (dt.Rows[0][y].ToString() == "金额")
+                                columns[5] = y;
+                            if (dt.Rows[0][y].ToString() == "税额")
+                                columns[6] = y;
                         }
-                        if (columns != "发票代码发票号码开票日期销方名称销方税号金额税额")
+                        if (columns.ToList().IndexOf(-1) > -1)
                         {
                             result = Result.CreateResult<object>(ResultStatus.Failed, null);
                             result.Msg = "Execl数据格式不对！请下载Execl模板对比！";
@@ -271,6 +292,12 @@ namespace Chloe.Admin.Areas.SystemManage.Controllers
                     }
                     else
                     {
+                        DataRow nrow = newdt.NewRow();
+                        for (int c = 0; c < columns.Length; c++)
+                        {
+                            nrow[c] = dt.Rows[i][columns[c]];
+                        }
+                        newdt.Rows.Add(nrow);
                         dms.Add(dt.Rows[i]["Column1"].ToString());
                         hms.Add(dt.Rows[i]["Column2"].ToString());
                     }
@@ -278,7 +305,7 @@ namespace Chloe.Admin.Areas.SystemManage.Controllers
 
             }
             string re = InvService.getRepeat(dms, hms);
-            result = Result.CreateResult<object>(ResultStatus.OK, dt);
+            result = Result.CreateResult<object>(ResultStatus.OK, newdt);
             result.Msg = re;
             return this.JsonContent(result);
         }
@@ -294,7 +321,7 @@ namespace Chloe.Admin.Areas.SystemManage.Controllers
         }
 
         [HttpPost]
-        public ActionResult SaveExeclData( List<string> dms, List<string> hms, List<string> rq, List<string> je)
+        public ActionResult SaveExeclData(List<string> dms, List<string> hms, List<string> rq, List<string> je)
         {
             var CompanyAppService = this.CreateService<ICompanyAppService>();
             var InvService = this.CreateService<IInvAppService>();
@@ -341,13 +368,34 @@ namespace Chloe.Admin.Areas.SystemManage.Controllers
                         succ++;
                 }
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 result = Result.CreateResult<object>(ResultStatus.Failed, null);
                 result.Msg = "数据格式有误！请修改错误数据！";
                 return this.JsonContent(result);
             }
             result = Result.CreateResult<object>(ResultStatus.OK, null);
             result.Msg = "已成功提交" + succ.ToString() + "张发票.";
+            return this.JsonContent(result);
+        }
+
+        public ActionResult AgainSearch(List<int> ids) {
+            var CompanyAppService = this.CreateService<ICompanyAppService>();
+            var InvService = this.CreateService<IInvAppService>();
+            inv_company com = CompanyAppService.GetUserCompany();
+            int userPages = CompanyAppService.GetUserPages();
+            Result<object> result;
+            if (com.totlePage < ++userPages)
+            {
+                result = Result.CreateResult<object>(ResultStatus.Failed, null);
+                result.Msg = "发票查验授权数量已用完，请联系软件服务商增加授权数量！";
+                return this.JsonContent(result);
+            }
+            result = Result.CreateResult<object>(ResultStatus.OK, null);
+            if (InvService.AgainSearch(ids) > 0)
+                result.Msg = "已提交重新查验!";
+            else
+                result.Msg = "重新查验失败!";
             return this.JsonContent(result);
         }
     }

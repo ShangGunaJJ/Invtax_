@@ -14,7 +14,7 @@
                 <ul class="pop-list">
                     <li>
                         <label>账户</label>
-                        <input type="text" class="form-control" disabled="disabled" data-bind="value:User().UserName" />
+                        <input type="text" class="form-control" disabled="disabled" data-bind="value:User().username" />
                     </li>
                     <li class="formValue">
                         <label>姓名</label>
@@ -33,23 +33,8 @@
                         <input type="text" class="form-control input-wdatepicker Wdate" onclick="WdatePicker({ dateFmt: 'yyyy-MM-dd' })" data-bind="dateString:User().Birthday" />
                     </li>
                     <li>
-                        <label>介绍</label>
-                        <textarea class="form-control" style="height: 60px;" data-bind="value:User().Description"></textarea>
-                    </li>
-                    <li class="line">
-                        <h4><label>联系方式</label></h4>
-                    </li>
-                    <li>
                         <label>手机号码</label>
                         <input type="text" class="form-control" data-bind="value:User().MobilePhone" />
-                    </li>
-                    <li>
-                        <label>电子邮箱</label>
-                        <input type="text" class="form-control" data-bind="value:User().Email" />
-                    </li>
-                    <li>
-                        <label>微信号</label>
-                        <input type="text" class="form-control" data-bind="value:User().WeChat" />
                     </li>
                     <li>
                         <div style="padding-left: 115px;">
@@ -64,7 +49,7 @@
                 <ul class="pop-list">
                     <li>
                         <label>用户名</label>
-                        <input type="text" class="form-control" disabled="disabled" data-bind="value:User().UserName" />
+                        <input type="text" class="form-control" disabled="disabled" data-bind="value:User().username" />
                     </li>
                     <li class="formValue">
                         <label>旧密码</label>

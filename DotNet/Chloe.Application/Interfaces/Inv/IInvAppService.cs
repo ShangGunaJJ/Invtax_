@@ -25,5 +25,6 @@ namespace Chloe.Application.Interfaces.System
         void GetInvTypeNum(out int special, out int ordinary, out int electronic, out int ordinaryG);
         string GetNotice();
         Notice SetNotice(string Con);
+        int AgainSearch(List<int> ids);
     }
 }

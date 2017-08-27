@@ -24,7 +24,7 @@
     }
 
     #grid1 {
-        height: 55%;
+        height: calc(50% - 36px);
         padding: 0;
         padding-top: 3px;
     }
@@ -34,8 +34,10 @@
         }
 
     #grid2 {
-        height: 40%;
+        height: calc(50% - 76px);
         padding: 0;
+        overflow: auto;
+        background-color: white;
     }
 
     .form-section .section-body {
@@ -196,6 +198,7 @@
 
         <button class="btn btn-default btn-sm grid-search-btn print_Data" type="button"><span class="glyphicon icon-action_print"></span> 打印</button>
         <button class="btn btn-default btn-sm grid-search-btn ExeclOut" type="button"><span class="glyphicon icon-action_description"></span> 发票导出</button>
+        <button class="btn btn-default btn-sm grid-search-btn AgainCheck" type="button"><span class="glyphicon icon-action_cached"></span> 重新查验</button>
         <button class="btn btn-default btn-sm grid-search-btn BuildData" type="button"><span class="glyphicon icon-action_build"></span> 编辑</button>
         <button class="btn btn-default btn-sm grid-search-btn DeleteData" type="button"><span class="glyphicon icon-action_delete"></span> 删除</button>
     </div>
@@ -477,6 +480,23 @@
                 })
             });
 
+        }).on("click", ".AgainCheck", function () {
+            var rows = _control.GetSelectedRows();
+            if (rows.length == 0) {
+                $ace.alert("请选择需要重新查验的发票记录，可同时选择多条记录！");
+                return false;
+            }
+            var ids = [];
+            for (var i = 0; i < rows.length; i++) {
+                ids.push(rows[i].Id);
+            }
+            $ace.confirm("请再次确认是否需要重新查验：" + ids.length + "张发票？", function () {
+                $ace.post("@this.ContentUrl("~/SystemManage/Scan/AgainSearch")", { ids: ids }, function (x) {
+                    $ace.alert(x.Msg);
+                    _control.Refresh();
+                    _control1.Elements[0].Clear();
+                })
+            });
         }).on("click", ".DeleteData", function () {
             var rows = _control.GetSelectedRows();
             var _$ace = $ace;
@@ -634,6 +654,7 @@
       searcher0.DBType = 2;
       searcher0.Width = 135;
       searcher0.SelectItems = [{ Text: '全部', Value: '全部' }, { Text: '一致', Value: '一致' }, { Text: '不一致', Value: '不一致' }, { Text: '作废', Value: '作废' }, { Text: '查无此票', Value: '查无此票' }, { Text: '待查验', Value: '待查验' }];
+      searcher0.DefaultValue = "全部";
       grid.Searchers.push(searcher0);
 
       var searcher1 = new TextBox();
@@ -727,7 +748,10 @@
                   return '<span style="color:red;">' + exception + "</span>";
               }
           }
-          return exception;
+          if (exception != "正常" && exception != null)
+              return '<span style="color:red;">' + exception + "</span>";
+          else
+              return exception;
       }
 
 
