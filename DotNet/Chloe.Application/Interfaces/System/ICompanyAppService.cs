@@ -17,6 +17,8 @@ namespace Chloe.Application.Interfaces.System
 
         inv_company GetUserCompany();
 
+        List<string> GetCompanysID();
+
         int GetUserPages();
         void Add(AddCompanyInput input);
         void Update(UpdateCompanyInput input);

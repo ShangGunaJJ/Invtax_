@@ -107,10 +107,16 @@ namespace Chloe.Application.Implements.System
                 MobilePhone = input.MobilePhone,
                 Birthday = input.Birthday,
                 IsEnabled = input.IsEnabled,
-                companyguid=input.companyguid
+                companyguid = input.companyguid
             });
         }
-
+        public int UpdateUserTheme(string t)
+        {
+            return this.DbContext.Update<inv_users>(a => a.Id == this.Session.UserId, a => new inv_users()
+            {
+                Theme = t
+            });
+        }
         public PagedData<inv_users> GetPageData(Pagination page, string keyword)
         {
             var q = this.DbContext.GetInv_users();

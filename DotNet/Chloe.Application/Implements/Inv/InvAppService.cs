@@ -90,6 +90,19 @@ namespace Chloe.Application.Implements.Inv
         {
             return this.DbContext.Query<inv_detail>().Where(a => a.main_id == MainId).ToList();
         }
+        public List<string[]> getDetailFors(List<int> MainId)
+        {
+            var view = this.DbContext.Query<inv_detail>().Where(a => MainId.Contains(a.main_id)).LeftJoin(this.DbContext.Query<inv_main>(), (d, m) => m.Id == d.main_id).Select(
+                (d, m) => new { m.fpdm, m.fphm, d.mc, d.gg, d.dw, d.amount, d.dj, d.je, d.sl, d.se, m.kprq, m.xfmc, m.xfsh, m.xfdz, m.xfzh }).ToList();
+            List<string[]> ss = new List<string[]>();
+            for (int i = 0; i < view.Count; i++)
+            {
+                var m = view[i];
+                string[] newstr = new[] { m.fpdm, m.fphm, m.mc, m.gg, m.dw, m.amount, m.dj.ToString(), m.je.ToString(), m.sl, m.se.ToString(), m.kprq, m.xfmc, m.xfsh, m.xfdz, m.xfzh };
+                ss.Add(newstr);
+            }
+            return ss;
+        }
         public string Delete(List<int> id)
         {
             int detailCount = 0;
@@ -145,11 +158,10 @@ namespace Chloe.Application.Implements.Inv
       ,m.lockedTime
       ,m.cycs
       ,m.flag
-      ,m.Exception from inv_main m left join inv_users u on m.createuser=u.id  where m.companyguid=@companyguid and m.createuser=@createuser and m.fplx in ('" + sear.fplx.Replace(",", "','") + "') ";
+      ,m.Exception from inv_main m left join inv_users u on m.createuser=u.id  where  m.fplx in ('" + sear.fplx.Replace(",", "','") + "') ";
 
             List<DbParam> dpl = new List<DbParam>();
-            dpl.Add(new DbParam("@companyguid", this.Session.CompanyID));
-            dpl.Add(new DbParam("@createuser", this.Session.UserId));
+
             if (sear.SearcherValues != null)
             {
                 if (sear.SearcherValues.Id > 0)
@@ -183,6 +195,11 @@ namespace Chloe.Application.Implements.Inv
                     sql += " and m.fphm like '%'+@fphm+'%'";
                     dpl.Add(new DbParam("@fphm", sear.SearcherValues.fphm));
                 }
+                if (!string.IsNullOrEmpty(sear.SearcherValues.xfmc))
+                {
+                    sql += " and m.xfmc like '%'+@xfmc+'%'";
+                    dpl.Add(new DbParam("@xfmc", sear.SearcherValues.xfmc));
+                }
 
                 if (!string.IsNullOrEmpty(sear.SearcherValues.fplx))
                 {
@@ -195,12 +212,23 @@ namespace Chloe.Application.Implements.Inv
                     sql += " and m.gfdz=@gfdz";
                     dpl.Add(new DbParam("@gfdz", sear.SearcherValues.gfdz));
                 }
-
+                if (!string.IsNullOrEmpty(sear.SearcherValues.xfsh))
+                {
+                    sql += " and m.xfsh=@xfsh";
+                    dpl.Add(new DbParam("@xfsh", sear.SearcherValues.xfsh));
+                }
                 if (!string.IsNullOrEmpty(sear.SearcherValues.checkstauts) && sear.SearcherValues.checkstauts != "全部")
                 {
                     sql += " and m.checkstauts=@checkstauts";
                     dpl.Add(new DbParam("@checkstauts", sear.SearcherValues.checkstauts));
                 }
+
+                if (!string.IsNullOrEmpty(sear.SearcherValues.Exception) && sear.SearcherValues.Exception != "全部")
+                {
+                    sql += " and m.Exception=@Exception";
+                    dpl.Add(new DbParam("@Exception", sear.SearcherValues.Exception));
+                }
+
 
                 if (!string.IsNullOrEmpty(sear.SearcherValues.kprq))
                 {
@@ -242,9 +270,22 @@ namespace Chloe.Application.Implements.Inv
                 }
                 if (sear.SearcherValues.createtime != null)
                 {
-                    sql += " and m.createtime=@createtime";
+                    sql += " and m.createtime>@createtime and m.createtime<@createtimeEnd";
                     dpl.Add(new DbParam("@createtime", sear.SearcherValues.createtime));
+                    dpl.Add(new DbParam("@createtimeEnd", sear.SearcherValues.createtime.Value.AddHours(23).AddMinutes(59).AddSeconds(59)));
                 }
+            }
+
+            if (this.Session._IsAdmin)
+            {
+                sql += " and m.createuser in (select id from inv_users where companyguid in (select * from inv_company where id=@CompanyID or ParentID=@ParentID)) ";
+                dpl.Add(new DbParam("@CompanyID", this.Session.CompanyID));
+                dpl.Add(new DbParam("@ParentID", this.Session.CompanyID));
+            }
+            else if (!this.Session.IsAdmin)
+            {
+                sql += " and m.createuser=@createuser";
+                dpl.Add(new DbParam("@createuser", this.Session.UserId));
             }
             if (sear.SortColumn != "")
             {

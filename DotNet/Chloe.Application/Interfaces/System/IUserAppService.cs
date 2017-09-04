@@ -26,5 +26,6 @@ namespace Chloe.Application.Interfaces.System
         void UpdateUser(UpdateUserInput input);
         List<SimpleUserModel> GetSimpleModels();
         PagedData<inv_users> GetPageData(Pagination page, string keyword);
+        int UpdateUserTheme(string t);
     }
 }

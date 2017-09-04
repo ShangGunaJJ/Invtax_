@@ -3459,7 +3459,7 @@ EMW.EventArgument = function (data) {
 
             if (opts.pagination) height -= 44;
             if (opts.footer) height -= 35;
-            height -= 47;//列头
+            height -= 35;//列头
             if (opts.autoHeight) {
                 grid.frozenBody.css({ maxHeight: height });
                 grid.normalBody.css({ maxHeight: height });

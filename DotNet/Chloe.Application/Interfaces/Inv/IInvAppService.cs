@@ -26,5 +26,7 @@ namespace Chloe.Application.Interfaces.System
         string GetNotice();
         Notice SetNotice(string Con);
         int AgainSearch(List<int> ids);
+
+        List<string[]> getDetailFors(List<int> MainId);
     }
 }

@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Index.cshtml";
+}
+<style>
+    li {
+        list-style: none;
+        display:inline-block;
+        padding:10px 20px;
+    }
+
+        li img {
+            height: 150px;
+        }
+        li div {
+         padding-bottom:8px;
+        }
+    input.Select {
+      
+    }
+</style>
+<div class="wrapper">
+    <ul>
+        <li>
+            <div>
+                <img src="~/Content/img/blue.png" />
+            </div>
+            <input type="button" class="Select select1 btn" value="选择" />
+        </li>
+        <li>
+            <div>
+                <img src="~/Content/img/red.png" />
+            </div>
+            <input type="button" class="Select select2 btn" value="选择" />
+        </li>
+        <li>
+            <div>
+                <img src="~/Content/img/blue_.png" />
+            </div>
+            <input type="button" class="Select select3 btn" value="选择" />
+        </li>
+        <li>
+            <div>
+                <img src="~/Content/img/amethyst.jpg" />
+            </div>
+            <input type="button" class="Select select4 btn" value="选择" />
+        </li>
+    </ul>
+</div>
+<script>
+    $(function () {
+        $("body").on("click", ".Select", function () {
+            if ($(this).hasClass("select1")) {
+                parent.document.body.className = "theme-blue-gradient";
+                $ace.post("@this.ContentUrl("~/Account/UpdateUserTheme")", { themeName: "theme-blue-gradient" }, function (m) {
+                    localStorage.setItem('config-skin', "theme-blue-gradient"); $ace.msg(m.Msg);
+                });
+            } else if ($(this).hasClass("select2")) {
+                parent.document.body.className = "theme-red";
+                $ace.post("@this.ContentUrl("~/Account/UpdateUserTheme")", { themeName: "theme-red" }, function (m) {
+                    localStorage.setItem('config-skin', "theme-red"); $ace.msg(m.Msg);
+                });
+            } else if ($(this).hasClass("select3")) {
+                parent.document.body.className = "theme-white";
+                $ace.post("@this.ContentUrl("~/Account/UpdateUserTheme")", { themeName: "theme-white" }, function (m) {
+                    localStorage.setItem('config-skin', "theme-white");
+                    $ace.msg(m.Msg);
+                });
+            }else if ($(this).hasClass("select4")) {
+                parent.document.body.className = "theme-amethyst";
+                $ace.post("@this.ContentUrl("~/Account/UpdateUserTheme")", { themeName: "theme-amethyst" }, function (m) {
+                    localStorage.setItem('config-skin', "theme-amethyst");
+                    $ace.msg(m.Msg);
+                });
+            }
+        })
+    })
+</script>

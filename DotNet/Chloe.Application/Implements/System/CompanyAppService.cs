@@ -26,6 +26,16 @@ namespace Chloe.Application.Implements.System
 
             return q.ToList();
         }
+
+
+        public List<string> GetCompanysID()
+        {
+            var q = this.DbContext.Query<inv_company>().Where(a => a.Id == this.Session.CompanyID||a.ParentID==this.Session.CompanyID).Select(a=>a.Id);
+            return q.ToList();
+
+        }
+
+
         public List<SimpleCompanyModel> GetSimpleModels()
         {
             var q = this.DbContext.Query<inv_company>();

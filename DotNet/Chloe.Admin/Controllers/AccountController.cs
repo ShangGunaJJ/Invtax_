@@ -27,6 +27,9 @@ namespace Chloe.Admin.Controllers
             return View();
         }
 
+        public ActionResult SetTheme() {
+            return View();
+        }
         [HttpPost]
         public ActionResult Login(string userName, string password/*经过md5加密后的密码*/, string verifyCode)
         {
@@ -66,7 +69,19 @@ namespace Chloe.Admin.Controllers
             session.LoginIP = ip;
             session.CompanyID = user.companyguid;
             session.LoginTime = DateTime.Now;
+            session.ThemeName = user.Theme;
             session.IsAdmin = user.username.ToLower() == AppConsts.AdminUserName;
+            if (role != null)
+            {
+                session._IsAdmin = role.EnCode.ToLower() == AppConsts.Admin;
+                session.IsAgent = role.EnCode.ToLower() == AppConsts.Agent;
+            }
+            else
+            {
+                session._IsAdmin = false;
+                session.IsAgent = false;
+            }
+            //session.RolUserId = accountAppService.GetRolePeople(this.CreateService<ICompanyAppService>().GetCompanysID());
             var company = this.CreateService<ICompanyAppService>().GetCompaneyByID(user.companyguid);
             session.CompanyName = company[0].name;
             session.SH = company[0].sh;
@@ -131,6 +146,14 @@ namespace Chloe.Admin.Controllers
         public ActionResult ModifyInfo(ModifyAccountInfoInput input)
         {
             this.CreateService<IAccountAppService>().ModifyInfo(input);
+            return this.SuccessMsg("修改成功");
+        }
+
+        [HttpPost]
+        public ActionResult UpdateUserTheme(string themeName)
+        {
+            this.CreateService<IUserAppService>().UpdateUserTheme(themeName);
+            this.CurrentSession.ThemeName = themeName;
             return this.SuccessMsg("修改成功");
         }
     }

@@ -472,6 +472,23 @@ namespace DocumentEditor.Excel
                 InsertMergeCellInWorksheet(listMCL, sourceWorksheetPart);
             }
         }
+        public static void SaveNewExcel(string filePath, List<SheetDatas> listSDS, List<SheetDatas> listSD)
+        {
+            using (SpreadsheetDocument objDocument = SpreadsheetDocument.Open(filePath, true))
+            {
+                WorkbookPart workbookPart = objDocument.WorkbookPart;
+                WorksheetPart sourceWorksheetPart = GetWorksheetPartByName(objDocument, "发票要素");
+                Stylesheet styleSheet = objDocument.WorkbookPart.WorkbookStylesPart.Stylesheet;
+
+                WriteDataIntoWorkSheet(listSDS, styleSheet, workbookPart, sourceWorksheetPart);
+
+
+                WorksheetPart sourceWorksheetPart1 = GetWorksheetPartByName(objDocument, "发票明细");
+                Stylesheet styleSheet1 = objDocument.WorkbookPart.WorkbookStylesPart.Stylesheet;
+
+                WriteDataIntoWorkSheet(listSD, styleSheet1, workbookPart, sourceWorksheetPart1);
+            }
+        }
         /// <summary>
         /// 保存带有复杂样式的Excel(多个)
         /// </summary>

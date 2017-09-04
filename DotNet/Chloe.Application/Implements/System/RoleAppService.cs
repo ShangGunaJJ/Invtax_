@@ -26,9 +26,15 @@ namespace Chloe.Application.Implements.System
         }
         public List<SimpleRoleModel> GetSimpleModels()
         {
-            var q = this.DbContext.Query<Sys_Role>().FilterDeletedAndDisabled().OrderBy(a => a.SortCode);
-            var ret = q.Select(a => new SimpleRoleModel() { Id = a.Id, Name = a.Name }).ToList();
-            return ret;
+            var q = this.DbContext.Query<Sys_Role>();
+            if (this.Session._IsAdmin || this.Session.IsAgent)
+            {
+                q = q.Where(a => a.EnCode != "SysAdmin" && a.EnCode != "Agent");
+            }
+
+            var ret = q.Select(a => new SimpleRoleModel() { Id = a.Id, Name = a.Name });
+
+            return ret.ToList();
         }
         public void Add(AddRoleInput input)
         {
@@ -80,7 +86,7 @@ namespace Chloe.Application.Implements.System
         public void Delete(string id)
         {
             id.NotNullOrEmpty();
-            this.SoftDelete<Sys_Role>(id);
+            this.DbContext.Delete<Sys_Role>(a => a.Id == id);
         }
 
         void MapValueFromInput(Sys_Role role, AddOrUpdateRoleInputBase input)

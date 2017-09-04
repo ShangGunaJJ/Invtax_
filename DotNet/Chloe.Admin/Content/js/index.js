@@ -5,8 +5,8 @@ if (storage) {
         document.body.className = usedSkin;
     }
     else {
-        document.body.className = 'theme-blue-gradient';
-        localStorage.setItem('config-skin', "theme-blue-gradient");
+        //document.body.className = 'theme-blue-gradient';
+        //localStorage.setItem('config-skin', "theme-blue-gradient");
     }
 }
 else {
@@ -144,6 +144,14 @@ $(function ($) {
             container.removeClass('active');
         }
     });
+
+    $("body").on("click", ".closeDetail", function () {
+        $(".contionDetail").remove();
+    }).on("click", ".PrintDetail", function () {
+        _Print();
+    });
+
+
     $(window).load(function () {
         window.setTimeout(function () {
             $('#ajax-loader').fadeOut();
@@ -174,4 +182,17 @@ function GetLoadNav() {
     });
 
     $("#sidebar-nav ul").prepend(_html);
+}
+
+function _Print() {
+    try {
+        print.portrait = false;//横向打印
+
+    } catch (e) {
+        //alert("不支持此方法");
+    }
+
+    var printCon = $(".contionDetail")[0].innerHTML;
+    window.SetPrintCon(printCon);
+    window.pr();
 }

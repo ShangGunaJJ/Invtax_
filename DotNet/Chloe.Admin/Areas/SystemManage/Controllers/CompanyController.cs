@@ -22,6 +22,8 @@ namespace Chloe.Admin.Areas.SystemManage.Controllers
         public ActionResult Index()
         {
             List<SelectOption> CompanyList = SelectOption.CreateList(this.CreateService<ICompanyAppService>().GetSimpleModels());
+            List<SelectOption> roleList = SelectOption.CreateList(this.CreateService<IRoleAppService>().GetSimpleModels());
+            this.ViewBag.RoleList = roleList;
             this.ViewBag.CompanyList = CompanyList;
             return View();
         }

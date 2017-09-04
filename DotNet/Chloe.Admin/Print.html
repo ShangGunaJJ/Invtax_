@@ -63,6 +63,11 @@
             }
         }
     </style>
+    <style media="print">
+        @page {
+            size: auto; /* auto is the initial value */
+        }
+    </style>
     <script>
         function Print() {
             window.print();
@@ -70,8 +75,8 @@
         function SetPrintCon(con) {
             document.body.innerHTML=con;
         }
-        parent.pr = Print;
-        parent.SetPrintCon = SetPrintCon;
+        parent.parent.pr = Print;
+        parent.parent.SetPrintCon = SetPrintCon;
     </script>
 </head>
 <body>

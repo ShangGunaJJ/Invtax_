@@ -80,5 +80,7 @@ namespace Chloe.Entities
         /// 是否第一次登录
         /// </summary>
         public int IsFirst { get; set; }
+
+        public string Theme { get; set; }
     }
 }

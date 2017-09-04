@@ -27,5 +27,7 @@ namespace Chloe.Application.Interfaces
         /// <param name="newPassword">明文</param>
         void ChangePassword(string oldPassword, string newPassword);
         void ModifyInfo(ModifyAccountInfoInput input);
+
+        List<string> GetRolePeople(List<string> GetCompanysID);
     }
 }

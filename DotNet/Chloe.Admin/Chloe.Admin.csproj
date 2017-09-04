@@ -115,6 +115,10 @@
     <Content Include="Content\editormd\plugins\table-dialog\table-dialog.js" />
     <Content Include="Content\editormd\plugins\test-plugin\test-plugin.js" />
     <Content Include="Content\css\index.css" />
+    <Content Include="Content\img\amethyst.jpg" />
+    <Content Include="Content\img\blue.png" />
+    <Content Include="Content\img\blue_.png" />
+    <Content Include="Content\img\red.png" />
     <Content Include="Content\js\ajaxfileupload.js" />
     <Content Include="Content\js\jquery.form.js" />
     <Content Include="Content\richuxisan\const.js" />
@@ -773,6 +777,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Account\SetTheme.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

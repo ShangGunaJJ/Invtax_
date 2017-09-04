@@ -21,7 +21,10 @@ namespace Chloe.Admin.Controllers
         {
             this.ViewBag.CurrentSession = this.CurrentSession;
             this.ViewBag.CompanyName = this.CurrentSession.CompanyName;
-           
+            this.ViewBag.ClassName = "theme-blue";
+            if (!string.IsNullOrEmpty(this.CurrentSession.ThemeName)) {
+                this.ViewBag.ClassName = this.CurrentSession.ThemeName;
+            }
             return View();
         }
         public ActionResult Default()

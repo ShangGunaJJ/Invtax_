@@ -1,8 +1,8 @@
-﻿ @{
+﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Index.cshtml";
 }
-@this.Partial("Index-js")
+
 <link href="~/Content/bootstrap/bootstrap.min.css" rel="stylesheet" />
 <link href="~/Content/richuxisan/ui.css" rel="stylesheet" />
 <link href="~/Content/richuxisan/jquery-ui.css" rel="stylesheet" />
@@ -15,8 +15,10 @@
 <script src="~/Content/richuxisan/const.js"></script>
 <script src="~/Content/richuxisan/global.js"></script>
 <script src="~/Content/richuxisan/ui.js"></script>
+@this.Partial("Index-js")
 <script>
     var CompanyList = @this.RawSerialize(this.ViewBag.CompanyList);
+    var roleList = @this.RawSerialize(this.ViewBag.RoleList);
     function AddtotlePage(){
 
     }
@@ -35,7 +37,8 @@
             <button class="btn btn-primary" data-bind="click:Edit,attr:{disabled:!DataTable.SelectedModel()}"><i class="fa fa-pencil-square-o"></i>修改</button>
             <button class="btn btn-primary" data-bind="click:Delete,attr:{disabled:!DataTable.SelectedModel()}"><i class="fa fa-trash-o"></i>删除</button>
             <button class="btn btn-primary" data-bind="click:Add"><i class="fa fa-plus"></i>添加</button>
-            <button class="btn btn-primary AddtotlePagey"><i class="fa fa-plus"></i>授权识别量</button>
+            <button class="btn btn-primary AddCompanyUser"><i class="fa fa-plus"></i>加添用户</button>
+            <button class="btn btn-primary AddtotlePagey"><i class="fa fa-plus"></i>追加授权</button>
         </div>
 
     </div>
@@ -104,6 +107,53 @@
             <td class="formTitle"></td>
             <td class="formValue"></td>
 
+        </tr>
+    </table>
+</div>
+
+<div class="content-AddUser" style="display:none; padding-top:10px">
+    <table class="form">
+        <tr>
+            <td class="formTitle" style="width:58px;">用户名</td>
+            <td class="formValue">
+                <input id="username" name="username" type="text" class="form-control required" placeholder="请输入用户名" />
+            </td>
+            <td class="formTitle">姓名</td>
+            <td class="formValue">
+                <input id="RealName" name="RealName" type="text" class="form-control required" placeholder="请输入姓名"  />
+            </td>
+        </tr>
+        <tr>
+            <td class="formTitle">密码</td>
+            <td class="formValue">
+                <input id="Password" name="Password" type="password" value="123456" class="form-control required" placeholder="请输入密码"  />
+            </td>
+            <td class="formTitle">角色</td> 
+            <td class="formValue">
+                <select id="RoleId" name="RoleId" class="form-control" >
+                    @this.SelectOptions(this.ViewBag.RoleList)
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td class="formTitle">公司</td>
+            <td class="formValue">
+                <select id="companyguid" name="companyguid" class="form-control required"  >
+                    @this.SelectOptions(this.ViewBag.CompanyList)
+                </select>
+            </td>
+            <td class="formTitle">手机</td>
+            <td class="formValue">
+                <input id="MobilePhone" name="MobilePhone" type="text" class="form-control"  />
+            </td>
+        </tr>
+        <tr>
+            <td class="formTitle" valign="top" style="padding-top: 5px;">
+                备注
+            </td>
+            <td class="formValue" colspan="3">
+                <textarea id="Description" name="Description" class="form-control" style="height: 60px;"  ></textarea>
+            </td>
         </tr>
     </table>
 </div>
@@ -196,6 +246,23 @@
                     $ace,alert(x.Msg);
                 })
             });
+        }).on("click",".AddCompanyUser",function(){
+            var totle=$(".content-AddUser").clone().show();
+            Z.OpenDialog(totle, "添加用户", { width: 600, height:350,OnBeforeOK:function(){
+                alert();
+            } }, function (x) {
+                var companyid=x.find(".SelectCompany").val();
+                var totlePage=x.find(".totlePage").val();
+                var expiredDate=x.find(".expiredDate").val();
+                if(!companyid||!totlePage||!expiredDate){
+                    $ace.alert("授权公司、授权量和过期时间不可为空！");
+                    return false;
+                }
+                $ace.post("@this.ContentUrl("~/SystemManage/Company/Addtotle")",{companyid:companyid, totle:totlePage,date:expiredDate},function(x){
+                    $ace,alert(x.Msg);
+                })
+            });
+
         });
     })
 </script>

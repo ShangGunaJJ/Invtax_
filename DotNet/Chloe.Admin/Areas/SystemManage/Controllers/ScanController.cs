@@ -100,7 +100,7 @@ namespace Chloe.Admin.Areas.SystemManage.Controllers
             return this.JsonContent(result);
         }
         [HttpPost]
-        public ActionResult SaveExcel2(string fileName, string fileData)
+        public ActionResult SaveExcel2(string fileName, string fileData, string Sheets, List<int> ids)
         {
             try
             {
@@ -122,101 +122,103 @@ namespace Chloe.Admin.Areas.SystemManage.Controllers
                         bool bm = false;
 
                         var item = objSaveData[j];
-                        if (item.Type == Newtonsoft.Json.Linq.JTokenType.Object)
-                        {
-                            //有样式
-                            if (item.Count() > 0)
-                            {
-                                var objItem = (Newtonsoft.Json.Linq.JObject)item;
-                                //合并单元格列表
-                                MergeCellsList mcl = new MergeCellsList();
-
-                                foreach (var key in objItem.Children())
-                                {
-                                    var keyValue = ((Newtonsoft.Json.Linq.JValue)((Newtonsoft.Json.Linq.JProperty)key).Value).Value.ToString();
-                                    switch (((Newtonsoft.Json.Linq.JProperty)key).Name)
-                                    {
-                                        #region 单元格样式
-                                        case "value":
-                                            sds.SharedString = keyValue.ToString();
-                                            break;
-                                        case "left":
-                                            sds.LeftBorder = keyValue;
-                                            break;
-                                        case "right":
-                                            sds.RightBorder = keyValue;
-                                            break;
-                                        case "top":
-                                            sds.TopBorder = keyValue;
-                                            break;
-                                        case "bottom":
-                                            sds.BottomBorder = keyValue;
-                                            break;
-                                        case "diagonal":
-                                            sds.DiagonalBorder = keyValue;
-                                            break;
-                                        case "patternType":
-                                            sds.FillType = keyValue;
-                                            break;
-                                        case "bgColor":
-                                            sds.FillForegroundColor = keyValue;
-                                            break;
-                                        case "fontname":
-                                            sds.FontName = keyValue;
-                                            break;
-                                        case "fontsize":
-                                            sds.FontSize = keyValue;
-                                            break;
-                                        case "color":
-                                            sds.FontColor = keyValue;
-                                            break;
-                                        case "bold":
-                                            sds.FontBold = keyValue;
-                                            break;
-                                        case "italic":
-                                            sds.Italic = keyValue;
-                                            break;
-                                        case "underline":
-                                            sds.Underline = keyValue;
-                                            break;
-                                        case "rowspan":
-                                            bm = true;
-                                            mcl.row = i;
-                                            mcl.col = j;
-                                            mcl.rowspan = int.Parse(keyValue);
-                                            mcl.colspan = int.Parse(((Newtonsoft.Json.Linq.JValue)(objItem.GetValue("colspan"))).Value.ToString());
-                                            break;
-                                        case "vertical":
-                                            sds.AligmentVertical = keyValue;
-                                            break;
-                                        case "horizontal":
-                                            sds.AligmentHorizontal = keyValue;
-                                            break;
-                                        case "width":
-                                            sds.Width = int.Parse(keyValue);
-                                            break;
-                                        case "height":
-                                            sds.Height = int.Parse(keyValue);
-                                            break;
-                                        case "wraptext":
-                                            sds.WrapText = keyValue;
-                                            break;
-                                            #endregion
-                                    }
-                                }
-                                if (bm) { listMCL.Add(mcl); }
-                            }
-                        }
-                        else
-                        {
-                            //只有值
-                            var value = ((Newtonsoft.Json.Linq.JValue)item).Value;
-                            if (value != null)
-                                sds.SharedString = value.ToString();
-                        }
+                        //只有值
+                        var value = ((Newtonsoft.Json.Linq.JValue)item).Value;
+                        if (value != null)
+                            sds.SharedString = value.ToString();
                         listSDS.Add(sds);
                     }
                 }
+
+                var InvService = this.CreateService<IInvAppService>();
+
+                List<string[]> detil = new List<string[]>();
+                string[] columns = new string[] { "发票代码", "发票号码", "货物或应税劳务、服务名称", "规格型号", "单位", "数量", "单价", "金额", "税率", "税额", "开票日期", "销方名称", "销方税号", "销方地址", "销方账号" };
+                detil.Add(columns);
+                var Listdetails = InvService.getDetailFors(ids);
+                for (int i = 0; i < Listdetails.Count; i++)
+                {
+                    detil.Add(Listdetails[i]);
+                }
+
+                List<SheetDatas> listSDS1 = new List<SheetDatas>();
+
+                for (int i = 0; i < detil.Count; i++)
+                {
+                    var objSaveData = detil[i];
+                    for (int j = 0; j < objSaveData.Count(); j++)
+                    {
+                        //单元格数据
+                        SheetDatas sds = new SheetDatas();
+                        sds.RowId = i;
+                        sds.ColumnId = j;
+                        sds.Type = "s";
+                        bool bm = false;
+
+                        var item = objSaveData[j];
+                        //只有值
+                        var value = ((Newtonsoft.Json.Linq.JValue)item).Value;
+                        if (value != null)
+                            sds.SharedString = value.ToString();
+                        listSDS1.Add(sds);
+                    }
+                }
+
+
+                //var SheetList = Newtonsoft.Json.Linq.JArray.Parse(Sheets);
+                //List<SheetDataList> SDList = new List<SheetDataList>();
+                //for (int i = 0; i < objSaveDataList.Count; i++)
+                //{
+                //    var objSaveData = objSaveDataList[i];
+                //    SheetDataList sl = new SheetDataList();
+                //    sl.SheetName = "发票要素";
+                //    List<SheetDatas> listSDS = new List<SheetDatas>();
+                //    for (int j = 0; j < objSaveData.Count(); j++)
+                //    {
+                //        //单元格数据
+                //        SheetDatas sds = new SheetDatas();
+                //        sds.RowId = 0;
+                //        sds.ColumnId = j;
+                //        sds.Type = "s";
+                //        bool bm = false;
+
+                //        var item = objSaveData[j];
+                //        //只有值
+                //        var value = ((Newtonsoft.Json.Linq.JValue)item).Value;
+                //        if (value != null)
+                //            sds.SharedString = value.ToString();
+                //        listSDS.Add(sds);
+                //    }
+                //    sl.SheetData = listSDS;
+                //    SDList.Add(sl);
+                //}
+                //List<SheetDataList> SDList1 = new List<SheetDataList>();
+                //for (int i = 0; i < detil.Count; i++)
+                //{
+                //    var objSaveData = detil[i];
+                //    SheetDataList sl = new SheetDataList();
+                //    sl.SheetName = "发票明细";
+                //    List<SheetDatas> listSDS = new List<SheetDatas>();
+                //    for (int j = 0; j < objSaveData.Count(); j++)
+                //    {
+                //        //单元格数据
+                //        SheetDatas sds = new SheetDatas();
+                //        sds.RowId = 0;
+                //        sds.ColumnId = j;
+                //        sds.Type = "s";
+                //        bool bm = false;
+
+                //        var item = objSaveData[j];
+                //        //只有值
+                //        var value = ((Newtonsoft.Json.Linq.JValue)item).Value;
+                //        if (value != null)
+                //            sds.SharedString = value.ToString();
+                //        listSDS.Add(sds);
+                //    }
+                //    sl.SheetData = listSDS;
+                //    SDList1.Add(sl);
+                //}
+
 
                 string tempPath = HttpContext.Server.MapPath("\\Content\\Temptale\\Excel.xlsx");
                 string newFilePath = HttpContext.Server.MapPath("\\Content\\Temp\\");
@@ -229,7 +231,7 @@ namespace Chloe.Admin.Areas.SystemManage.Controllers
                     System.IO.File.Delete(newFilePath);
                 }
                 System.IO.File.Copy(tempPath, newFilePath);
-                DocumentEditor.Excel.ExcelHelper.SaveNewExcel(newFilePath, listSDS, listMCL);
+                DocumentEditor.Excel.ExcelHelper.SaveNewExcel(newFilePath, listSDS, listSDS1);
                 var result = Result.CreateResult<object>(ResultStatus.OK, null);
                 result.Msg = fname;
                 return this.JsonContent(result);
@@ -246,7 +248,7 @@ namespace Chloe.Admin.Areas.SystemManage.Controllers
             DataTable dt = null;
             DataTable newdt = new DataTable();
             int columnscount = 1;
-            while (columnscount<8)
+            while (columnscount < 8)
             {
                 newdt.Columns.Add("Column" + columnscount);
                 columnscount++;
@@ -379,7 +381,8 @@ namespace Chloe.Admin.Areas.SystemManage.Controllers
             return this.JsonContent(result);
         }
 
-        public ActionResult AgainSearch(List<int> ids) {
+        public ActionResult AgainSearch(List<int> ids)
+        {
             var CompanyAppService = this.CreateService<ICompanyAppService>();
             var InvService = this.CreateService<IInvAppService>();
             inv_company com = CompanyAppService.GetUserCompany();

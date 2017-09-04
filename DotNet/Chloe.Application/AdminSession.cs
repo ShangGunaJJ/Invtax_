@@ -20,5 +20,13 @@ namespace Chloe.Application
         public string LoginIP { get; set; }
         public DateTime LoginTime { get; set; }
         public bool IsAdmin { get; set; }
+
+        public bool _IsAdmin { get; set; }
+
+        public List<string> RolUserId { get; set; }
+
+        public bool IsAgent { get; set; }
+
+        public string ThemeName { get; set; }
     }
 }

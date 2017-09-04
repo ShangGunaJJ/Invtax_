@@ -21,7 +21,7 @@ namespace Chloe.Application.Implements
         /// <param name="user"></param>
         /// <param name="msg"></param>
         /// <returns></returns>
-        public bool CheckLogin(string userName, string password, out inv_users user,out Sys_Role role, out string msg)
+        public bool CheckLogin(string userName, string password, out inv_users user, out Sys_Role role, out string msg)
         {
             userName.NotNullOrEmpty();
             password.NotNullOrEmpty();
@@ -51,7 +51,7 @@ namespace Chloe.Application.Implements
             //}
 
             inv_users userEntity = viewEntity.User;
-            string dbPassword = PasswordHelper.EncryptMD5Password(password,"invtax");
+            string dbPassword = PasswordHelper.EncryptMD5Password(password, "invtax");
             if (dbPassword != userEntity.password)
             {
                 msg = "密码不正确，请重新输入";
@@ -60,6 +60,15 @@ namespace Chloe.Application.Implements
             user = userEntity;
             role = viewEntity.Role;
             return true;
+        }
+
+        public List<string> GetRolePeople(List<string> GetCompanysID)
+        {
+            if (this.Session._IsAdmin)
+            {
+                return this.DbContext.Query<inv_users>().Where(a => GetCompanysID.Contains(a.companyguid)).Select(a => a.Id).ToList();
+            }
+            return null;
         }
 
         /// <summary>
@@ -79,13 +88,13 @@ namespace Chloe.Application.Implements
 
             if (encryptedOldPassword != userLogOn.password)
                 throw new Ace.Exceptions.InvalidDataException("旧密码不正确");
-            
+
             string newEncryptedPassword = PasswordHelper.Encrypt(newPassword, "invtax");
 
             this.DbContext.DoWithTransaction(() =>
             {
-                this.DbContext.Update<inv_users>(a => a.Id == session.UserId, a => new inv_users() {   password = newEncryptedPassword });
-               // this.Log(Entities.Enums.LogType.Update, "Account", true, "用户[{0}]修改密码".ToFormat(session.UserId));
+                this.DbContext.Update<inv_users>(a => a.Id == session.UserId, a => new inv_users() { password = newEncryptedPassword });
+                // this.Log(Entities.Enums.LogType.Update, "Account", true, "用户[{0}]修改密码".ToFormat(session.UserId));
             });
         }
 

@@ -43,9 +43,6 @@
         me.OnSave = function () {
             var model = me.Model();
 
-            if (!$('#form1').formValid()) {
-                return false;
-            }
 
             if (me.EditModel()) {
                 $ace.post("@this.ContentUrl("~/SystemManage/Company/Update")", model, function (result) {
